@@ -1,0 +1,36 @@
+@import '../../assets/styles/modules.scss';
+
+.header {
+	@extend %unselectable;
+
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: auto;	
+
+	nav {		
+
+		list-style: none;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		display: grid;    
+		grid-template-columns: repeat(4, 1fr);
+
+		a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 0.8rem;
+			text-decoration: none;
+			border-bottom: none;
+			line-height: 50px;
+			font-size: 1.4rem;
+			text-align: center;
+		}
+		
+		a:hover {
+			background-color: rgba(214, 214, 214, 0.4);    
+		}		
+	}
+}
