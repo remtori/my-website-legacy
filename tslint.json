@@ -8,6 +8,11 @@
         "quotemark": false,        
         "ordered-imports": false,
         "no-console": false,
-        "jsx-no-lambda": false
+        "jsx-no-lambda": false,
+        "object-literal-sort-keys": false,
+        "member-access": false,
+        "arrow-parens": false,
+        "jsx-no-multiline-js": false,
+        "jsx-key": false
     }
 }
