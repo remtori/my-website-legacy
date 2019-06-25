@@ -1,0 +1,90 @@
+.blogList {
+    display: grid;
+    grid-auto-rows: min-content;
+    grid-gap: 1.5rem;
+    width: 100%;
+}
+
+.listItem {
+
+    display: grid;
+    grid-auto-columns: 1fr 2fr;
+    grid-auto-rows: 
+        minmax(1.2rem, min-content) 
+        min-content 
+        min-content 
+        minmax(1.2rem, min-content) 
+        minmax(1.2rem, min-content);
+    grid-template-areas: 
+        " image     title    "
+        " image  description "
+        " image  description "
+        " author timestamp   "
+        " tags      tags     ";
+                
+    .imgWrapper {
+        grid-area: image;
+        text-decoration: none;
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .titleWrapper {
+        grid-area: title;
+        text-decoration: none;
+        color: rgb(61, 158, 214);
+        div {
+            text-align: left;
+            font-size: 24px;
+            font-weight: bold;
+            margin-left: 8px;
+            text-shadow: 
+                -1px -1px 0 #000,  
+                1px -1px 0 #000,
+                -1px 1px 0 #000,
+                1px 1px 0 #000;
+        }
+    }
+
+    .description {
+        grid-area: description;
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .description > div {
+        margin-left: 8px;
+        margin-top: 10px;
+    }
+
+    .timestamp {    
+        grid-area: timestamp;
+        text-align: left;
+        font-size: 12px;        
+    }
+
+    .author {
+        grid-area: author;
+        text-align: left;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .tags {        
+        grid-area: tags;
+
+        a {
+            margin-right: 5px;
+            color: white;
+            background-color: rgb(14, 115, 173);
+            padding: 2px;
+            text-decoration: none;
+        }
+    }
+
+    .icon {
+        margin-right: 5px;
+    }
+}
