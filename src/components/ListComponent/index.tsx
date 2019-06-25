@@ -3,17 +3,15 @@ import { Observable } from 'rxjs';
 
 import LoadingAnimation from '../LoadingAnimation';
 
-interface IListProps<T> {
-    renderListItem: (item: T) => JSX.Element;
-    loadList: () => Observable<T[]>;
-    listStyle?: string;
-}
-
-interface IListState<T> {
-    list: T[];
-}
-
-class ListComponent<T> extends Component<IListProps<T>, IListState<T>>
+class ListComponent<T> extends Component<
+    {
+        renderListItem: (item: T) => JSX.Element;
+        loadList: () => Observable<T[]>;
+        listStyle?: string;
+    },
+    {
+        list: T[];
+    }>
 {
     componentWillMount()
     {

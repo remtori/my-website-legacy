@@ -2,8 +2,8 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 import AsyncRoute from 'preact-async-route';
 
-import Header from '../Header';
 import Home from '../Home';
+import Navigator from '../Navigator';
 import LoadingAnimation from '../LoadingAnimation';
 
 import styles from './index.scss';
@@ -20,7 +20,7 @@ class App extends Component
     {
         return (
             <div class={styles.wrapper}>
-                <Header />
+                <Navigator />
                 <div class={styles.container}>
                     <Router onChange={this.handleRoute}>
                         <Home path="/" />

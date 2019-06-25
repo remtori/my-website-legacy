@@ -5,13 +5,12 @@ html, body {
 	margin: 0;
 	font-family: "Roboto Slab", Georgia, Times, arial, sans-serif;
 	font-weight: 400;
-	color: #fff;	
-	background: rgb(2,0,36);	
+	color: #fff;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;	
 }
 
-body {
+body {	
 	// background-image: radial-gradient(
 	// 	circle farthest-corner at 48.7% 44.3%,  
 	// 	rgba(30,144,231,1) 0%, 
@@ -19,18 +18,21 @@ body {
 	// 	rgba(38,76,140,1) 76.7%, 
 	// 	rgba(31,63,116,1) 100.2% 
 	// );	
-	// background-image: linear-gradient(
-	// 	to bottom,		
-	// 	rgb(0, 0, 41),
-	// 	ease-in-out,
-	// 	rgb(32, 97, 161)
-	// );
 	background-image: linear-gradient(
-		to bottom, 
-		black, 
-		cubic-bezier(0.48, 0.3, 0.64, 1), 
-		rgb(12, 93, 173)
+		to bottom,		
+		rgb(0, 0, 41),
+		ease-in-out,
+		rgb(32, 97, 161)
 	);
+	// background-image: linear-gradient(
+	// 	to bottom, 
+	// 	black, 
+	// 	cubic-bezier(0.48, 0.3, 0.64, 1), 
+	// 	rgb(12, 93, 173)
+	// );
+
+	background-size: 1000% 400%;
+	background-repeat: no-repeat;
 }
 
 * {

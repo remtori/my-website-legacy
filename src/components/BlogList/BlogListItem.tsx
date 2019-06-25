@@ -20,15 +20,15 @@ const BlogListItem = (blog: Blog) => {
                 <div>{description}</div>
             </div>
             <div class={style.author}>
-                <Icon class={style.icon} icon="user" />
+                <Icon class={style.icon} icon="fas-user" />
                 {author}
             </div>
             <div class={style.timestamp}>
-                <Icon class={style.icon} icon="clock" />
+                <Icon class={style.icon} icon="fas-clock" />
                 {new Date(timeAdded).toLocaleString()}
             </div>
             <div class={style.tags}>
-                <Icon class={style.icon} icon="tags" />
+                <Icon class={style.icon} icon="fas-tags" />
                 {
                     tags.split(/\s/g)
                         .filter(tag => tag.length > 0)
