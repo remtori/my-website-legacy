@@ -14,11 +14,12 @@
 * [ ] Add Landing Page
 * [ ] Add Modal Search
 
-## TODO
+## Low Priority Task
 
 * [ ] Add drag and drop image feature to markdown editor ( Upload image to imgur via API then insert to current line )
 * [ ] Project loading with progress bar
 * [ ] Template for local Project development
+* [ ] Fancy loading animation with blank template, like `Facebook`, `Reddit`
 
 ## Draft
 
