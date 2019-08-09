@@ -1,6 +1,6 @@
 # REMTORI's website
 
-(Live page)[https://remtori.web.app/]
+[Live page](https://remtori.web.app/)
 
 ## Tasks
 
