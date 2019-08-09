@@ -1,0 +1,114 @@
+@import 'src/assets/styles/_custom.scss';
+
+.nav {
+
+    height: $header-height;
+
+    .nav-item > a.nav-link {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+        text-align: center;
+        cursor: pointer;        
+    }
+
+    & > .navbar-collapse.show .nav-item > a.nav-link {
+        &.active {
+            color: #fff;
+            background-color: #6c757d;
+
+            &:hover {
+                background-color: #9aa6af;
+            }
+        }
+
+        &:hover, &:focus {
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+    }
+
+    & > .navbar-collapse:not(.show):not(.collapsing) .nav-item > a.nav-link {
+        &.active, &:hover, &:focus {
+            color: #fff;
+            border-bottom: 2px solid #fff;
+        }
+    }
+
+    & > .navbar-collapse.show,
+    & > .navbar-collapse.collapsing {
+        padding-left: 5em;
+        padding-right: 5em;
+        position: fixed;
+        width: 100%;
+        top: $header-height;
+        left: 0px;
+        right: 0px;
+    }
+
+    button.navbar-toggler {
+
+        &:focus {
+            outline: 0;
+        }
+    }
+
+    & > .search {        
+
+        width: 16em;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+
+        @media (max-width: 767px) {
+            & {
+                width: calc(100% - 120px);
+            }
+        }
+
+        input {
+            border: none;
+            box-shadow: none;
+            color: #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+
+            &::placeholder {
+                color: #ccc;
+            }
+        }
+
+        button {
+            padding: 3px 6px 0px 6px;
+        }
+    }
+
+}
+
+.container {
+    font-size: 14px;
+    margin-top: $header-height;
+    padding-top: 1rem;
+    min-height: calc(100vh - #{$header-height} - #{$footer-height});
+}
+
+
+.footer {
+    background-color: $dark;
+    height: $footer-height;
+    display: block;
+
+    div {
+        padding-top: 6px;
+        text-align: center;
+    }
+
+    .links {
+
+        a {
+            color: #fff;
+            padding-left: 0.5em;
+        }
+
+        a:hover {
+            color: aquamarine;
+        }
+    }
+}

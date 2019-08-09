@@ -1,0 +1,27 @@
+{
+    "presets": [
+        ["@babel/typescript"],
+        ["@babel/react"],
+        ["@babel/env", {
+            "modules": false
+        }]
+    ],
+    "plugins": [
+        "@babel/plugin-proposal-object-rest-spread",
+        "@babel/plugin-syntax-dynamic-import"
+    ],
+    "env": {
+        "test": {
+            "presets": [
+                "@babel/react",
+                "@babel/typescript",
+                ["@babel/env", {
+                    "modules": "commonjs"
+                }]
+            ],
+            "plugins": [
+                "@babel/plugin-transform-modules-commonjs"
+            ]
+        }
+    }
+}

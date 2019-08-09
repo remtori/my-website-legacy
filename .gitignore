@@ -1,0 +1,8 @@
+
+# Common ignore
+node_modules
+build
+
+# Firebase
+.firebase
+firebase-debug.log

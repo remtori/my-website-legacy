@@ -1,0 +1,11 @@
+[
+  {
+    "origin": [
+      "http://localhost",
+      "https://remtori.web.app",
+      "https://remtori.firebaseapp.com"
+    ],
+    "method": ["GET"],
+    "maxAgeSeconds": 86400
+  }
+]
