@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import './assets/styles/global.scss';
+import './styles/global.scss';
 
 const root = document.getElementById('root') as HTMLElement;
 function init() {

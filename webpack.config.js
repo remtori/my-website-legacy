@@ -2,11 +2,9 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
-const {
-    CleanWebpackPlugin
-} = require('clean-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -161,13 +159,11 @@ module.exports = {
         ] : [
             DefinePluginConfig,
             new CleanWebpackPlugin(),
+            new BundleAnalyzerPlugin({ analyzerMode: 'static' })
         ]
     ),
     optimization: {
         minimize: !dev,
-        minimizer: [
-            new UglifyJsPlugin()
-        ],
         runtimeChunk: true,
         splitChunks: {
             cacheGroups: {

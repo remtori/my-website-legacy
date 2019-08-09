@@ -17,7 +17,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 import styles from './styles.scss';
-import icon from '../../assets/images/icons/icon-192.png';
 
 interface CNavItemProps extends React.HTMLAttributes<HTMLElement> {
     to: string;
@@ -68,7 +67,7 @@ export default function MainNav() {
     return (
         <Navbar className={styles.nav} color="dark" dark fixed="top" expand="md">
             <NavbarBrand tag={RRNavLink} to="/">
-                <img src={icon} height="32" />
+                <img src='/assets/images/icons/icon-192.png' height="32" />
                 <span className="align-middle d-none d-md-inline"> Remtori's Comfy Home~</span>
             </NavbarBrand>            
             <InputGroup className={styles.search} onSubmit={onSearch}>
