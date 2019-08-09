@@ -15,10 +15,10 @@ export default function Footer() {
     return (
         <footer className={styles.footer}>
             <div className={styles.links}>
-                <a href="https://fb.com/xLQVx" target="_blank">
+                <a href="https://fb.com/xLQVx" rel="noreferrer" target="_blank">
                     <FontAwesomeIcon icon={faFacebookF} />
                 </a>
-                <a href="https://github.com/Remtori" target="_blank">
+                <a href="https://github.com/Remtori" rel="noreferrer" target="_blank">
                     <FontAwesomeIcon icon={faGithub} />
                 </a>
                 <a href="mailto:lqv.remtori@gmail.com" target="_blank">

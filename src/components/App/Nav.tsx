@@ -67,18 +67,18 @@ export default function MainNav() {
     return (
         <Navbar className={styles.nav} color="dark" dark fixed="top" expand="md">
             <NavbarBrand tag={RRNavLink} to="/">
-                <img src='/assets/images/icons/icon-192.png' height="32" />
+                <img src='/assets/images/icons/icon-192.webp' alt='icon' height="32" />
                 <span className="align-middle d-none d-md-inline"> Remtori's Comfy Home~</span>
             </NavbarBrand>            
             <InputGroup className={styles.search} onSubmit={onSearch}>
-                <Input placeholder="Search..." onChange={onSearchChange} />
+                <Input label="search" placeholder="Search..." onChange={onSearchChange} />
                 <InputGroupAddon addonType="append">
-                    <Button color="secondary">
+                    <Button name="search" color="secondary">
                         <FontAwesomeIcon icon={faSearch} />
                     </Button>
                 </InputGroupAddon>
             </InputGroup>
-            <NavbarToggler onClick={toggle} />
+            <NavbarToggler name="menu" onClick={toggle} />
             <Collapse className="bg-dark" isOpen={isOpen} navbar>
                 <Nav navbar>
                     <CNavItem to="/blogs/view?id=about" exact>About</CNavItem>
