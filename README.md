@@ -13,6 +13,8 @@
 * [ ] Add Project Upload
 * [ ] Add Landing Page
 * [ ] Add Modal Search
+* [ ] Add Gallery Collection
+* [ ] Add `Service Worker` to make PWA
 
 ## Low Priority Task
 
@@ -20,6 +22,7 @@
 * [ ] Project loading with progress bar
 * [ ] Template for local Project development
 * [ ] Fancy loading animation with blank template, like `Facebook`, `Reddit`
+* [ ] Boot up from stored state
 
 ## Draft
 
