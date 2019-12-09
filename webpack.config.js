@@ -13,7 +13,7 @@ const config = {
     mode: dev ? 'development' : 'production',
     entry: path.resolve(__dirname, './src/index.js'),
     output: {
-        filename: '[name].[contenthash:8].bundle.js',
+        filename: '[name].[hash:8].bundle.js',
         publicPath: '/',
         path: path.resolve(__dirname, './build')
     },
@@ -26,10 +26,10 @@ const config = {
                     {
                         loader: MiniCssExtractPlugin.loader
                     },
-                    {                        
+                    {
                         loader: "css-loader",
                         options: {
-                            modules: true, 
+                            modules: true,
                             importLoaders: 1
                         }
                     },
@@ -41,11 +41,11 @@ const config = {
             {
                 test: /\.(css|less)$/,
                 exclude: [ path.resolve(__dirname, './src/components') ],
-                use: [                    
+                use: [
                     {
                         loader: MiniCssExtractPlugin.loader
                     },
-                    {                        
+                    {
                         loader: "css-loader",
                         options: {
                             importLoaders: 1
@@ -75,7 +75,7 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: './src/index.ejs',
-            minify: { 
+            minify: {
                 collapseWhitespace: true,
                 collapseInlineTagWhitespace: true,
                 minifyJS: true,
@@ -84,12 +84,12 @@ const config = {
         }),
         new MiniCssExtractPlugin({
             filename: "[name].css",
-            chunkFilename: "[id].[contenthash:8].css"
+            chunkFilename: "[id].[hash:8].css"
         }),
         new CopyWebpackPlugin([
             { from: './src/assets/images/icons/favicon.ico', to: './' },
             { from: './src/manifest.json', to: './' },
-            { 
+            {
                 from: './src/assets/images/icons/*',
                 to: './assets/images/icons/[name].[ext]'
             }
@@ -108,7 +108,7 @@ const config = {
                 vendor: {
                     test: /node_modules/,
                     name: 'vendors',
-                    chunks: 'initial',                    
+                    chunks: 'initial',
 					minChunks: 1,
 					minSize: 0
                 },

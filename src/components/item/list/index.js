@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import Loading from '../../loading';
 import BlogListItem from './blog-list-item';
-import { fetchBlogs, fetchBlogsWithTag } from '../../../reducers/blog';
+// import { fetchBlogs, fetchBlogsWithTag } from '../../../reducers/blog';
 import style from './style.less';
 import { connect } from 'preact-redux';
 
@@ -19,25 +19,25 @@ class BlogList extends Component {
 			const { scrollTop, scrollHeight } = document.scrollingElement;
 
 			if(scrollTop > anchorPoint && this.state.resolved) {
-				anchorPoint = 
+				anchorPoint =
 					this.base
 						.querySelector(`.${style.listItem}:nth-last-child(2)`)
 						.getBoundingClientRect().top
 					+ (
 						window.pageYOffset || document.documentElement.scrollTop
-					);				
+					);
 			}
 		}
 
 		this._loadBlogs = _ => {
 			const tag = this.props.tag || "";
-			if (tag.length > 0) {
-				this.props.dispatch(fetchBlogsWithTag(tag));
-			} else {
-				this.props.dispatch(fetchBlogs());
-			}
+			// if (tag.length > 0) {
+			// 	this.props.dispatch(fetchBlogsWithTag(tag));
+			// } else {
+			// 	this.props.dispatch(fetchBlogs());
+			// }
 		}
-	}	
+	}
 
 	componentDidUpdate(prevProp) {
 		if (this.props.tag !== prevProp.tag)
@@ -54,15 +54,15 @@ class BlogList extends Component {
 	}
 
 	render({ tag="", list, loading, error }) {
-					
+
 		if (loading)
 			return <Loading />
 		else if (error)
 			return <h3 style="text-align: center;">
-					{ 
-						tag.length > 0 
-							? `No blog found with tag "${tag}"` 
-							: "Well, i guess no body has post a blog yet ~" 
+					{
+						tag.length > 0
+							? `No blog found with tag "${tag}"`
+							: "Well, i guess no body has post a blog yet ~"
 					}
 				</h3>
 		else
@@ -78,7 +78,7 @@ class BlogList extends Component {
 
 const mapStateToProps = ({blog:{list, fetchStatus:{list:{isFetching, error}}}}) => {
 	return {
-		list,		
+		list,
 		error,
 		loading: isFetching,
 	}
