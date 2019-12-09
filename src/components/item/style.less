@@ -1,0 +1,32 @@
+.blog {
+
+    width: 100%;
+    display: grid;    
+    grid-row-gap: 0.2rem;    
+    grid-auto-rows: minmax(2.2rem, min-content) minmax(1.2rem, min-content) min-content;
+    grid-template-areas: 
+        "title"
+        "detail"
+        "content";
+    
+    .title {
+        grid-area: title;
+        font-size: 2rem;
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .detail {        
+        grid-area: detail;
+        color: rgb(172, 172, 172);
+        font-size: 1rem;
+        text-decoration: none;
+    }
+
+    .content {
+        margin-top: 2rem;
+        grid-area: content;
+        color: rgb(230, 230, 230);
+        font-size: 1.2rem;
+    }
+}

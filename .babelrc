@@ -1,0 +1,19 @@
+{
+  "sourceMaps": true,
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions"]
+        }
+      },
+    ]
+  ],
+  "plugins": [
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-syntax-import-meta",
+    [ "@babel/plugin-proposal-class-properties", { "loose": false } ],    
+    [ "@babel/transform-react-jsx", { "pragma": "h" } ]
+  ]
+}

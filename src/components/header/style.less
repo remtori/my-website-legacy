@@ -1,0 +1,39 @@
+.header {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+	/* Make all the text appear in navagation bar unselectable! */
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;       
+
+	nav {		
+
+		list-style: none;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		display: grid;    
+		grid-template-columns: repeat(4, 1fr);
+
+		a {
+			display: block;
+			color: white;
+			text-align: center;
+			padding: 0.8rem;
+			text-decoration: none;
+			border-bottom: none;
+			line-height: 50px;
+			font-size: 1.4rem;
+			text-align: center;
+		}
+		
+		a:hover {
+			background-color: rgba(214, 214, 214, 0.4);    
+		}		
+	}
+}

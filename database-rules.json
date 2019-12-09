@@ -1,0 +1,24 @@
+{
+    "rules": {
+        "blog": {
+            "list": {
+                ".read": true,
+                ".write": "auth.uid === 'Wb2uAsMr2HcyxlyZfYXh3rPnWwv1'"
+            },
+            "tag": {
+                ".read": true,
+                ".write": "auth.uid === 'Wb2uAsMr2HcyxlyZfYXh3rPnWwv1'"
+            }
+        },
+        "work": {
+            "list": {                
+                ".read": true,
+                ".write": "auth.uid === 'Wb2uAsMr2HcyxlyZfYXh3rPnWwv1'"
+            },
+            "tag": {
+                ".read": true,
+                ".write": "auth.uid === 'Wb2uAsMr2HcyxlyZfYXh3rPnWwv1'"
+            }
+        }
+    }
+}   
