@@ -14,28 +14,28 @@ const CONFIG = {
 };
 
 const app = firebase.initializeApp(CONFIG);
-const auth = app.auth();
-const db = app.firestore();
-const storageRef = app.storage();
+export const auth = app.auth();
+export const db = app.firestore();
+export const storageRef = app.storage();
 
 export default app;
 window.firebase = app;
-window.setDoc = setDocument;
-window.upload = uploadFile;
 
-const provider = new firebase.auth.GoogleAuthProvider();
-export function login() {
-    auth.signInWithPopup(provider).then(result => {
-        console.log(result);
-    });
+export function signIn(email: string, password: string) {
+    return auth.signInWithEmailAndPassword(email, password).then(userCre => userCre.user);
 }
 
-export function logout() {
-    auth.signOut();
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+export function signInWithGoogle() {
+    return auth.signInWithPopup(googleProvider);
 }
 
-export function genDocumentKey(collection: string) {
-    return db.collection(collection).doc().id;
+export function signOut() {
+    return auth.signOut();
+}
+
+export function getStorageURLFromPath(path: string) {
+    return `https://storage.googleapis.com/${CONFIG.storageBucket}/${path}`;
 }
 
 interface FireStoreDoc {    
@@ -53,6 +53,10 @@ interface FireStoreDoc {
     tags?: string[];
 }
 
+export function genDocumentKey(collection: string) {
+    return db.collection(collection).doc().id;
+}
+
 export function getBaseDocument(collection: string): Blog {
     return {
         key: genDocumentKey(collection),
@@ -65,7 +69,7 @@ export function getBaseDocument(collection: string): Blog {
         },
         description: 'No description~',
         author: 'Anon',
-        contentUrl: 'https://storage.googleapis.com/remtori.appspot.com/blogs/empty',
+        contentStoragePath: 'empty.md',
         tags: []
     };
 }
@@ -135,7 +139,7 @@ export function uploadFile(
             reject(err);
         }, () => {
             //uploadTask.snapshot.ref.getDownloadURL().then(url => resolve(url));
-            resolve(`https://storage.googleapis.com/remtori.appspot.com/${filePath}`);
+            resolve(filePath);
         });
     });
 }
@@ -154,12 +158,14 @@ export async function getIframeSrcFromProject(project: Project) {
     let $html;
 
     try {
-        const response = await fetch(project.contentUrl);
+        const response = await fetch(
+            getStorageURLFromPath(project.contentStoragePath)
+        );
         $html = await response.blob();
     } catch (e) {
         $html = `
             <div class="bg-danger">
-                Failed to load ${project.contentUrl}
+                Failed to load ${project.contentStoragePath}
                 <blockquote class="blockquote">${e}</blockquote>                
             </div>
         `;
