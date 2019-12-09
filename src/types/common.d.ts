@@ -1,4 +1,14 @@
 
+declare interface User {
+    displayName: string;
+    isStaff: boolean;
+    isAdmin: boolean;
+    photoURL: string;
+    uid: string;
+    email: string;
+    emailVerified: boolean;
+}
+
 declare interface Blog {
     key: string;
     timeAdded: number;
@@ -9,7 +19,7 @@ declare interface Blog {
         height: number;
     };
     description: string;
-    contentUrl: string;
+    contentStoragePath: string;
     author: string;
     tags: string[];
 }

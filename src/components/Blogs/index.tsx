@@ -1,7 +1,7 @@
 import React from 'react';
 import marked from 'marked';
 import { parse } from 'query-string';
-import { RouteComponentProps } from 'react-router-dom';
+import { Redirect. RouteComponentProps } from 'react-router-dom';
 import { Card, CardBody } from 'reactstrap';
 
 import Loader from '../common/Loader';
@@ -10,7 +10,7 @@ import { getDocument } from '../../firebase';
 export { default as BlogList } from './List';
 export { default as BlogUpdate } from './Update';
 
-export function BlogView({ location: { search }, history }: RouteComponentProps) {
+export function BlogView({ location: { search } }: RouteComponentProps) {
 
     const query = parse(search);
 
@@ -25,9 +25,7 @@ export function BlogView({ location: { search }, history }: RouteComponentProps)
                 .then(t => marked(t));
         }
 
-        history.push('/blogs');
-
-        return Promise.resolve('Blog unavailable~');
+        return Promise.resolve('Undefined behaviour');
     }
 
     function render(data: string) {
@@ -39,7 +37,9 @@ export function BlogView({ location: { search }, history }: RouteComponentProps)
         );
     }
 
-    return (
+    return typeof query.id !== "string"
+    ? <Redirect to="/blogs" />
+    : (
         <Loader<string> 
             loadData={loadData}
             render={render}
