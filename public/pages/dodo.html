@@ -1,0 +1,56 @@
+<style>
+    textarea.textarea {
+        width: 200px;
+        height: 200px;
+        resize: none;
+    }
+</style>
+
+<script>                   
+(function(){
+    function LevenshteinDistance(s1, s2)
+    {
+        let a = [];
+        let maxLen = Math.max(s1.length, s2.length);
+        for(let i = 0; i <= maxLen; i++) a[i] = [];
+        for(let i = 0; i <= maxLen; i++) a[0][i] = i;
+        for(let i = 0; i <= maxLen; i++) a[i][0] = i;
+
+        for(let i = 1 ; i <= s1.length; i++)
+        {
+            for(let j = 1; j <= s2.length; j++) 
+            {
+                let t = s1[i - 1] == s2[j - 1] ? 0 : 1;
+                a[i][j] = Math.min(
+                    a[i - 1][j] + 1,
+                    a[i][j - 1] + 1, 
+                    a[i - 1][j - 1] + t
+                );
+            }
+        }
+        
+        console.log(a);
+        return a[s1.length][s2.length];
+    }
+    
+    window.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('btt').addEventListener('click', () => {
+            let s1 = document.getElementById('text1').value, 
+                s2 = document.getElementById('text2').value,
+                res = LevenshteinDistance(s1, s2),
+                maxLen = Math.max(s1.length, s2.length),
+                kq = Math.round((1 - res / maxLen) * 10000) / 100;
+
+            console.log(res, maxLen);
+            document.getElementById('percent').innerHTML = kq + "%";        
+        });  
+    });
+})();
+</script>
+<h2>So sánh độ giống nhau của 2 đoạn văn bản!</h2>
+<div style="text-align: center">
+    <textarea class="textarea" id="text1" style="float:left;"></textarea>
+    <textarea class="textarea" id="text2" style="float:right;"></textarea>                
+    <button id="btt">So sánh</button>                
+    <p id='percent'></p>
+</div>

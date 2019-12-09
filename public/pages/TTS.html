@@ -1,0 +1,143 @@
+<style>    
+    .txt {
+        display: block;
+        margin: 0 auto;
+        font-family: sans-serif;
+        font-size: 16px;
+        padding: 5px;
+    }
+    .txt {
+        width: 80%;
+    }    
+    .txt {
+        margin-bottom: 10px;
+        overflow: auto;
+    }
+    .clearfix {
+        clear: both;
+    }
+    .rate-value, .pitch-value {
+        float: right;
+        width: 5%;
+        line-height: 1.5;
+    }
+    #rate, #pitch {
+        float: right;
+        width: 71%;
+    }
+    .controls {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .controls button {
+        padding: 10px;
+    }
+</style>
+<h1>TTS - Text to Speech - Đồ Án NMCNTT2 ~ 2018 </h1>
+
+<p>Nhập nội dung muốn nghe ở dưới, sau đó bấm "Nói" ... để nghe :V
+    <span><br>
+        P/s: Nên thử nghe giọng Nhật (ja-JP) nói tiếng anh ~
+    </span>
+</p>
+<form>
+    <input type="text" class="txt">
+    <div>
+        <label for="rate">Tốc độ đọc</label>
+        <input type="range" min="0.5" max="2" value="1" step="0.1" id="rate">
+        <div class="rate-value">1</div>
+        <div class="clearfix"></div>
+    </div>
+    <div>
+        <label for="pitch">Cao độ</label>
+        <input type="range" min="0" max="2" value="1" step="0.1" id="pitch">
+        <div class="pitch-value">1</div>
+        <div class="clearfix"></div>
+    </div>
+    <select class="langs"></select>
+    <div class="controls">
+        <button id="play" type="submit">Nói</button>
+    </div>
+</form>    
+
+<script>
+(function(){
+    const synth = window.speechSynthesis;
+
+    const inputForm = document.querySelector('form');
+    const inputTxt = document.querySelector('.txt');
+    const voiceSelect = document.querySelector('select.langs');
+
+    const pitch = document.querySelector('#pitch');
+    const pitchValue = document.querySelector('.pitch-value');
+    const rate = document.querySelector('#rate');
+    const rateValue = document.querySelector('.rate-value');
+
+    let i;
+    let voices = [];
+
+    function genList() {
+        voices = synth.getVoices();
+        const selectedIndex = voiceSelect.selectedIndex < 0 ? 0 : voiceSelect.selectedIndex;
+        voiceSelect.innerHTML = '';
+        for(i = 0; i < voices.length ; i++) {
+            const option = document.createElement('option');
+            option.textContent = voices[i].name + ' (' + voices[i].lang + ')';
+
+            if(voices[i].default) {
+                option.textContent += ' -- MẶC ĐỊNH';
+            }
+
+            option.setAttribute('data-lang', voices[i].lang);
+            option.setAttribute('data-name', voices[i].name);
+            voiceSelect.appendChild(option);
+        }
+
+        voiceSelect.selectedIndex = selectedIndex;
+    }
+
+    genList();
+
+    if (speechSynthesis.onvoiceschanged !== undefined) {
+        speechSynthesis.onvoiceschanged = genList;
+    }
+
+    function speak() {
+        
+        if (inputTxt.value !== '') {
+
+            const utterThis = new SpeechSynthesisUtterance(inputTxt.value);                  
+
+            utterThis.onerror = function (event) {
+                alert('Lỗi xảy ra trong quá trình nói!');
+            }
+
+            const selectedOption = voiceSelect.selectedOptions[0].getAttribute('data-name');
+
+            for(i = 0; i < voices.length ; i++) {
+                if(voices[i].name === selectedOption) {
+                    utterThis.voice = voices[i];
+                }
+            }
+
+            utterThis.pitch = pitch.value;
+            utterThis.rate = rate.value;
+            synth.speak(utterThis);
+        }
+    }
+
+    inputForm.onsubmit = function(event) {
+        event.preventDefault();
+        speak();
+        inputTxt.blur();
+    }
+
+    pitch.onchange = function() {
+        pitchValue.textContent = pitch.value;
+    }
+
+    rate.onchange = function() {
+        rateValue.textContent = rate.value;
+    }
+})();
+</script>

@@ -1,0 +1,12 @@
+{
+    "rules": {
+        "blogs": {
+            ".read": true,
+            ".write": "auth.uid === 'Wb2uAsMr2HcyxlyZfYXh3rPnWwv1'"
+        },
+        "blogTag": {
+            ".read": true,
+            ".write": "auth.uid === 'Wb2uAsMr2HcyxlyZfYXh3rPnWwv1'"
+        }
+    }
+}   

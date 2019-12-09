@@ -1,0 +1,24 @@
+{
+    "games": [
+
+    ],
+    "others": [
+        {
+            "name": "Độ Đo",
+            "url": "/pages/dodo.html"
+        },
+        {
+            "name": "Text to Speech",
+            "url": "/pages/TTS.html"
+        },
+        {
+            "name": "Minecraft Formating Code",
+            "url": "/pages/Formatting Code.html"
+        },
+        {     
+            "name": "MinecRem",
+            "url": "/pages/MinecRem.html",
+            "iframe": true
+        }
+    ]
+}

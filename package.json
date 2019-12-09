@@ -1,0 +1,15 @@
+{
+  "name": "my-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "firebase serve --only hosting",
+    "deploy": "firebase deploy --except functions",
+    "allowCors": "gsutil cors set cors.json gs://lqv-remtori.appspot.com",
+    "updateStorage": "firebase deploy --only storage",
+    "updateDatabase": "firebase deploy --only database"
+  },
+  "author": "Remtori",
+  "license": "ISC"
+}
