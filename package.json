@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "firebase serve --only hosting",
+    "start": "firebase serve --only hosting",
     "deploy": "firebase deploy --except functions",
     "allowCors": "gsutil cors set cors.json gs://lqv-remtori.appspot.com",
     "updateStorage": "firebase deploy --only storage",
