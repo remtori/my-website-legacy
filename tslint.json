@@ -1,0 +1,23 @@
+ {
+    "extends": [
+        "tslint:recommended",
+        "tslint-react"
+    ],
+    "rules": {
+		"indent": [ true, "tabs", 4 ],
+		"ordered-imports": false,
+		"object-literal-sort-keys": false,
+		"one-line": false,
+		"quotemark": [ true, "single", "avoid-escape" ],
+		"member-access": [ true, "no-public" ],
+		"arrow-parens": [ true, "ban-single-arg-parens" ],
+		"brace-style": [ true, "allman", { "allowSingleLine": true }],
+		"curly": [ true, "ignore-same-line" ],
+		"no-console": false,
+		"interface-name": false,
+		"jsx-no-multiline-js": false
+	},
+	"rulesDirectory": [
+		"node_modules/tslint-eslint-rules/dist/rules"
+	]
+}

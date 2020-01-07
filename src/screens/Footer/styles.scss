@@ -1,0 +1,18 @@
+@import 'vars.scss';
+
+.footer {
+	background-color: #202020;
+	text-align: center;
+	font-size: 1.2rem;
+	color: #999;
+
+	a {
+		color: $link-color;
+		text-decoration: none;
+	}
+
+	.icon {
+		margin: 0px 2px;
+		margin-bottom: -2px;
+	}
+}

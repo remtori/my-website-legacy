@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "remtori"
+  },
+  "targets": {
+    "remtori": {
+      "hosting": {
+        "sites": [
+          "remtori"
+        ],
+        "projects": [
+          "remtori-projects"
+        ]
+      }
+    }
+  }
+}
