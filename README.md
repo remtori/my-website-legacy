@@ -2,6 +2,8 @@
 
 This repo is my multiple attempt at making a personal website
 
+Current master is `@preact-v3`
+
 ## Specifications
 
 - Cool Landing Page
