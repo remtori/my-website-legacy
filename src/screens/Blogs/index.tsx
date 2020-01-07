@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { useState, useCallback } from 'preact/hooks';
 import { Link } from 'preact-router';
-import { getDocumentList } from '../../firebase/firestore';
+import { getDocumentList } from '~/fire_wrap/firestore';
 import ListView from '../../components/ListView';
 
 import styles from './styles.scss';

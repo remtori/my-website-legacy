@@ -12,13 +12,11 @@
 		"declarationMap": true,
 		"sourceMap": true,
 		"importHelpers": true,
-		"baseUrl": "./src",
-		"rootDir": "./src",
 		"lib": ["esnext", "dom", "dom.iterable"],
 		"skipLibCheck": true,
 		"types": [],
 		"paths": {
-			"~/*": [ "*" ]
+			"~/*": [ "./src/*" ]
 		}
 	},
 	"include": [

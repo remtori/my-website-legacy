@@ -52,7 +52,7 @@
             font-weight: bold;
         }
 
-        @media only screen and (max-width: $md) {
+        @media (max-width: $md) {
             flex-direction: column;
             justify-content: flex-start;
         }

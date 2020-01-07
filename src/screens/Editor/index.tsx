@@ -1,16 +1,21 @@
 import { h } from 'preact';
-import { useState, useEffect } from 'preact/hooks';
+import { uploadFile } from '~/fire_wrap/storage';
+import { signInWithGoogle } from '~/fire_wrap/auth';
+import * as marked from 'marked';
+import { highlightAuto } from 'highlight.js';
 
-type HookComponent = () => h.JSX.Element;
+marked.setOptions({
+	gfm: true,
+	highlight: code => highlightAuto(code).value,
+	smartLists: true,
+	smartypants: true,
+});
 
-export default function AsyncEditorScreen()
+console.log(uploadFile);
+console.log(marked);
+(window as any).signIn = signInWithGoogle;
+
+export default function Editor()
 {
-	const [ Comp, setComp ] = useState<HookComponent>(null as unknown as HookComponent);
-
-	useEffect(() =>
-	{
-		import(/* webpackChunkName: "admin" */'./Editor').then(m => setComp(m.default));
-	}, []);
-
-	return typeof Comp === 'function' ? <Comp /> : <div>Loading...</div>;
+	return <div>Editor</div>;
 }

@@ -1,16 +1,16 @@
 import { h } from 'preact';
-import { Router, Route } from 'preact-router';
-
+import { Router } from 'preact-router';
+import AsyncRoute from 'preact-async-route';
 import Header from '../../screens/Header';
 import Home from '../../screens/Home';
 import { Blog, BlogList } from '../../screens/Blogs';
 import { Project, ProjectList } from '../Projects';
-import Editor from '../../screens/Editor';
 import JSXImage from '~/components/JSXImage';
 
 import styles from './styles.scss';
 import Footer from '../../screens/Footer';
-import { LoadingCircle, NotFound } from '~/components/placeholder';
+
+const Editor = () => import(/* webpackChunkName: "admin" */'../Editor').then(m => m.default);
 
 export default function App()
 {
@@ -24,31 +24,31 @@ export default function App()
 				/>
 				<div class={styles.container}>
 					<Router>
-						<Route
+						<AsyncRoute
 							path='/'
 							component={Home}
 						/>
-						<Route
+						<AsyncRoute
 							path='/blogs/:id'
 							component={Blog}
 						/>
-						<Route
+						<AsyncRoute
 							exact={true}
 							path='/blogs'
 							component={BlogList}
 						/>
-						<Route
+						<AsyncRoute
 							path='/projects/:id'
 							component={Project}
 						/>
-						<Route
+						<AsyncRoute
 							exact={true}
 							path='/projects'
 							component={ProjectList}
 						/>
-						<Route
+						<AsyncRoute
 							path='/editor'
-							component={Editor}
+							getComponent={Editor}
 						/>
 					</Router>
 				</div>

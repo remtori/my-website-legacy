@@ -14,20 +14,6 @@ export interface IUser {
 	emailVerified: boolean;
 }
 
-export function signIn(email: string, password: string): Promise<IUser>
-{
-	return auth.signInWithEmailAndPassword(email, password)
-		.then(userCre => Promise.all([
-			userCre.user,
-			userCre.user?.getIdTokenResult(),
-
-		]))
-		.then(([ user, tokenResult ]) => ({
-			...user,
-			...tokenResult?.claims,
-		}) as IUser);
-}
-
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 export function signInWithGoogle()
 {

@@ -1,7 +1,4 @@
 import * as firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/storage';
-import 'firebase/auth';
 
 export const CONFIG = JSON.parse(`{
 	"apiKey": "AIzaSyDZpNEsHUILTJSJixyoGzaB04K8Kcp6CPU",
