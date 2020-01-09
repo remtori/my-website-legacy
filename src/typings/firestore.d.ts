@@ -4,7 +4,6 @@ declare interface IDocument
 {
 	type: DBCollections;
 	author: string;
-	contentUrl: string;
 	description: string;
 	key: string;
 	public: boolean;
@@ -28,4 +27,5 @@ declare interface Blog extends IDocument
 declare interface Project extends IDocument
 {
 	type: 'projects';
+	contentUrl: string;
 }

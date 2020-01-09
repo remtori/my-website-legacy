@@ -1,4 +1,5 @@
-import app, { getStorageURLFromPath } from './app';
+import app from './app';
+import { getStorageURLFromPath } from './utils';
 import 'firebase/storage';
 
 export const storage = app.storage();

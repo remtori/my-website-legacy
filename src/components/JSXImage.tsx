@@ -13,9 +13,14 @@ function parseImageSource(source: string, shouldParse: boolean): Promise<string>
 	);
 }
 
-export type JSXImageProps = { src: string, hasOptimize?: boolean } & h.JSX.HTMLAttributes<HTMLImageElement>;
+export type JSXImageProps = {
+	src: string,
+	hasOptimize?: boolean,
+	width?: number | undefined,
+	height?: number | undefined,
+} & h.JSX.HTMLAttributes<HTMLImageElement>;
 
-export default function JSXImage({ src, hasOptimize = false, ...props }: JSXImageProps)
+export default function JSXImage({ src, width, height, hasOptimize = false, ...props }: JSXImageProps)
 {
 	const [ isLoading, setIsLoading ] = useState(true);
 	const [ imageSource, setImageSource ] = useState(src);
@@ -43,11 +48,11 @@ export default function JSXImage({ src, hasOptimize = false, ...props }: JSXImag
 
 	if (isLoading)
 	{
-		return <LoadingCircle />;
+		return <LoadingCircle width={width} height={height} />;
 	}
 	else if (imageSource === 'error')
 	{
-		return <NotFound width={64} height={32} />;
+		return <NotFound width={width} height={height} />;
 	}
 	else
 	{

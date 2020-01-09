@@ -15,6 +15,7 @@
 		"lib": ["esnext", "dom", "dom.iterable"],
 		"skipLibCheck": true,
 		"types": [],
+		"baseUrl": ".",
 		"paths": {
 			"~/*": [ "./src/*" ]
 		}

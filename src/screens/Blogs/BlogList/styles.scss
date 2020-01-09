@@ -52,7 +52,7 @@
             font-weight: bold;
         }
 
-        @media (max-width: $md) {
+        @media (max-width: $mobile-break) {
             flex-direction: column;
             justify-content: flex-start;
         }

@@ -1,5 +1,3 @@
-import * as firebase from 'firebase/app';
-
 export const CONFIG = JSON.parse(`{
 	"apiKey": "AIzaSyDZpNEsHUILTJSJixyoGzaB04K8Kcp6CPU",
 	"authDomain": "remtori.firebaseapp.com",
@@ -12,8 +10,3 @@ export const CONFIG = JSON.parse(`{
 
 export const getStorageURLFromPath = (path: string) =>
 	`https://storage.googleapis.com/${CONFIG.storageBucket}/${path}`;
-
-const app = firebase.initializeApp(CONFIG);
-
-export default app;
-(window as any).firebase = app;

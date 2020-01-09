@@ -1,21 +1,16 @@
 import { h } from 'preact';
-import { useState, useCallback } from 'preact/hooks';
 import { Link } from 'preact-router';
-import { getDocumentList } from '~/fire_wrap/firestore';
-import ListView from '../../components/ListView';
+import { getDocumentList } from '~/libs/firebase-wrap/firestore';
 
 import styles from './styles.scss';
-import JSXImage from '../../components/JSXImage';
-import Icon, { icons } from '../../components/Icon';
-
-export { default as Blog } from './Blog';
+import JSXImage from '~/components/JSXImage';
+import Icon, { icons } from '~/components/Icon';
+import ListView from '~/components/ListView';
 
 function BlogItem({ data: {
 	author, description, key, previewImg, tags, timeAdded, title,
 }}: { data: Blog })
 {
-	tags = tags.concat(['placerat', 'sed', 'augue', 'sit', 'amet', 'luctus.', 'Vestibulum', 'viverra', 'metus', 'nec']);
-
 	return (
 		<div class={styles.listItem} data-key={key} >
 			<div>
@@ -60,7 +55,7 @@ function renderData(data: Blog[])
 
 const getData = () => getDocumentList('blogs') as Promise<Blog[]>;
 
-export function BlogList()
+export default function BlogList()
 {
 	return (
 		<ListView<Blog>

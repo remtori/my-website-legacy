@@ -1,0 +1,13 @@
+.error {
+	cursor: pointer;
+
+	summary {
+		outline:none;
+		user-select: none;
+	}
+
+	textarea {
+		background-color: #000;
+		color: rgb(182, 67, 0);
+	}
+}

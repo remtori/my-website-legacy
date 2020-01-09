@@ -1,12 +1,13 @@
 import { h } from 'preact';
-import { uploadFile } from '~/fire_wrap/storage';
-import { signInWithGoogle } from '~/fire_wrap/auth';
+import { uploadFile } from '~/libs/firebase-wrap/storage';
+import { signInWithGoogle } from '~/libs/firebase-wrap/auth';
+
 import * as marked from 'marked';
-import { highlightAuto } from 'highlight.js';
+import highlight from '~/libs/highlight.js';
 
 marked.setOptions({
 	gfm: true,
-	highlight: code => highlightAuto(code).value,
+	highlight,
 	smartLists: true,
 	smartypants: true,
 });

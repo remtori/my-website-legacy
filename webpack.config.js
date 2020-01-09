@@ -30,6 +30,7 @@ function styleLoader({ useCssModule })
             options: {
                 importLoaders: 2,
                 modules: useCssModule,
+                sourceMap: true,
             }
         },
         {
@@ -39,7 +40,8 @@ function styleLoader({ useCssModule })
                     return [
                         require('autoprefixer')
                     ];
-                }
+                },
+                sourceMap: true,
             }
         },
         {
@@ -49,7 +51,8 @@ function styleLoader({ useCssModule })
                     includePaths: [
                         path.join(__dirname, './src')
                     ]
-                }
+                },
+                sourceMap: true,
             }
         }
     ];
@@ -103,6 +106,17 @@ module.exports = {
                 use: styleLoader({ useCssModule: false })
             },
             {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: ExtractCssChunks.loader
+                    },
+                    {
+                        loader: 'css-loader'
+                    }
+                ],
+            },
+            {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 loader: 'url-loader',
                 options: {
@@ -114,8 +128,8 @@ module.exports = {
     },
     plugins: ([
         new ExtractCssChunks({
-            filename: '[name].[hash].css',
-            chunkFilename: '[id].[contenthash:8].css'
+            filename: '[name].[hash:8].css',
+            chunkFilename: '[name].[contenthash:8].css'
         }),
         new HTMLWebpackPlugin({
             //template: `!!prerender-loader?string!${path.join(__dirname, './src/index.ejs')}`,
