@@ -11,8 +11,6 @@ const Home        = () => import(/* webpackChunkName: "home" */    '../Home').th
 const Editor      = () => import(/* webpackChunkName: "admin" */   '../Editor').then(m => m.default);
 const Blog        = () => import(/* webpackChunkName: "contents" */'../Blogs/Blog').then(m => m.default);
 const BlogList    = () => import(/* webpackChunkName: "contents" */'../Blogs/BlogList').then(m => m.default);
-const Project     = () => import(/* webpackChunkName: "contents" */'../Projects/Project').then(m => m.default);
-const ProjectList = () => import(/* webpackChunkName: "contents" */'../Projects/ProjectList').then(m => m.default);
 
 export default function App()
 {
@@ -31,8 +29,6 @@ export default function App()
 						<AsyncRoute path='/'             getComponent={Home} />
 						<AsyncRoute path='/blogs/:id'    getComponent={Blog} />
 						<AsyncRoute path='/blogs'        getComponent={BlogList} exact={true} />
-						<AsyncRoute path='/projects/:id' getComponent={Project} />
-						<AsyncRoute path='/projects'     getComponent={ProjectList} exact={true} />
 						<AsyncRoute path='/editor'       getComponent={Editor} />
 					</Router>
 				</div>

@@ -1,4 +1,4 @@
-declare type DBCollections = 'blogs' | 'projects';
+declare type DBCollections = 'blogs';
 
 declare interface IDocument
 {
@@ -21,11 +21,4 @@ declare interface IDocument
 declare interface Blog extends IDocument
 {
 	type: 'blogs';
-}
-
-// tslint:disable-next-line: interface-name
-declare interface Project extends IDocument
-{
-	type: 'projects';
-	contentUrl: string;
 }

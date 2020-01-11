@@ -1,11 +1,39 @@
 import { h } from 'preact';
 import { Link } from 'preact-router';
-import { getDocumentList } from '~/libs/firebase-wrap/firestore';
+import { blogs } from '~/libs/firebase-wrap/firestore';
 
 import styles from './styles.scss';
 import JSXImage from '~/components/JSXImage';
-import Icon, { icons } from '~/components/Icon';
 import ListView from '~/components/ListView';
+import Icon, { icons } from '~/components/Icon';
+
+export default function BlogList()
+{
+	return (
+		<ListView<Blog>
+			getData={getData}
+			renderData={renderData}
+		/>
+	);
+}
+
+function getData()
+{
+	return blogs.get().then(snapshot => {
+		const list: IDocument[] = [];
+		snapshot.forEach(d => list.push(d.data() as IDocument)) ;
+		return list;
+	});
+}
+
+function renderData(data: Blog[])
+{
+	return (
+		<div class={styles.listStyle}>
+			{data.length === 0 ? 'Empty :<' : data.map((d, i) => <BlogItem key={i} data={d} />)}
+		</div>
+	);
+}
 
 function BlogItem({ data: {
 	author, description, key, previewImg, tags, timeAdded, title,
@@ -41,26 +69,5 @@ function BlogItem({ data: {
 				<div>{description}</div>
 			</div>
 		</div>
-	);
-}
-
-function renderData(data: Blog[])
-{
-	return (
-		<div class={styles.listStyle}>
-			{data.length === 0 ? 'Empty :<' : data.map((d, i) => <BlogItem key={i} data={d} />)}
-		</div>
-	);
-}
-
-const getData = () => getDocumentList('blogs') as Promise<Blog[]>;
-
-export default function BlogList()
-{
-	return (
-		<ListView<Blog>
-			getData={getData}
-			renderData={renderData}
-		/>
 	);
 }

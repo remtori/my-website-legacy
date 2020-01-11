@@ -10,7 +10,13 @@ export interface ListProps<T>
 
 function renderError(err: string)
 {
-	return <div>Can not load data :|</div>;
+	console.error(err);
+
+	return (
+		<div>
+			Can not load data :|
+		</div>
+	);
 }
 
 export default function ListView<T>({ getData, renderData }: ListProps<T>)

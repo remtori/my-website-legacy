@@ -6,13 +6,13 @@
   "scripts": {
     "lint": "tslint --project .",
     "lint:fix": "tslint --fix --project .",
-    "start": "npm-run-all -p serve:webpack serve:sites",
+    "start": "npm-run-all -p serve:webpack serve:hosting",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "cross-env NODE_ENV=production webpack -p",
     "serve": "npm-run-all -p serve:webpack serve:firebase",
     "serve:webpack": "cross-env NODE_ENV=development webpack -d -w",
-    "serve:sites": "firebase serve --only hosting:sites --port 8000",
+    "serve:hosting": "firebase serve --only hosting --port 8000",
     "serve:firebase": "cross-env GOOGLE_APPLICATION_CREDENTIALS=\"./service_cre.json\" && firebase serve",
     "deploy": "firebase deploy",
     "update-cors": "gsutil cors set cors.json gs://remtori.appspot.com"

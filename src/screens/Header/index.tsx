@@ -23,7 +23,7 @@ export default function Header()
 				<Link activeClassName={styles.focused} href='/blogs'>
 					<span>BLOGS</span>
 				</Link>
-				<Link activeClassName={styles.focused} href='/projects'>
+				<Link activeClassName={styles.focused} href='/blogs?tag=project'>
 					<span>PROJECTS</span>
 				</Link>
 			</nav>

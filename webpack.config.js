@@ -64,7 +64,7 @@ module.exports = {
     },
     mode: dev ? 'development' : 'production',
     output: {
-        filename: '[name].[hash:8].js',
+        filename: './assets/js/[name].[hash:8].js',
         path: path.join(__dirname, '/dist'),
         publicPath: '/',
     },
@@ -128,8 +128,8 @@ module.exports = {
     },
     plugins: ([
         new ExtractCssChunks({
-            filename: '[name].[hash:8].css',
-            chunkFilename: '[name].[contenthash:8].css'
+            filename: './assets/styles/[name].[hash:8].css',
+            chunkFilename: './assets/styles/[name].[contenthash:8].css'
         }),
         new HTMLWebpackPlugin({
             //template: `!!prerender-loader?string!${path.join(__dirname, './src/index.ejs')}`,
@@ -153,15 +153,20 @@ module.exports = {
                 to: './'
             },
             {
-                from: './src/assets',
-                to: './assets'
+                from: './src/assets/icons',
+                to: './assets/icons'
+            },
+            {
+                from: './src/assets/images',
+                to: './assets/images'
             }
         ]),
         new CleanWebpackPlugin({
             cleanAfterEveryBuildPatterns: [
-                '!assets/**/*',
+                '!assets/images/**/*',
+                '!assets/icons/**/*',
                 '!manifest.json',
-                '!favicon.ico'
+                '!favicon.ico',
             ]
         }),
     ]).concat(dev ? [] : [
