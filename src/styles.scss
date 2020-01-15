@@ -1,3 +1,5 @@
+@import './vars';
+
 html, body {
 	height: 100%;
 	width: 100%;
@@ -9,4 +11,10 @@ html, body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background-color: #202020;
+}
+
+.text {
+	color: $text-color;
+	line-height: 22px;
+	font-size: 16px;
 }

@@ -10,7 +10,6 @@
     a.home {
         display: flex;
         align-items: center;
-        padding: 0.8rem;
 
         color: white;
         font-size: 1.4rem;
@@ -18,12 +17,13 @@
         text-decoration: none;
 
         img {
-            width: 36px;
+            width: 40px;
             border-radius: 90px;
             margin-right: 8px;
         }
 
         span {
+            padding: 0.8rem 0;
             width: max-content;
         }
     }

@@ -1,8 +1,12 @@
 import { h, render, hydrate, options } from 'preact';
+import { Provider } from 'react-redux';
+import store from './store';
 import App from './screens/App';
 import './styles.scss';
 
-render(<App />, document.body);
+const Root = () => <Provider store={store}><App/></Provider>;
+
+render(<Root/>, document.body);
 
 if (process.env.NODE_ENV === 'development')
 {
@@ -21,5 +25,5 @@ export default () => new Promise(resolve =>
 		commit();
 	};
 
-	render(<App/>, document.body);
+	render(<Root/>, document.body);
 });

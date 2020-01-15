@@ -28,9 +28,10 @@ export default function JSXImage({ src, width, height, hasOptimize = false, ...p
 	useEffect(() =>
 	{
 		setIsLoading(true);
+
+		const img = new Image();
 		parseImageSource(src, hasOptimize).then(source =>
 		{
-			const img = new Image();
 			img.onload = () =>
 			{
 				setIsLoading(false);
@@ -44,6 +45,12 @@ export default function JSXImage({ src, width, height, hasOptimize = false, ...p
 			img.src = source;
 		});
 
+		return () =>
+		{
+			img.onload = null;
+			img.onerror = null;
+			img.src = '';
+		};
 	}, [ src ]);
 
 	if (isLoading)

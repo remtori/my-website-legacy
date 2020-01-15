@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { route } from 'preact-router';
 import Icon, { icons } from '~/components/Icon';
 import ELink from '~/components/ExternalLink';
 
@@ -9,6 +10,21 @@ import webpackIcon from '~/assets/brands/webpack.svg';
 import styles from './styles.scss';
 
 const cx = (...c: string[]) => c.join(' ');
+
+let clickCount = 0;
+let handler = 0;
+
+function tryOpenEditor()
+{
+	clickCount++;
+	if (clickCount >= 3)
+	{
+		route('/editor', true);
+	}
+
+	clearTimeout(handler);
+	handler = setTimeout(() => clickCount = 0, 1000);
+}
 
 export default function Footer()
 {
@@ -28,7 +44,8 @@ export default function Footer()
 				</ELink>
 			</div>
 			<div>
-				<span>Created with </span>
+				<span onClick={tryOpenEditor} >Created </span>
+				<span>with </span>
 				<Icon class={styles.icon} icon={preactIcon}   title='Preact'   />
 				<Icon class={styles.icon} icon={firebaseIcon} title='Firebase' />
 				<Icon class={styles.icon} icon={webpackIcon}  title='Webpack'  />
