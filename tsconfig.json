@@ -12,16 +12,17 @@
 		"declarationMap": true,
 		"sourceMap": true,
 		"importHelpers": true,
-		"lib": ["esnext", "dom", "dom.iterable"],
+		"lib": [ "esnext", "dom", "dom.iterable" ],
 		"skipLibCheck": true,
-		"types": [],
-		"baseUrl": ".",
+		"types": [ ],
+		"baseUrl": "./",
 		"paths": {
 			"~/*": [ "./src/*" ]
 		}
 	},
 	"include": [
-		"./src/**/*"
+		"./src/**/*",
+		"./tests/**/*"
 	],
 	"exclude": [
 		"./node_modules/**/*"

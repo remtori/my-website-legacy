@@ -7,6 +7,7 @@ const ExtractCssChunks = require("extract-css-chunks-webpack-plugin");
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
+const minCssModuleName = require('./libs/minCssModuleName');
 
 const dev = process.env.NODE_ENV !== 'production';
 
@@ -29,7 +30,9 @@ function styleLoader({ useCssModule })
             loader: 'css-loader',
             options: {
                 importLoaders: 2,
-                modules: useCssModule,
+                modules: useCssModule && {
+                    getLocalIdent: minCssModuleName
+                },
                 sourceMap: true,
             }
         },
@@ -65,12 +68,14 @@ module.exports = {
     mode: dev ? 'development' : 'production',
     output: {
         filename: './assets/js/[name].[hash:8].js',
-        path: path.join(__dirname, '/dist'),
+        path: path.join(__dirname, './dist'),
         publicPath: '/',
     },
     resolve: {
         alias: {
             '~': path.join(__dirname, './src'),
+            'react': 'preact/compat',
+            'react-dom': 'preact/compat',
         },
         extensions: [
             '.ts', '.tsx', '.js', '.jsx',
@@ -167,6 +172,7 @@ module.exports = {
                 '!assets/icons/**/*',
                 '!manifest.json',
                 '!favicon.ico',
+                '!blogs/**/*',
             ]
         }),
     ]).concat(dev ? [] : [
