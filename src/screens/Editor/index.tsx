@@ -1,10 +1,10 @@
 import { h } from 'preact';
-import { useEffect } from 'preact/hooks';
-import { useDispatch, useSelector } from 'react-redux';
-import { uploadFile } from '~/libs/firebase-wrap/storage';
+import { route } from 'preact-router';
+import { useSelector } from 'react-redux';
 import * as marked from 'marked';
 import highlight from '~/libs/highlight.js';
 import { RootState } from '~/store';
+import { genDocumentKey } from '~/libs/firebase-wrap/firestore';
 import { signIn, signOut } from '~/libs/firebase-wrap/auth';
 
 import ggIcon from '~/assets/brands/google.svg';
@@ -17,12 +17,8 @@ marked.setOptions({
 	smartypants: true,
 });
 
-console.log(uploadFile);
-console.log(marked);
-
 export default function Editor()
 {
-	const dispatch = useDispatch();
 	const user = useSelector<RootState, User | null>(s => s.auth.user);
 
 	if (user == null)
@@ -43,9 +39,19 @@ export default function Editor()
 	}
 
 	return (
-		<div>
-			Editor
-			{!user.isAdmin && <div>:( Too bad you not an admin.</div>}
+		<div class='text'>
+			<div>Editor</div>
+			{
+				!user.isAdmin
+				? <div>:( Too bad you not an admin.</div>
+				: (
+				<div>
+					<button onClick={() => route(`/editor/${genDocumentKey()}`)}>
+						Create new a Blog
+					</button>
+				</div>
+				)
+			}
 			<button onClick={signOut}>Sign out</button>
 		</div>
 	);

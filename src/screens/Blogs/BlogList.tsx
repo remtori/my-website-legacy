@@ -1,11 +1,11 @@
-import { h, Component, createRef } from 'preact';
+import { h, Component } from 'preact';
 import { Link } from 'preact-router';
 
 import styles from './styles.scss';
 import JSXImage from '~/components/JSXImage';
 import Icon, { icons } from '~/components/Icon';
 import { LoadingCircle } from '~/components/placeholder';
-import { Resource, createDataGetter  } from './getData';
+import { Resource, createDataGetter  } from '~/libs/firebase-wrap/firestore/fsGetData';
 
 interface Props
 {
@@ -100,13 +100,13 @@ export default class BlogList extends Component<Props, States>
 type BlogItemProps = { data: Blog };
 
 const BlogItem = ({ data: {
-	author, description, key, previewImg, tags, timeAdded, title,
+	author, description, key, previewImg, tags, timestamp, title,
 }}: BlogItemProps) =>
 (
 	<div class={styles.listItem} data-key={key} >
 		<div>
 			<Link href={`/contents/${key}`}>
-				<JSXImage src={previewImg.url}/>
+				<JSXImage src={previewImg.url} width={previewImg.width} height={previewImg.height} />
 			</Link>
 			<div class={styles.authorAndTime}>
 				<span class={styles.author}>
@@ -115,7 +115,7 @@ const BlogItem = ({ data: {
 				</span>
 				<span>
 					<Icon class={styles.icon} icon={icons.faClock} />
-					{new Date(timeAdded).toDateString()}
+					{new Date(timestamp).toDateString()}
 				</span>
 			</div>
 			<div class={styles.tags}>

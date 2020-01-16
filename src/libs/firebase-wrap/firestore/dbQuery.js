@@ -1,6 +1,6 @@
 import { CONFIG } from '~/libs/firebase-wrap/utils';
 
-const primitives = [ 'stringValue', 'integerValue', 'booleanValue' ]
+const primitives = [ 'stringValue', 'integerValue', 'booleanValue', 'timestampValue' ];
 
 function getValue(obj)
 {
@@ -36,10 +36,8 @@ export function getBlog(id)
 {
 	return fetch(`${dbUrl}/blogs/${id}`)
 		.then(jsonOrThrow)
-		.then(({ fields, createTime }) => getValue({
-			mapValue: {
-				fields: { ...fields, timeAdded: createTime }
-			}
+		.then(({ fields }) => getValue({
+			mapValue: { fields }
 		}));
 }
 
@@ -54,11 +52,11 @@ export function makeQuery({ startAfter, tag } = {})
 		query += `,{"fieldFilter":{"field":{"fieldPath":"tags"},"op":"ARRAY_CONTAINS","value":{"stringValue":"${tag}"}}}`;
 	}
 
-	query += `]}},"orderBy":[{"field":{"fieldPath":"key"},"direction":"ASCENDING"},{"field":{"fieldPath":"__name__"},"direction":"ASCENDING"}],"limit":10`;
+	query += `]}},"orderBy":[{"field":{"fieldPath":"timestamp"},"direction":"DESCENDING"},{"field":{"fieldPath":"__name__"},"direction":"DESCENDING"}],"limit":1`;
 
 	if (startAfter != null)
 	{
-		query += `,"startAt":{"before":false,"values":[{"stringValue":"${startAfter}"}]}`;
+		query += `,"startAt":{"before":false,"values":[{"timestampValue":"${startAfter}"}]}`;
 	}
 
 	query += `}}`;
@@ -70,10 +68,8 @@ export function makeQuery({ startAfter, tag } = {})
 	{
 		if (!arr[0].document) return [];
 
-		return arr.map(({ document: { fields, createTime } }) => getValue({
-			mapValue: {
-				fields: { ...fields, timeAdded: createTime }
-			}
+		return arr.map(({ document: { fields } }) => getValue({
+			mapValue: { fields }
 		}))
 	});
 }

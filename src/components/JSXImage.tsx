@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import isMobile from '~/utils/isMobile';
 import willHasWebp from '~/utils/hasWebp';
-import { LoadingCircle, NotFound } from './placeholder';
+import { LoadingCircle, NotFound, LoadingDot } from './placeholder';
 
 function parseImageSource(source: string, shouldParse: boolean): Promise<string>
 {
@@ -55,11 +55,11 @@ export default function JSXImage({ src, width, height, hasOptimize = false, ...p
 
 	if (isLoading)
 	{
-		return <LoadingCircle width={width} height={height} />;
+		return <LoadingDot width={width} height={height} class={props.class} />;
 	}
 	else if (imageSource === 'error')
 	{
-		return <NotFound width={width} height={height} />;
+		return <NotFound width={width} height={height} class={props.class} />;
 	}
 	else
 	{

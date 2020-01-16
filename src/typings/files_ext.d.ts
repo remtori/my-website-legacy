@@ -12,3 +12,8 @@ declare module '*.svg' {
 	const content: string;
 	export default content;
 }
+
+declare module '*/indexes.json' {
+	const content: Array<string>;
+	export default content;
+}

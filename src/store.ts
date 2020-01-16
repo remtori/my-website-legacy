@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import auth from './ducks/auth';
+import blogs from './ducks/blogs';
 
 let composeEnhancers = compose;
 if (process.env.NODE_ENV !== 'production')
@@ -9,7 +10,7 @@ if (process.env.NODE_ENV !== 'production')
 }
 
 const rootReducer = {
-	auth,
+	auth, blogs,
 };
 
 type RRO = typeof rootReducer;

@@ -1,6 +1,6 @@
-import app from './app';
+import { app, firebase } from './app';
 import 'firebase/auth';
-import * as firebase from 'firebase/app';
+
 import store from '~/store';
 import { USER_SIGN_IN, USER_SIGN_OUT } from '~/ducks/auth';
 

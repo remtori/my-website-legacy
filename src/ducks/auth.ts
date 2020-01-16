@@ -26,15 +26,3 @@ export default function reducers(
 			return state;
 	}
 }
-
-// type ThunkActionCreator = () => ThunkAction<void, AuthState, null, AuthAction>;
-
-// export const signIn: ThunkActionCreator = () => dispatch =>
-// 	import(/* webpackChunkName: "admin" */ '../libs/firebase-wrap/auth')
-// 		.then(m => m.signIn())
-// 		.then(user => dispatch({ type: USER_SIGN_IN, user }));
-
-// export const signOut: ThunkActionCreator = () => dispatch =>
-// 	import(/* webpackChunkName: "admin" */ '../libs/firebase-wrap/auth')
-// 	.then(m => m.signOut())
-// 	.then(() => dispatch({ type: USER_SIGN_OUT }));

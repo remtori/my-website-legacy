@@ -9,6 +9,14 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const minCssModuleName = require('./libs/minCssModuleName');
 
+/** Assets Generator */
+require('./libs/generator');
+
+/** Remove ./dist */
+require('rimraf')('./dist', (err) => {
+    if (err) console.error(err);
+});
+
 const dev = process.env.NODE_ENV !== 'production';
 
 const DefinePluginConfig = new webpack.DefinePlugin({
@@ -67,7 +75,7 @@ module.exports = {
     },
     mode: dev ? 'development' : 'production',
     output: {
-        filename: './assets/js/[name].[hash:8].js',
+        filename: 'assets/js/[name].[hash:8].js',
         path: path.join(__dirname, './dist'),
         publicPath: '/',
     },
@@ -128,13 +136,13 @@ module.exports = {
                     limit: 8192,
                     fallback: 'file-loader',
                 },
-            },
+            }
         ],
     },
     plugins: ([
         new ExtractCssChunks({
-            filename: './assets/styles/[name].[hash:8].css',
-            chunkFilename: './assets/styles/[name].[contenthash:8].css'
+            filename: 'assets/styles/[name].[hash:8].css',
+            chunkFilename: 'assets/styles/[name].[contenthash:8].css'
         }),
         new HTMLWebpackPlugin({
             //template: `!!prerender-loader?string!${path.join(__dirname, './src/index.ejs')}`,

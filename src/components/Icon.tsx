@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { library, icon, IconName, IconLookup } from '@fortawesome/fontawesome-svg-core';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
 import { faTags } from '@fortawesome/free-solid-svg-icons/faTags';
@@ -12,7 +13,7 @@ import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
 
 export const icons = {
-	faUser, faClock, faTags,
+	faUser, faClock, faTags, faEdit,
 	faHome, faTasks, faAddressCard,
 	faCommentAlt,
 	faEnvelope,

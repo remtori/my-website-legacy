@@ -1,4 +1,4 @@
-import makeQuery from '~/utils/dbQuery';
+import { makeQuery } from '~/libs/firebase-wrap/firestore/dbQuery';
 
 it('should return valid JSON', () =>
 {

@@ -12,6 +12,8 @@ export default function Header()
 			<PassiveLink href='/' class={styles.home} >
 				<JSXImage
 					src='/assets/icons/icon-192'
+					width={40}
+					height={40}
 					hasOptimize={true}
 				/>
 				<span>Remtori's Comfy Home</span>

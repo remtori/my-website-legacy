@@ -10,8 +10,8 @@ declare interface Blog
 		height: number;
 	};
 	tags: string[];
-	timeAdded: string;
 	title: string;
+	timestamp: string;
 }
 
 declare interface User

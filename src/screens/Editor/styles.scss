@@ -20,3 +20,13 @@
 		padding: 0 16px;
 	}
 }
+
+.editor {
+	text-align: left;
+    display: flex;
+	flex-direction: column;
+
+	&:first-child {
+		height: 18px;
+	}
+}

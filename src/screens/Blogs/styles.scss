@@ -27,8 +27,9 @@
         text-decoration: none;
     }
 
-    img {
+    img, svg {
         width: 100%;
+        height: auto;
     }
 
     .titleWrapper {
@@ -92,9 +93,20 @@
 
 .contentContainer {
     text-align: left;
+    display: flex;
+    flex-direction: column;
 
     h1 {
         color: #3d9ed6;
+        margin: 0;
+    }
+
+    .edit {
+        margin: 0;
+        height: 18px;
+        color: #fff;
+        text-decoration: none;
+        align-self: flex-end;
     }
 
     & > * {
@@ -111,7 +123,6 @@
 
     .timeAdded {
         font-size: 14px;
-        display: flex;
-        justify-content: flex-end;
+        align-self: flex-end;
     }
 }

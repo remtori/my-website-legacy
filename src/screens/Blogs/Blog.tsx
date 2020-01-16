@@ -1,13 +1,16 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
+import { useSelector } from 'react-redux';
 import { getStorageURLFromPath } from '~/libs/firebase-wrap/utils';
 import { LoadingCircle } from '~/components/placeholder';
 import Icon, { icons } from '~/components/Icon';
-import { getBlog } from '~/utils/dbQuery';
+import { getBlog } from '~/libs/firebase-wrap/firestore/dbQuery';
+import { RootState } from '~/store';
 
 import styles from './styles.scss';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
 import JSXImage from '~/components/JSXImage';
+import { Link } from 'preact-router';
 
 function parseContent(stuff: [ number, string ] | string)
 {
@@ -30,6 +33,7 @@ export default function Blog({ id }: { id: string })
 {
 	const [ content, setContent ] = useState({ __html: '' });
 	const [ blog, setBlog ] = useState<Blog | null>(null);
+	const user = useSelector<RootState, User | null>(s => s.auth.user);
 
 	useEffect(() =>
 	{
@@ -49,10 +53,19 @@ export default function Blog({ id }: { id: string })
 
 	return (
 		<div class={styles.contentContainer}>
+			{
+				user && user.isAdmin
+				? (
+			 	<Link class={styles.edit} href={`/editor/${id}`}>
+				 	<Icon icon={icons.faEdit} />
+				</Link>
+				)
+				: <div class={styles.edit} />
+			}
 			<h1>{blog.title}</h1>
 			<span class={styles.timeAdded}>
 				<Icon class={styles.icon} icon={icons.faClock} />
-				{new Date(blog.timeAdded).toDateString()}
+				{new Date(blog.timestamp).toDateString()}
 			</span>
 			<div class={styles.desc}>{blog.description}</div>
 			<JSXImage class={styles.coverImg} src={blog.previewImg.url} />
