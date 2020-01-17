@@ -1,7 +1,7 @@
 import { h, render, hydrate, options } from 'preact';
 import { Provider } from 'react-redux';
 import store from './store';
-import App from './screens/App';
+import App from './pages/App';
 import './styles.scss';
 
 const Root = () => <Provider store={store}><App/></Provider>;

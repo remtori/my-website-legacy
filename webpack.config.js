@@ -25,7 +25,7 @@ const DefinePluginConfig = new webpack.DefinePlugin({
 
 const useCssModuleFolders = [
     path.join(__dirname, './src/components'),
-    path.join(__dirname, './src/screens'),
+    path.join(__dirname, './src/pages'),
 ];
 
 function styleLoader({ useCssModule })

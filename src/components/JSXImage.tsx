@@ -1,17 +1,6 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import isMobile from '~/utils/isMobile';
-import willHasWebp from '~/utils/hasWebp';
-import { LoadingCircle, NotFound, LoadingDot } from './placeholder';
-
-function parseImageSource(source: string, shouldParse: boolean): Promise<string>
-{
-	if (!shouldParse || source.startsWith('http')) return Promise.resolve(source);
-
-	return willHasWebp.then(
-		hasWebp => `${source}${isMobile ? '.mobile' : ''}${hasWebp ? '.webp' : '.jpg'}`,
-	);
-}
+import { NotFound, LoadingDot } from './placeholder';
 
 export type JSXImageProps = {
 	src: string,
@@ -30,20 +19,17 @@ export default function JSXImage({ src, width, height, hasOptimize = false, ...p
 		setIsLoading(true);
 
 		const img = new Image();
-		parseImageSource(src, hasOptimize).then(source =>
+		img.onload = () =>
 		{
-			img.onload = () =>
-			{
-				setIsLoading(false);
-				setImageSource(source);
-			};
-			img.onerror = () =>
-			{
-				setIsLoading(false);
-				setImageSource('error');
-			};
-			img.src = source;
-		});
+			setIsLoading(false);
+			setImageSource(src);
+		};
+		img.onerror = () =>
+		{
+			setIsLoading(false);
+			setImageSource('error');
+		};
+		img.src = src;
 
 		return () =>
 		{
