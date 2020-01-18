@@ -2,10 +2,10 @@ import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { useSelector } from 'react-redux';
 import { getStorageURLFromPath } from '~/libs/firebase-wrap/utils';
-import { LoadingCircle } from '~/components/placeholder';
-import Icon, { icons } from '~/components/Icon';
+import { LoadingDot } from '~/components/placeholder';
 import { getBlog } from '~/libs/firebase-wrap/firestore/dbQuery';
-import { RootState } from '~/store';
+import Icon, { icons } from '~/components/Icon';
+import { RootState } from '~/ducks';
 
 import styles from './styles.scss';
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
@@ -40,7 +40,7 @@ export default function Blog({ id }: { id: string })
 		setBlog(null);
 		setContent({ __html: '' });
 
-		getBlog(id).then(setBlog).catch(() => 0);
+		getBlog(id).then(setBlog).catch(() => void 0);
 		fetch(getStorageURLFromPath(`blogs/${id}.html`))
 			.then(res => Promise.all([ res.status, res.text() ]))
 			.then(resp => setContent(parseContent(resp)))
@@ -48,16 +48,20 @@ export default function Blog({ id }: { id: string })
 
 	}, [ id ]);
 
-	if (content.__html.length === 0) return <LoadingCircle />;
-	if (blog == null) return <div class={styles.content} dangerouslySetInnerHTML={content} />;
+	if (content.__html.length === 0) return <LoadingDot />;
+	if (blog == null || blog.shouldWrapContent)
+	{
+		return <div class={styles.content} dangerouslySetInnerHTML={content}/>;
+	}
 
 	return (
 		<div class={styles.contentContainer}>
 			{
 				user && user.isAdmin
 				? (
-			 	<Link class={styles.edit} href={`/editor/${id}`}>
-				 	<Icon icon={icons.faEdit} />
+			 	<Link class={styles.edit} href={`/blogs/${id}/edit`}>
+					<Icon icon={icons.faEdit} />
+					<span>Edit</span>
 				</Link>
 				)
 				: <div class={styles.edit} />

@@ -11,7 +11,7 @@ export default function Header()
 		<header class={styles.header}>
 			<PassiveLink href='/' class={styles.home} >
 				<JSXImage
-					src='/assets/icons/icon-192'
+					src='/assets/icons/icon-192.webp'
 					width={40}
 					height={40}
 					hasOptimize={true}
@@ -19,15 +19,15 @@ export default function Header()
 				<span>Remtori's Comfy Home</span>
 			</PassiveLink>
 			<nav>
-				<Link activeClassName={styles.focused} href='/contents/about'>
+				<Link activeClassName={styles.focused} href='/blogs/about'>
 					<span>ABOUT</span>
 				</Link>
 				<Link activeClassName={styles.focused} href='/blogs'>
 					<span>BLOGS</span>
 				</Link>
-				<Link activeClassName={styles.focused} href='/projects'>
-					<span>PROJECTS</span>
-				</Link>
+				<PassiveLink href=''>
+					<span>GALLERY</span>
+				</PassiveLink>
 			</nav>
 		</header>
 	);

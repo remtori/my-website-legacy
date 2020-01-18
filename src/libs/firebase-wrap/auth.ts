@@ -1,7 +1,7 @@
 import { app, firebase } from './app';
 import 'firebase/auth';
 
-import store from '~/store';
+import store from '~/ducks';
 import { USER_SIGN_IN, USER_SIGN_OUT } from '~/ducks/auth';
 
 export const auth = app.auth();

@@ -1,7 +1,7 @@
 import { makeQuery, getBlog } from './dbQuery';
 import { UPDATE_CONTENT } from '~/ducks/blogs';
-import store from '~/store';
 import runQuery from './offlineQuery';
+import store from '~/ducks';
 
 export function getData(id: string)
 {

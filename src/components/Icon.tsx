@@ -53,7 +53,7 @@ export default function Icon({ icon: iconName, class: className, ...props }: Ico
 
 	return h(
 		ele.tag,
-		{ ...ele.attributes, ...props },
+		{ ...ele.attributes, ...props, style: p16 },
 		ele.children && ele.children.map(c => h(
 			c.tag,
 			{ ...c.attributes },

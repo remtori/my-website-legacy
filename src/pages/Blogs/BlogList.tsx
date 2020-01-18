@@ -4,7 +4,7 @@ import { Link } from 'preact-router';
 import styles from './styles.scss';
 import JSXImage from '~/components/JSXImage';
 import Icon, { icons } from '~/components/Icon';
-import { LoadingCircle } from '~/components/placeholder';
+import { LoadingDot } from '~/components/placeholder';
 import { Resource, createDataGetter  } from '~/libs/firebase-wrap/firestore/fsGetData';
 
 interface Props
@@ -35,7 +35,7 @@ export default class BlogList extends Component<Props, States>
 			isFetching: false,
 		};
 
-		this.handleScroll = this.handleScroll.bind(this);
+		this.infiniteScrollHandler = this.infiniteScrollHandler.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps: Readonly<Props>)
@@ -51,21 +51,21 @@ export default class BlogList extends Component<Props, States>
 	componentDidMount()
 	{
 		this.fetchData();
-		window.addEventListener('scroll', this.handleScroll);
+		window.addEventListener('scroll', this.infiniteScrollHandler);
 	}
 
 	componentWillUnmount()
 	{
 		this.isMounted = false;
-		window.removeEventListener('scroll', this.handleScroll);
+		window.removeEventListener('scroll', this.infiniteScrollHandler);
 	}
 
-	handleScroll()
+	infiniteScrollHandler()
 	{
 		const target = document.documentElement;
-		if (target.clientHeight + target.scrollTop > target.scrollHeight * 0.8 &&
-			!this.state.isFetching &&
-			this.state.resource.hasMore()
+		if (!this.state.isFetching &&
+			this.state.resource.hasMore() &&
+			target.scrollHeight - (target.scrollTop + target.clientHeight) < 150
 		)
 		{
 			this.fetchData();
@@ -85,13 +85,13 @@ export default class BlogList extends Component<Props, States>
 
 	render(props: Props, { list, isFetching }: States)
 	{
-		if (list == null) return <LoadingCircle />;
+		if (list == null) return <LoadingDot />;
 		if (list.length === 0) return <div>Empty :(</div>;
 
 		return (
 			<div class={styles.listStyle}>
 				{list.map((d, i) => <BlogItem key={`${props.matches.tag}-${i}`} data={d} />)}
-				{isFetching && <LoadingCircle />}
+				{isFetching && <LoadingDot />}
 			</div>
 		);
 	}
@@ -105,7 +105,7 @@ const BlogItem = ({ data: {
 (
 	<div class={styles.listItem} data-key={key} >
 		<div>
-			<Link href={`/contents/${key}`}>
+			<Link href={`/blogs/${key}`}>
 				<JSXImage src={previewImg.url} width={previewImg.width} height={previewImg.height} />
 			</Link>
 			<div class={styles.authorAndTime}>
@@ -128,7 +128,7 @@ const BlogItem = ({ data: {
 			</div>
 		</div>
 		<div>
-			<Link class={styles.titleWrapper} href={`/contents/${key}`}>{title}</Link>
+			<Link class={styles.titleWrapper} href={`/blogs/${key}`}>{title}</Link>
 			<div>{description}</div>
 		</div>
 	</div>

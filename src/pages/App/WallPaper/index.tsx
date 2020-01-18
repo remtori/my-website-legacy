@@ -20,18 +20,24 @@ export default function WallPaper()
 
 	useEffect(() =>
 	{
-		setTimeout(() => preloadAll().then(() => setReady(true)), 1000);
+		/**
+		 * We dont want to overload the network with images when there more important stuff need fetching
+		 * Uncomment the code below to enable auto sliding wallpaper
+		 */
+		// setTimeout(() => preloadAll().then(() => setReady(true)), 1000);
 	}, []);
 
 	if (!ready)
 	{
 		return (
-			<JSXImage
-				src={waifuIndexes[0]}
-				class={styles.wallpaperImg}
-				width={1024}
-				height={240}
-			/>
+			<div class={styles.wallpaper}>
+				<JSXImage
+					src={waifuIndexes[Math.floor(Math.random() * (waifuIndexes.length - 1))]}
+					class={styles.wallpaperImg}
+					width={1024}
+					height={240}
+				/>
+			</div>
 		);
 	}
 

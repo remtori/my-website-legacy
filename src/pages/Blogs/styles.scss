@@ -88,17 +88,18 @@
 }
 
 .content {
+    text-align: left;
     color: $text-color;
 }
 
 .contentContainer {
-    text-align: left;
     display: flex;
+    text-align: left;
     flex-direction: column;
 
     h1 {
-        color: #3d9ed6;
         margin: 0;
+        color: #3d9ed6;
     }
 
     .edit {
@@ -107,10 +108,11 @@
         color: #fff;
         text-decoration: none;
         align-self: flex-end;
-    }
-
-    & > * {
-        margin: 0.5em 0px;
+        font-size: 16px;
+        border-bottom: 1px solid #fff;
+        span {
+            margin-left: 0.5em;
+        }
     }
 
 	.coverImg {
@@ -124,5 +126,10 @@
     .timeAdded {
         font-size: 14px;
         align-self: flex-end;
+    }
+
+    .tags, .content, .desc, .coverImg {
+        margin: 0;
+        margin-top: 0.5em;
     }
 }

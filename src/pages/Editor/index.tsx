@@ -3,7 +3,7 @@ import { route } from 'preact-router';
 import { useSelector } from 'react-redux';
 import * as marked from 'marked';
 import highlight from '~/libs/highlight.js';
-import { RootState } from '~/store';
+import { RootState } from '~/ducks';
 import { genDocumentKey } from '~/libs/firebase-wrap/firestore';
 import { signIn, signOut } from '~/libs/firebase-wrap/auth';
 

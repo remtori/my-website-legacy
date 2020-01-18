@@ -8,9 +8,13 @@ html, body {
 	font-family: "Lato", sans-serif;
 	font-weight: 400;
 	color: #fff;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	background-color: #202020;
+	background-color: #313131;
+}
+
+#app {
+	display: flex;
+	flex-direction: column;
+    min-height: 100vh;
 }
 
 .text {

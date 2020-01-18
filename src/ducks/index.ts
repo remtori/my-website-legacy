@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import auth from './ducks/auth';
-import blogs from './ducks/blogs';
+import auth from './auth';
+import blogs from './blogs';
 
 let composeEnhancers = compose;
 if (process.env.NODE_ENV !== 'production')

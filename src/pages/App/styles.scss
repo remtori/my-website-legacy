@@ -1,14 +1,11 @@
 @import 'vars.scss';
 
-.root {
-    background-color: rgba(255, 255, 255, 0.02);
-    font-size: 1em;
-}
-
 .wrapper {
     margin: auto;
+    height: 100%;
     max-width: $cover-break;
-    min-height: 442px;
+    background-color: #252525;
+    flex-grow: 1;
 
     @media (max-width: $cover-break) {
         width: 100%;
@@ -17,12 +14,8 @@
 
 	.container {
         margin: 0;
-        padding: 0;
         margin-top: 0.4rem;
+        padding: 0 1rem;
         text-align: center;
-
-        @media (max-width: $cover-break) {
-            padding: 0 2rem;
-        }
     }
 }

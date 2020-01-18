@@ -5,7 +5,6 @@ export default class Redirect extends Component<{to: string}>
 {
 	componentWillMount()
 	{
-		console.log(this.props);
 		route(this.props.to, true);
 	}
 

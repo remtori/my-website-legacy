@@ -5,4 +5,11 @@ declare var process:
 	}
 }
 
+declare var PRERENDER: boolean;
+
+declare var module:
+{
+	exports: any;
+}
+
 declare function require(s: string): void;

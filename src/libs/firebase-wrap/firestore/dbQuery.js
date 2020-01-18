@@ -52,7 +52,7 @@ export function makeQuery({ startAfter, tag } = {})
 		query += `,{"fieldFilter":{"field":{"fieldPath":"tags"},"op":"ARRAY_CONTAINS","value":{"stringValue":"${tag}"}}}`;
 	}
 
-	query += `]}},"orderBy":[{"field":{"fieldPath":"timestamp"},"direction":"DESCENDING"},{"field":{"fieldPath":"__name__"},"direction":"DESCENDING"}],"limit":1`;
+	query += `]}},"orderBy":[{"field":{"fieldPath":"timestamp"},"direction":"DESCENDING"},{"field":{"fieldPath":"__name__"},"direction":"DESCENDING"}],"limit":10`;
 
 	if (startAfter != null)
 	{

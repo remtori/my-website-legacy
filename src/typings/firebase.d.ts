@@ -12,6 +12,7 @@ declare interface Blog
 	tags: string[];
 	title: string;
 	timestamp: string;
+	shouldWrapContent?: boolean;
 }
 
 declare interface User
