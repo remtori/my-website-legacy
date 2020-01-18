@@ -8,7 +8,6 @@ const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
-const ResourceHintWebpackPlugin = require('resource-hints-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 const cwd = process.cwd();
@@ -44,7 +43,6 @@ module.exports = merge(baseConfig({ isPrerender: false }), {
             },
         }),
         new HtmlWebpackInlineSourcePlugin(),
-        new ResourceHintWebpackPlugin(),
         new CopyWebpackPlugin([
             {
                 from: './src/assets/icons/favicon.ico',

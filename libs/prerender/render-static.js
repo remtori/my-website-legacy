@@ -40,9 +40,9 @@ module.exports = class RenderStatic
 		compiler.hooks.done.tapPromise(PLUGIN_NAME, async () =>
 		{
 			const result = this.getHTML(require(this.opts.pathToSSR));
-
 			let content = fs.readFileSync(this.opts.pathToIndex, { encoding: 'utf8' });
 			content = content.replace('{{prerender}}', result);
+			content = content.replace(/(\n|\t)/g, '')
 			fs.writeFileSync(this.opts.pathToIndex, content);
 		});
 	}

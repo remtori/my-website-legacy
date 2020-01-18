@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<% for (var chunk in htmlWebpackPlugin.files.css) { %>
+		<% if (!chunk.startsWith('main')) { %>
+			<link rel="preload" href="<%= htmlWebpackPlugin.files.css[chunk] %>"  as="style">
+		<% } %>
+	<% } %>
+	<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
+		<% if (!chunk.startsWith('main')) { %>
+			<link rel="preload" href="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>" as="script">
+		<% } %>
+	<% } %>
 	<title>Remtori's Comfy Home</title>
 	<meta name="viewport" content="width=device-width">
 	<meta name="theme-color" content="#13294D">
@@ -8,5 +18,4 @@
 </head>
 <body>
 	<div id="app">{{prerender}}</div>
-</body>
 </html>

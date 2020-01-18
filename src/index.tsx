@@ -2,17 +2,22 @@ import { h, render, hydrate } from 'preact';
 import App from './pages/App';
 import './styles.scss';
 
-const entry = document.getElementById('app') as HTMLDivElement;
-
-if (process.env.NODE_ENV === 'production')
+function init()
 {
-	hydrate(<App />, entry);
+	const entry = document.getElementById('app') as HTMLDivElement;
+
+	if (process.env.NODE_ENV === 'production')
+	{
+		hydrate(<App />, entry);
+	}
+
+	if (process.env.NODE_ENV === 'development')
+	{
+		entry.innerText = '';
+		render(<App/>, entry);
+		// tslint:disable-next-line: no-var-requires
+		require('preact/debug');
+	}
 }
 
-if (process.env.NODE_ENV === 'development')
-{
-	entry.innerText = '';
-	render(<App/>, entry);
-	// tslint:disable-next-line: no-var-requires
-	require('preact/debug');
-}
+requestAnimationFrame(init);

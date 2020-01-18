@@ -1,6 +1,6 @@
 const path = require('path');
 const styleLoader = require('./styleLoader');
-const ExtractCssPlugin = require("mini-css-extract-plugin");
+const ExtractCssPlugin = require("extract-css-chunks-webpack-plugin");
 
 const cwd = process.cwd();
 const srcDir = path.join(cwd, './src');

@@ -1,6 +1,6 @@
 const path = require('path');
 const minCssModuleName = require('../minCssModuleName');
-const ExtractCssPlugin = require("mini-css-extract-plugin");
+const ExtractCssPlugin = require("extract-css-chunks-webpack-plugin");
 
 const dev = process.env.NODE_ENV !== 'production';
 const srcDir = path.join(process.cwd(), './src');
