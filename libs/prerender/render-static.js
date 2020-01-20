@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 const validateOptions = require('schema-utils');
 
 const PLUGIN_NAME = 'Remtori-Render-Static';
@@ -40,10 +41,16 @@ module.exports = class RenderStatic
 		compiler.hooks.done.tapPromise(PLUGIN_NAME, async () =>
 		{
 			const result = this.getHTML(require(this.opts.pathToSSR));
-			let content = fs.readFileSync(this.opts.pathToIndex, { encoding: 'utf8' });
-			content = content.replace('{{prerender}}', result);
-			content = content.replace(/(\n|\t)/g, '')
-			fs.writeFileSync(this.opts.pathToIndex, content);
+			const oldPage = fs.readFileSync(this.opts.pathToIndex, { encoding: 'utf8' });
+			fs.renameSync(
+				this.opts.pathToIndex,
+				path.join(this.opts.pathToIndex, '../no-prerender.html')
+			);
+
+			const newPage = oldPage
+				.replace('{{prerender}}', result)
+				.replace(/(\n|\t)/g, '');
+			fs.writeFileSync(this.opts.pathToIndex, newPage);
 		});
 	}
 }
