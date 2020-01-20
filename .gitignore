@@ -1,6 +1,4 @@
 node_modules
-dist
-dist-projects
 .cache
 firebase-debug.log
 .firebase

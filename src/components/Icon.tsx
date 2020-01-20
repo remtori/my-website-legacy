@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { library, icon, IconName, IconLookup } from '@fortawesome/fontawesome-svg-core';
+import { faEdit } from '@fortawesome/free-solid-svg-icons/faEdit';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 import { faClock } from '@fortawesome/free-solid-svg-icons/faClock';
 import { faTags } from '@fortawesome/free-solid-svg-icons/faTags';
@@ -10,10 +11,9 @@ import { faCommentAlt } from '@fortawesome/free-solid-svg-icons/faCommentAlt';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
-import SVG from './SVG';
 
 export const icons = {
-	faUser, faClock, faTags,
+	faUser, faClock, faTags, faEdit,
 	faHome, faTasks, faAddressCard,
 	faCommentAlt,
 	faEnvelope,
@@ -37,7 +37,7 @@ export default function Icon({ icon: iconName, class: className, ...props }: Ico
 	if (typeof iconName === 'string')
 	{
 		return (
-			<SVG
+			<img
 				style={p16}
 				src={iconName}
 				class={className}
@@ -53,7 +53,7 @@ export default function Icon({ icon: iconName, class: className, ...props }: Ico
 
 	return h(
 		ele.tag,
-		{ ...ele.attributes, ...props },
+		{ ...ele.attributes, ...props, style: p16 },
 		ele.children && ele.children.map(c => h(
 			c.tag,
 			{ ...c.attributes },
