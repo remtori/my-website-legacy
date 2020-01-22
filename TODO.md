@@ -1,12 +1,10 @@
 # TODO - things i need to work on in order to complete this project
 
-- [ ] Moving to `Netlify`
+- [ ] Make a firebase deploy script via Hosting API
 
-- ~~Make a firebase deploy script via Hosting API~~
+- [ ] Find out how to render `preact` client-side to a html
 
-- ~~Find out how to render `preact` client-side to a html~~
-
-- [ ] Write and test dynamic hosting update API in ~~Firebase Functions~~ Netlify (Github OAuth + Commit)
+- [ ] Write and test dyanamic hosting update API in Firebase Functions
 
 - [ ] Make a comfy `Home`
 
