@@ -1,7 +1,13 @@
 import { makeQuery, getBlog } from './dbQuery';
-import { UPDATE_CONTENT } from '~/ducks/blogs';
 import runQuery from './offlineQuery';
-import store from '~/ducks';
+import store from '~/store';
+
+function updateContent(newBlogs: Blog[])
+{
+	const { blogs } = store.getState();
+	newBlogs.forEach(blog => blogs[blog.key] = blog);
+	store.setState({ blogs });
+}
 
 export function getData(id: string)
 {
@@ -10,7 +16,7 @@ export function getData(id: string)
 
 	return getBlog(id).then(blog =>
 	{
-		store.dispatch({ type: UPDATE_CONTENT, blogs: [ blog ] });
+		updateContent([ blog ]);
 		return blog;
 	});
 }
@@ -47,8 +53,7 @@ export function createDataGetter(tag?: string): Resource
 
 			return makeQuery(query).then(l =>
 			{
-				store.dispatch({ type: UPDATE_CONTENT, blogs: l });
-
+				updateContent(l);
 				l.length === 0 ? hasMore = false : list.push(...l);
 				return list;
 			});

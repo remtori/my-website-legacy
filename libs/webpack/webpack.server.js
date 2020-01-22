@@ -11,9 +11,9 @@ module.exports = merge(baseConfig({ isPrerender: true }), {
 		ssr: path.join(cwd, './src/prerender.tsx')
 	},
 	output: {
-		filename: 'prerender/bundle.js',
-		path: path.join(cwd, './dist'),
-		libraryTarget: 'commonjs',
+		filename: 'bundle.js',
+		path: path.join(cwd, './dist/prerender'),
+		libraryTarget: 'commonjs2',
 		publicPath: '/',
 	},
 	plugins: [

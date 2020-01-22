@@ -1,14 +1,13 @@
 import { h } from 'preact';
 import { route } from 'preact-router';
-import { useSelector } from 'react-redux';
 import * as marked from 'marked';
 import highlight from '~/libs/highlight.js';
-import { RootState } from '~/ducks';
 import { genDocumentKey } from '~/libs/firebase-wrap/firestore';
 import { signIn, signOut } from '~/libs/firebase-wrap/auth';
 
 import ggIcon from '~/assets/brands/google.svg';
 import styles from './styles.scss';
+import useAuth from '~/hooks/useAuth';
 
 marked.setOptions({
 	gfm: true,
@@ -19,9 +18,9 @@ marked.setOptions({
 
 export default function Editor()
 {
-	const user = useSelector<RootState, User | null>(s => s.auth.user);
+	const [ isAuth, isStaff ] = useAuth();
 
-	if (user == null)
+	if (!isAuth)
 	{
 		return (
 			<div>
@@ -42,7 +41,7 @@ export default function Editor()
 		<div class='text'>
 			<div>Editor</div>
 			{
-				!user.isAdmin
+				!isStaff
 				? <div>:( Too bad you not an admin.</div>
 				: (
 				<div>

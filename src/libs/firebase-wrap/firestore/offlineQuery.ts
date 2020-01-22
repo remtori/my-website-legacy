@@ -1,5 +1,5 @@
 import { FSQuery } from './dbQuery';
-import store from '~/ducks';
+import store from '~/store';
 
 export default function runQuery({ startAfter, tag }: FSQuery)
 {

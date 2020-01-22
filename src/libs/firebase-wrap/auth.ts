@@ -1,17 +1,15 @@
 import { app, firebase } from './app';
 import 'firebase/auth';
-
-import store from '~/ducks';
-import { USER_SIGN_IN, USER_SIGN_OUT } from '~/ducks/auth';
+import store from '~/store';
 
 export const auth = app.auth();
 
 auth.onAuthStateChanged(u => u
 	? u.getIdTokenResult()
 		.then(getUserFromITR)
-		.then(user => store.dispatch({ type: USER_SIGN_IN, user }))
+		.then(user => store.setState({ auth: user }))
 
-	: store.dispatch({ type: USER_SIGN_OUT }),
+	: store.setState({ auth: null }),
 );
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();

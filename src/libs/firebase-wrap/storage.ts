@@ -1,4 +1,4 @@
-import app from './app';
+import { app } from './app';
 import { getStorageURLFromPath } from './utils';
 import 'firebase/storage';
 
@@ -25,10 +25,10 @@ export function uploadFile(
 		const uploadTask = storage.ref(filePath).put($data, metadata);
 		uploadTask.on(
 			'state_changed',
-			snapshot => onProgress && onProgress(
+			(snapshot: firebase.storage.UploadTaskSnapshot) => onProgress && onProgress(
 				(snapshot.bytesTransferred / snapshot.totalBytes) * 100,
 			),
-			err => reject(err),
+			(err: Error) => reject(err),
 			() => resolve(getStorageURLFromPath(filePath)),
 		);
 	});

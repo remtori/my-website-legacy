@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<% const notMain = s => !/\/main.*\.(css|js)$/.test(s) %>
+
 	<% for (var chunk in htmlWebpackPlugin.files.css) { %>
-		<% if (!chunk.startsWith('main')) { %>
+		<% if (notMain(htmlWebpackPlugin.files.css[chunk])) { %>
 			<link rel="preload" href="<%= htmlWebpackPlugin.files.css[chunk] %>"  as="style">
 		<% } %>
 	<% } %>
 	<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-		<% if (!chunk.startsWith('main')) { %>
+		<% if (notMain(htmlWebpackPlugin.files.chunks[chunk].entry)) { %>
 			<link rel="preload" href="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>" as="script">
 		<% } %>
 	<% } %>
