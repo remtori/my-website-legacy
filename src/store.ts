@@ -20,4 +20,5 @@ store.subscribe((state: StoreState) =>
 	}));
 });
 
+if (process.env.NODE_ENV !== 'production') (window as any).store = store;
 export default store;

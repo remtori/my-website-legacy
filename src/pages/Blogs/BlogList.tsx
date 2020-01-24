@@ -5,7 +5,7 @@ import styles from './styles.scss';
 import JSXImage from '~/components/JSXImage';
 import Icon, { icons } from '~/components/Icon';
 import { LoadingDot } from '~/components/placeholder';
-import { Resource, createDataGetter  } from '~/libs/firebase-wrap/firestore/fsGetData';
+import { Resource, createDataGetter  } from '~/libs/firebase/firestore/fsGetData';
 
 interface Props
 {

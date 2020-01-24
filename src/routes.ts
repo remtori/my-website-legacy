@@ -1,4 +1,4 @@
-import { makeQuery } from './libs/firebase-wrap/firestore/dbQuery';
+import { makeQuery } from './libs/firebase/firestore/dbQuery';
 
 export default async function()
 {

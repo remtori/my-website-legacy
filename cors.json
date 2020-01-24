@@ -6,7 +6,7 @@
 			"https://remtori.firebaseapp.com",
 			"https://remtori.netlify.com"
 		],
-		"method": ["GET", "POST", "HEAD"],
+		"method": ["GET", "POST"],
 		"maxAgeSeconds": 86400
 	}
 ]

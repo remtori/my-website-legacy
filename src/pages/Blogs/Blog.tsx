@@ -1,9 +1,9 @@
 import { h } from 'preact';
 import { useEffect, useState } from 'preact/hooks';
 import { Link } from 'preact-router';
-import { getStorageURLFromPath } from '~/libs/firebase-wrap/utils';
+import { getStorageURLFromPath } from '~/libs/firebase/utils';
 import { LoadingDot } from '~/components/placeholder';
-import { getBlog } from '~/libs/firebase-wrap/firestore/dbQuery';
+import { getBlog } from '~/libs/firebase/firestore/dbQuery';
 import JSXImage from '~/components/JSXImage';
 import Icon, { icons } from '~/components/Icon';
 import useAuth from '~/hooks/useAuth';

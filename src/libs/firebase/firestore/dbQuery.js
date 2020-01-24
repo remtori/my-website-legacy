@@ -1,4 +1,4 @@
-import { CONFIG } from '~/libs/firebase-wrap/utils';
+import { CONFIG } from '../utils';
 
 const primitives = [ 'stringValue', 'integerValue', 'booleanValue', 'timestampValue' ];
 

@@ -2,8 +2,8 @@ import { h } from 'preact';
 import { route } from 'preact-router';
 import * as marked from 'marked';
 import highlight from '~/libs/highlight.js';
-import { genDocumentKey } from '~/libs/firebase-wrap/firestore';
-import { signIn, signOut } from '~/libs/firebase-wrap/auth';
+import { genDocumentKey } from '~/libs/firebase/firestore';
+import { signIn, signOut } from '~/libs/firebase/auth';
 
 import ggIcon from '~/assets/brands/google.svg';
 import styles from './styles.scss';

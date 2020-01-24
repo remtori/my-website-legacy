@@ -1,32 +1,31 @@
 {
-  "name": "functions",
+  "name": "remtori-serverside",
   "scripts": {
     "lint": "tslint --project tsconfig.json",
     "build": "rollup -c",
     "watch": "rollup -wc",
-    "serve": "npm run watch && firebase serve --only functions",
-    "shell": "npm run watch && firebase functions:shell",
-    "start": "npm run shell",
-    "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "engines": {
-    "node": "8"
+    "start": "node ./dist/index.js",
+    "deploy": "git push heroku master"
   },
   "main": "dist/index.js",
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "firebase-admin": "^8.9.0",
-    "firebase-functions": "^3.3.0"
+    "node-fetch": "^2.6.0"
   },
   "devDependencies": {
     "@rollup/plugin-typescript": "^2.0.1",
     "@types/cors": "^2.8.6",
     "@types/node": "^13.1.2",
-    "firebase-functions-test": "^0.1.6",
+    "nodemon": "^2.0.2",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^1.29.1",
     "tslint": "^5.12.0",
     "typescript": "^3.2.2"
-  },
-  "private": true
+  }
 }

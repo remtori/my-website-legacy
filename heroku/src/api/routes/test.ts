@@ -1,5 +1,6 @@
 import * as express from 'express';
 import { INVALID_PATH, SUCCESS } from '../responses';
+import { isStaff } from '../middleware/auth';
 
 const route = express.Router();
 let storage: any = {};

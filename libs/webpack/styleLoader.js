@@ -1,5 +1,4 @@
 const path = require('path');
-const minCssModuleName = require('../minCssModuleName');
 const ExtractCssPlugin = require("extract-css-chunks-webpack-plugin");
 
 const dev = process.env.NODE_ENV !== 'production';
@@ -18,7 +17,6 @@ module.exports = function styleLoader({ useCssModule })
                 modules: useCssModule && (
                     dev ? { localIdentName: '[local]__[hash:base64:4]' }
                         : { localIdentName: '[hash:base64:4]' }
-                        // : { getLocalIdent: minCssModuleName }
                 ),
                 sourceMap: true,
             }
