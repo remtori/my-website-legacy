@@ -4,7 +4,7 @@ const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
 
 const cwd = process.cwd();
-const RenderStaticPlugin = require('../prerender/render-static');
+const RenderStaticPlugin = require('../prerender/render-static-plugin');
 
 module.exports = merge(baseConfig({ isPrerender: true }), {
 	entry: {
@@ -18,8 +18,11 @@ module.exports = merge(baseConfig({ isPrerender: true }), {
 	},
 	plugins: [
 		new RenderStaticPlugin({
-			pathToSSR: path.join(cwd, './dist/prerender/bundle.js'),
-			pathToIndex: path.join(cwd, './dist/index.html'),
+			context: path.join(cwd, './dist'),
+			paths: {
+				html: './index.html',
+				bundledSSR: './prerender/bundle.js',
+			}
 		}),
 		new webpack.DefinePlugin({
 			PRERENDER: true

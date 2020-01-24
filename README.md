@@ -14,49 +14,54 @@ Current master is `@preact-v3`
 - `Service Worker` to make PWA
 - Fancy loading animation with blank template, like `Facebook`, `Reddit` (named Skeleton animation)
 
-## Static page generator with Firebase
+## Static page generator with Netlify, Firebase and Heroku (All free tier)
 
-Using Firebase Hosting REST API
+- Deploy / Update Content pipeline:
 
-### Idea
+	- Commit changes to Github / Firebase
 
-- Update content dynamically with API
+	- Netlify incremental build start via Heroku
 
-- Keep sha256 hash of all the files (both static and dynamic) on a firestore collection
+	- Netlify: Copy prebuilt contents from caches (cache is on Netlify)
 
-### On build - Static files
+	- Netlify: Fetch data from Firebase and generate static html
 
-- Use a `Nodejs` program to only upload/modify/delete these files and keep everything else untouch
+- To rebuild everything go to Netlify and choose clear cache
 
-	- /assets
-	- /favicon.ico
-	- /index.html
-	- /report.html
-	- /robots.txt
-	- /manifest.json
+- UX, for Staff:
 
-### When update content - Dynamic files
+	- User login with Firebase Auth with correct permission can Create / Edit a contents
 
-- Login as admin
+	- The content will be saved to firebase. The static html page is staled.
 
-- Update the content
+	- There is a button that will trigger a rebuild and everything will be up to date.
 
-- Render these changes to static files ??? how to render on brower client side
+- UX, for User:
 
-- Gzip these files and calculate its hashes
+	- The user who visiting a staled content will get a re-render after the page loading data from firebase.
 
-- Write all the file hashes to a Firestore collection
+	- In short, firebase is the only source of truth. Stale or non-stale content are all validate against firebase and re-render if needed.
 
-- Send gzip-ed files to firebase functions via REST api
+## Services Setup
 
-- In the Firebase Functions:
+### Firebase
 
-	- Using Firebase Hosting REST API create a new release
+- Firestore indexes and rules. read/write: service account only
 
-	- Query Firestore for the file structure and hashes
+- Storage rules. read: everyone / write: service account only
 
-	- Listen and forward all the files send via Client to the Hosting API
+- Firestore separate collection for content that need update
 
-	- Forward the Finalized and Release request from Client to Hosting API
+### Netlify
 
-	- Requirement: Auth-Admin
+- Incremental build with data from Firebase
+
+- Trigger rebuild via callback URL from Heroku
+
+### Heroku
+
+- Verify via access token from Firebase Auth
+
+- Github Service Account for committing to repo
+
+- Netlify rebuild URL

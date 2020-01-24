@@ -7,8 +7,17 @@ export interface StoreState
 {
 	auth: null | User;
 	blogs: { [key: string]: Blog };
+	FINISH_RENDER?: boolean;
 }
 
 const store = createStore<StoreState>(localState ? JSON.parse(localState) : defaultState);
+
+store.subscribe((state: StoreState) =>
+{
+	localStorage.setItem('state', JSON.stringify({
+		auth: state.auth,
+		blogs: state.blogs,
+	}));
+});
 
 export default store;
