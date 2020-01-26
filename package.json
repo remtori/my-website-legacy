@@ -14,8 +14,8 @@
     "build:prerender": "cross-env NODE_ENV=production webpack -p --config ./libs/webpack/webpack.server.js",
     "dev:webpack": "cross-env NODE_ENV=development webpack -d -w --config ./libs/webpack/webpack.client.js",
     "dev:server": "superstatic ./dist -p 8000 --host localhost --gzip -c '{\"rewrites\": [{\"source\":\"**\",\"destination\":\"index.html\"}],\"headers\":[{\"source\":\"**\",\"headers\":[{\"key\":\"Cache-Control\",\"value\":\"max-age=31536000\"}]}]}'",
-    "firebase:deploy": "firebase deploy",
-		"firebase:cors": "gsutil cors set cors.json gs://remtori.appspot.com"
+    "deploy": "firebase deploy",
+		"cors": "gsutil cors set cors.json gs://remtori.appspot.com"
   },
   "repository": {
     "url": "https://github.com/remtori/my-website.git"

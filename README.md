@@ -14,13 +14,13 @@ Current master is `@preact-v3`
 - `Service Worker` to make PWA
 - Fancy loading animation with blank template, like `Facebook`, `Reddit` (named Skeleton animation)
 
-## Static page generator with Netlify, Firebase and Heroku (All free tier)
+## Static page generator with Netlify and Firebase (All free tier)
 
 - Deploy / Update Content pipeline:
 
 	- Commit changes to Github / Firebase
 
-	- Netlify incremental build start via Heroku
+	- Netlify incremental build start via Functions
 
 	- Netlify: Copy prebuilt contents from caches (cache is on Netlify)
 
@@ -52,16 +52,10 @@ Current master is `@preact-v3`
 
 - Firestore separate collection for content that need update
 
+- Firestore utils data: Netlify build url, staff uid, admin uid
+
 ### Netlify
 
 - Incremental build with data from Firebase
 
-- Trigger rebuild via callback URL from Heroku
-
-### Heroku
-
-- Verify via access token from Firebase Auth
-
-- Github Service Account for committing to repo
-
-- Netlify rebuild URL
+- Trigger rebuild via callback URL from Functions
