@@ -1,24 +1,43 @@
-import createStore from 'unistore';
+import { createContext } from 'preact';
+import createStore, { Store } from 'unistore';
+import { lazily } from './lib/lazily';
 
-const localState = 'localStorage' in window && localStorage.getItem('state');
-const defaultState = { auth: null, blogs: {} };
+export const storeCtx = createContext<Store<StoreState>>(null as any);
+export { init as createStore };
 
-export interface StoreState
-{
+const SAVE: Array<keyof StoreState> = ['lang', 'auth'];
+
+export interface StoreState {
 	auth: null | User;
-	blogs: { [key: string]: Blog };
-	FINISH_RENDER?: boolean;
+	lang: string;
+	url: string;
+	FINISH_RENDER: boolean;
 }
 
-const store = createStore<StoreState>(localState ? JSON.parse(localState) : defaultState);
+function init(initialState: Partial<StoreState>) {
+	const savedState = getSavedState();
+	const state = { ...initialState, ...savedState };
 
-store.subscribe((state: StoreState) =>
-{
-	localStorage.setItem('state', JSON.stringify({
-		auth: state.auth,
-		blogs: state.blogs,
-	}));
-});
+	if (state.auth) lazily(() => import(/* webpackChunkName: "admin" */ './lib/firebase/auth'));
 
-if (process.env.NODE_ENV !== 'production') (window as any).store = store;
-export default store;
+	const store = createStore<StoreState>(state);
+	store.subscribe(saveState);
+	return store;
+}
+
+function saveState(state: StoreState) {
+	const saved: any = {};
+	for (let i = SAVE.length; i--;) saved[SAVE[i]] = state[SAVE[i]];
+	localStorage.setItem('state', JSON.stringify(saved));
+}
+
+function getSavedState() {
+	let state;
+	try {
+		state = JSON.parse(localStorage.getItem('state')!);
+	}
+	// tslint:disable-next-line: no-empty
+	catch (e) { }
+
+	return state || {};
+}
