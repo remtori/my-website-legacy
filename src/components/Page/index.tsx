@@ -25,17 +25,19 @@ export default function Content() {
 	const store = useStore([ 'url', 'lang' ]);
 	const contentPath = contentPathFromUrl(store.state.url);
 	const [ content, setContent ] = useState('loading...');
+	const [ isFallback, setIsFallback ] = useState(Boolean(store.state.lang));
+	const lang = store.state.lang || 'en';
 
 	useEffect(() => {
-		fetch(`/content/${store.state.lang || 'en'}/${contentPath}.md`)
+		fetch(`/content/${lang}/${contentPath}.md`)
+			.then(r => {
+				if (r.status === 200) return r;
+				setIsFallback(true);
+				return fetch(`/content/en/${contentPath}.md`);
+			})
 			.then(r => r.text())
 			.then(setContent);
 	}, [ contentPath ]);
 
-	return (
-		<div>
-			<span>{contentPath}</span>
-			<Markdown content={content} />
-		</div>
-	);
+	return <Markdown content={content} />;
 }
