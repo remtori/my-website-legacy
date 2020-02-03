@@ -1,6 +1,6 @@
 node_modules
 dist
-firebase-debug.log
+*.log
 .firebase
 .cache
 .env
