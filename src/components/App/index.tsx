@@ -30,6 +30,9 @@ export default class App extends Component<AppProps>
 	});
 
 	componentDidMount() {
+
+		if (process.env.NODE_ENV === 'development') (window as any).store = this.store;
+
 		lazily(() => import(/* webpackChunkName: "admin" */ '~/lib/firebase/auth')
 			.then(m => m.auth.onAuthStateChanged(
 					u => u
@@ -39,7 +42,7 @@ export default class App extends Component<AppProps>
 							photoURL: m.auth.currentUser!.photoURL,
 							email: m.auth.currentUser!.email,
 							uid: m.auth.currentUser!.uid,
-							isStaff: r?.claims.staff || false,
+							isStaff: r?.claims.staff || r?.claims.admin || false,
 							isAdmin: r?.claims.admin || false,
 							credential: rr.credential
 						}) as User)
