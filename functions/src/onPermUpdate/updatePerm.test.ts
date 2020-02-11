@@ -17,114 +17,57 @@ beforeEach(() => {
 
 const { getClaims } = (admin as any).controller;
 
-it('should add ADMIN claims', async () => {
-	await updatePerm({}, { admin: [ 'a', 'b', 'c' ] });
+it('should set permission level claims', async () => {
+	await updatePerm({}, { level: { a: 1, b: 2, c: 3 } });
 	expect(getClaims()).toEqual({
-		a: { admin: true },
-		b: { admin: true },
-		c: { admin: true },
+		a: { level: 1 },
+		b: { level: 2 },
+		c: { level: 3 },
 	});
 });
 
-it('should add STAFF claims', async () => {
-	await updatePerm({}, { staff: [ 'a', 'b', 'c' ] });
-	expect(getClaims()).toEqual({
-		a: { staff: true },
-		b: { staff: true },
-		c: { staff: true },
-	});
-});
+it('should override permission level claims', async () => {
+	await updatePerm({}, { level: { a: 1, b: 2, c: 3 } });
 
-it('should add ADMIN and STAFF claims', async () => {
-	await updatePerm({}, { admin: [ 'a', 'b', 'c' ], staff: [ 'b', 'e', 'f' ] });
-	expect(getClaims()).toEqual({
-		a: { admin: true },
-		b: { staff: true },
-		c: { admin: true },
-		e: { staff: true },
-		f: { staff: true },
-	});
-});
-
-it('should remove ADMIN claims', async () => {
-	await (updatePerm({}, {
-		admin: [ 'a', 'b', 'c', 'x', 'y', 'z' ],
-		staff: [ 'd', 'e', 'f' ],
-	}));
-
-	await updatePerm({
-		admin: [ 'a', 'b', 'c', 'x', 'y', 'z' ],
-		staff: [ 'd', 'e', 'f' ],
-	}, {
-		admin: [ 'a', 'b', 'c' ],
-		staff: [ 'd', 'e', 'f' ]
-	});
+	await updatePerm(
+		{ level: { a: 1, b: 2, c: 3 } },
+		{ level: { a: 3, b: 4, c: 3 } }
+	);
 
 	expect(getClaims()).toEqual({
-		a: { admin: true },
-		b: { admin: true },
-		c: { admin: true },
-		d: { staff: true },
-		e: { staff: true },
-		f: { staff: true },
-		x: { admin: false },
-		y: { admin: false },
-		z: { admin: false },
+		a: { level: 3 },
+		b: { level: 4 },
+		c: { level: 3 },
 	});
 });
 
 
-it('should remove STAFF claims', async () => {
-	await (updatePerm({}, {
-		admin: [ 'a', 'b', 'c'],
-		staff: [ 'd', 'e', 'f', 'x', 'y', 'z'  ],
-	}));
+it('should reset permission level claims', async () => {
+	await updatePerm({}, { level: { a: 1, b: 2, c: 3 } });
 
-	await updatePerm({
-		admin: [ 'a', 'b', 'c'],
-		staff: [ 'd', 'e', 'f', 'x', 'y', 'z'  ],
-	}, {
-		admin: [ 'a', 'b', 'c' ],
-		staff: [ 'd', 'e', 'f' ]
-	});
+	await updatePerm(
+		{ level: { a: 1, b: 2, c: 3 } },
+		{ level: { a: 3, c: 3 } }
+	);
 
 	expect(getClaims()).toEqual({
-		a: { admin: true },
-		b: { admin: true },
-		c: { admin: true },
-		d: { staff: true },
-		e: { staff: true },
-		f: { staff: true },
-		x: { staff: false },
-		y: { staff: false },
-		z: { staff: false },
+		a: { level: 3 },
+		b: { level: 0 },
+		c: { level: 3 },
 	});
 });
 
+it('should reset ALL permission level claims', async () => {
+	await updatePerm({}, { level: { a: 1, b: 2, c: 3 } });
 
-it('should remove ADMIN and STAFF claims', async () => {
-	await (updatePerm({}, {
-		admin: [ 'a', 'b', 'c', 'x'],
-		staff: [ 'd', 'e', 'f', 'y', 'z'  ],
-	}));
-
-	await updatePerm({
-		admin: [ 'a', 'b', 'c', 'x'],
-		staff: [ 'd', 'e', 'f', 'y', 'z'  ],
-	}, {
-		admin: [ 'a', 'b', 'c' ],
-		staff: [ 'd', 'e', 'f' ]
-	});
+	await updatePerm(
+		{ level: { a: 1, b: 2, c: 3 } },
+		{}
+	);
 
 	expect(getClaims()).toEqual({
-		a: { admin: true },
-		b: { admin: true },
-		c: { admin: true },
-		d: { staff: true },
-		e: { staff: true },
-		f: { staff: true },
-		x: { admin: false },
-		y: { staff: false },
-		z: { staff: false },
+		a: { level: 0 },
+		b: { level: 0 },
+		c: { level: 0 },
 	});
 });

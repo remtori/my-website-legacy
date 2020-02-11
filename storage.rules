@@ -2,7 +2,7 @@ function isSignedIn() {
   return request.auth != null;
 }
 function permLevel(val) {
-  return isSignedIn() && request.auth.token.permission >= val;
+  return isSignedIn() && request.auth.token.level >= val;
 }
 
 service firebase.storage {

@@ -1,45 +1,49 @@
 import * as admin from 'firebase-admin';
 
-type PermObj = { admin?: string[]; staff?: string[] };
+interface PermLevel {
+	[email: string]: number;
+}
+
+interface PermObj
+{
+	level?: PermLevel;
+}
 
 export default async function updatePermWithChanges(before: PermObj = {}, after: PermObj = {}): Promise<void>
 {
 	const auth = admin.auth();
+	const needUpdate = diff(before.level, after.level);
+	const levelMap = after.level || {};
 
-	for (const role of [ 'admin', 'staff' ] as Array<keyof PermObj>)
+	for (const email of needUpdate)
 	{
-		const diffs = diff(before[role], after[role]);
-
-		for (const method of [ 'add', 'remove' ] as Array<keyof DiffResult>)
+		try
 		{
-			for (const email of diffs[method])
-			{
-				try
-				{
-					const user = await auth.getUserByEmail(email);
-					await auth.setCustomUserClaims(user.uid, { [role]: method === 'add' });
-					if (method === 'add')
-					{
-						console.log(`${email} with uid "${user.uid}" is now a(n) ${role}`);
-					}
-					else
-					{
-						console.log(`${email} with uid "${user.uid}" is no longer a(n) ${role}`);
-					}
-				}
-				catch(e)
-				{
-					console.log(e);
-				}
-			}
+			const level = levelMap[email] || 0;
+			const user = await auth.getUserByEmail(email);
+			await auth.setCustomUserClaims(user.uid, { level });
+			console.log(`${email} with uid "${user.uid}" is now level: ${level}`);
+		}
+		catch(e)
+		{
+			console.log(e);
 		}
 	}
 }
 
-type DiffResult = { add: string[]; remove: string[] };
-function diff(before: string[] = [], after: string[] = []): DiffResult
+function diff(before: PermLevel = {}, after: PermLevel = {}): string[]
 {
-	const add = after.filter(i => before.indexOf(i) === -1);
-	const remove = before.filter(i => after.indexOf(i) === -1);
-	return { add, remove };
+	const needUpdate: string[] = [];
+
+	const kBefore = Object.keys(before);
+	const kAfter = Object.keys(after);
+
+	needUpdate.push(...kBefore.filter(k => kAfter.indexOf(k) === -1));
+	needUpdate.push(
+		...kAfter.filter(
+			k => kBefore.indexOf(k) === -1 || before[k] !== after[k]
+		)
+	);
+
+	return needUpdate;
 }
