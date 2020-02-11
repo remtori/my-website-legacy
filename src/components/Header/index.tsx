@@ -13,7 +13,6 @@ export default function Header() {
 					src='/assets/icons/icon-192.webp'
 					width={40}
 					height={40}
-					hasOptimize={true}
 				/>
 				<span>Remtori's Comfy Home</span>
 			</PassiveLink>

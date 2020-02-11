@@ -1,25 +1,28 @@
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
-declare var process: { env: { NODE_ENV: string; } }
+declare var process: { env: { NODE_ENV: 'production' | 'development'; } }
 declare var PRERENDER: boolean;
+declare var __CONTENT_ROOT_DIR__: string;
 declare var module: { exports: any; }
-declare function require(s: string): void;
+declare var require: any;
+declare var __non_webpack_require__: any;
 
 declare interface Blog
 {
-	author: string;
+	id: string;
+	content: string;
+	title: string;
 	description: string;
-	key: string;
-	public: boolean;
-	previewImg: {
+	author: string;
+	tags: string;
+	previewImg?: {
 		url: string;
 		width: number;
 		height: number;
 	};
-	tags: string[];
-	title: string;
-	timestamp: string;
-	shouldWrapContent?: boolean;
+	created: string;
+	modified: string;
+	isFullPage?: boolean;
 }
 
 declare interface User
@@ -30,5 +33,5 @@ declare interface User
 	photoURL: string;
 	uid: string;
 	email: string;
-	credential: firebase.auth.AuthCredential | null;
+	credential: { accessToken: string } | null;
 }

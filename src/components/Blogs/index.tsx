@@ -1,101 +1,50 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
 import { Link } from 'preact-router';
 import JSXImage from '../JSXImage';
 import Icon, { icons } from '../Icon';
 import { LoadingDot } from '../placeholders';
-import { Resource, createResources } from '~/lib/firebase/firestore';
+import query from '~/lib/indexQuery';
 
 import styles from './styles.scss';
 
 interface Props {
-	matches: { tag?: string };
+	tag?: string;
 }
 
-interface States {
-	list: Blog[] | null;
-	resource: Resource;
-	isFetching: boolean;
-	shouldFetchData: boolean;
-}
+export default function BlogList({ tag }: Props) {
 
-export default class BlogList extends Component<Props, States>
-{
-	private isMounted = true;
+	const [ data, setData ] = useState<null | Blog[]>(null);
 
-	constructor(props: Props) {
-		super(...arguments);
+	useEffect(() => {
+		setData(null);
+		query({ tag: `blog ${tag || ''}` }).then(setData);
+	}, [ tag ]);
 
-		this.state = {
-			list: null,
-			resource: createResources(props.matches.tag),
-			shouldFetchData: true,
-			isFetching: false
-		};
+	if (data == null) return <LoadingDot />;
+	if (data.length === 0) return <div>Empty :(</div>;
 
-		this.infiniteScrollHandler = this.infiniteScrollHandler.bind(this);
-	}
-
-	componentWillReceiveProps(nextProps: Readonly<Props>) {
-		if (this.props.matches.tag !== nextProps.matches.tag) {
-			window.scroll(0, 0);
-			this.state.resource.reset(nextProps.matches.tag);
-			this.fetchData();
-		}
-	}
-
-	componentDidMount() {
-		this.fetchData();
-		window.addEventListener('scroll', this.infiniteScrollHandler);
-	}
-
-	componentWillUnmount() {
-		this.isMounted = false;
-		window.removeEventListener('scroll', this.infiniteScrollHandler);
-	}
-
-	infiniteScrollHandler() {
-		const target = document.documentElement;
-		if (!this.state.isFetching &&
-			this.state.resource.hasMore() &&
-			target.scrollHeight - (target.scrollTop + target.clientHeight) < 150
-		) {
-			this.fetchData();
-		}
-	}
-
-	fetchData() {
-		this.setState({ isFetching: true, shouldFetchData: false });
-		this.state.resource.getNextData().then(d =>
-			this.isMounted && this.setState({
-				list: d,
-				isFetching: false
-			})
-		);
-	}
-
-	render(props: Props, { list, isFetching }: States) {
-		if (list == null) return <LoadingDot />;
-		if (list.length === 0) return <div>Empty :(</div>;
-
-		return (
-			<div class={styles.listStyle}>
-				{list.map((d, i) => <BlogItem key={`${props.matches.tag}-${i}`} data={d} />)}
-				{isFetching && <LoadingDot />}
-			</div>
-		);
-	}
+	return (
+		<div class={styles.listStyle}>
+			{data.map((d, i) => <BlogItem key={`${tag || ''}-${i}`} data={d} />)}
+		</div>
+	);
 }
 
 type BlogItemProps = { data: Blog };
 
 const BlogItem = ({ data: {
-	author, description, key, previewImg, tags, timestamp, title
+	author, description, id, content, previewImg, tags, modified, title
 } }: BlogItemProps) =>
 	(
-		<div class={styles.listItem} data-key={key} >
+		<div class={styles.listItem} data-id={id} >
 			<div>
-				<Link href={`/blogs/${key}`}>
-					<JSXImage src={previewImg.url} width={previewImg.width} height={previewImg.height} />
+				<Link href={content}>
+					<JSXImage
+						src={previewImg?.url || '/assets/images/notfound.svg'}
+						width={previewImg?.width}
+						height={previewImg?.height}
+					/>
 				</Link>
 				<div class={styles.authorAndTime}>
 					<span class={styles.author}>
@@ -104,20 +53,20 @@ const BlogItem = ({ data: {
 					</span>
 					<span>
 						<Icon class={styles.icon} icon={icons.faClock} />
-						{new Date(timestamp).toDateString()}
+						{new Date(modified).toUTCString()}
 					</span>
 				</div>
 				<div class={styles.tags}>
 					<Icon class={styles.icon} icon={icons.faTags} />
 					{
-						tags.map((tag, i) =>
-							<a key={`${key}${i}`} href={`/blogs?tag=${tag}`}>{tag}</a>
+						tags.split(/\s/g).map((tag, i) =>
+							<a key={`${id}-${i}`} href={`/blogs?tag=${tag}`}>{tag}</a>
 						)
 					}
 				</div>
 			</div>
 			<div>
-				<Link class={styles.titleWrapper} href={`/blogs/${key}`}>{title}</Link>
+				<Link class={styles.titleWrapper} href={content}>{title}</Link>
 				<div>{description}</div>
 			</div>
 		</div>

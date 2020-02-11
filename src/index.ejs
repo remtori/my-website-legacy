@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<% const notMain = s => !/\/main.*\.(css|js)$/.test(s) %>
+	<% const notMain = s => !/main.*\.css$/.test(s) %>
 
 	<% for (var chunk in htmlWebpackPlugin.files.css) { %>
 		<% if (notMain(htmlWebpackPlugin.files.css[chunk])) { %>
@@ -9,13 +9,12 @@
 		<% } %>
 	<% } %>
 	<% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-		<% if (notMain(htmlWebpackPlugin.files.chunks[chunk].entry)) { %>
-			<link rel="preload" href="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>" as="script">
-		<% } %>
+		<link rel="preload" href="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>" as="script">
 	<% } %>
 	<title>Remtori's Comfy Home</title>
 	<meta name="viewport" content="width=device-width">
 	<meta name="theme-color" content="#13294D">
+	<meta name="description" content="A really, really comfy home~">
 	<link rel="manifest" href="/manifest.json">
 </head>
 <body>

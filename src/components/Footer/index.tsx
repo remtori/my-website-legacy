@@ -1,7 +1,10 @@
 import { h } from 'preact';
+import { useCallback } from 'preact/hooks';
 import { route } from 'preact-router';
 import Icon, { icons } from '~/components/Icon';
 import ELink from '~/components/ExternalLink';
+import useStore from '~/hooks/useStore';
+import config from '~/config';
 
 import preactIcon from '~/assets/brands/preact.svg';
 import firebaseIcon from '~/assets/brands/firebase.svg';
@@ -24,14 +27,38 @@ function tryOpenAdminPage() {
 	handler = setTimeout(() => clickCount = 0, 1000);
 }
 
+export function useLanguage() {
+	const store = useStore(['lang', 'url']);
+	const { lang, url } = store.state;
+
+	const setLang = useCallback(
+		(next: string) => {
+			if (typeof document !== 'undefined' && document.documentElement) {
+				document.documentElement.lang = next;
+			}
+			store.update({ lang: next });
+		},
+		[url]
+	);
+
+	return { lang, setLang };
+}
+
 export default function Footer() {
+
+	const { lang, setLang } = useLanguage();
+	const onSelect = useCallback((e: any) => setLang(e.target.value), [ setLang ]);
+
 	return (
 		<footer class={styles.footer}>
 			<div>
 				<span>Language: </span>
-				<select>
-					<option>English</option>
-					<option>Tiếng Việt</option>
+				<select value={lang || 'en'} onInput={onSelect}>
+					{Object.keys(config.languages).map(id => (
+						<option key={id} selected={id === lang} value={id}>
+							{config.languages[id]}
+						</option>
+					))}
 				</select>
 			</div>
 			<div>

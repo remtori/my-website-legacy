@@ -13,7 +13,12 @@ declare module '*.svg' {
 	export default content;
 }
 
-declare module '*/indexes.json' {
-	const content: Array<string>;
+declare module '*/waifu/waifu-index.json' {
+	const content: string[];
 	export default content;
+}
+
+declare module '*/generated/index.json' {
+	const pathToFile: string;
+	export default pathToFile;
 }

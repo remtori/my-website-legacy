@@ -1,9 +1,10 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import JSXImage from '~/components/JSXImage';
-import waifuIndexes from '~/assets/images/waifu/indexes.json';
 import styles from './styles.scss';
 import { lazily } from '~/lib/lazily';
+
+import waifuIndexes from '~/assets/images/waifu/waifu-index.json';
 
 function preloadAll() {
 	return Promise.all(

@@ -1,14 +1,16 @@
 import { h } from 'preact';
 import { route } from 'preact-router';
-import { signIn, signOut } from '~/lib/firebase/auth';
 import Icon, { icons } from '../Icon';
 import useStore from '~/hooks/useStore';
 
 import styles from './styles.scss';
+import useAuth from '~/hooks/useAuth';
 
 export default function Editor() {
 
 	const store = useStore([ 'auth' ]);
+	const { signIn, signOut } = useAuth();
+
 	const isAuth = !!store.state.auth;
 	const isStaff = store.state.auth?.isStaff || false;
 
@@ -35,7 +37,7 @@ export default function Editor() {
 					? <div>:( Too bad you do not have permission to view this</div>
 					: (
 						<div>
-							<button onClick={() => route(`/admin/editor/new`)}>
+							<button onClick={() => route(`/admin/editor`)}>
 								Create new a Blog
 					</button>
 						</div>

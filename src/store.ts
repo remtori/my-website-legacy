@@ -1,6 +1,5 @@
 import { createContext } from 'preact';
 import createStore, { Store } from 'unistore';
-import { lazily } from './lib/lazily';
 
 export const storeCtx = createContext<Store<StoreState>>(null as any);
 export { init as createStore };
@@ -11,15 +10,11 @@ export interface StoreState {
 	auth: null | User;
 	lang: string;
 	url: string;
-	FINISH_RENDER: boolean;
 }
 
 function init(initialState: Partial<StoreState>) {
 	const savedState = getSavedState();
 	const state = { ...initialState, ...savedState };
-
-	if (state.auth) lazily(() => import(/* webpackChunkName: "admin" */ './lib/firebase/auth'));
-
 	const store = createStore<StoreState>(state);
 	store.subscribe(saveState);
 	return store;
@@ -27,7 +22,7 @@ function init(initialState: Partial<StoreState>) {
 
 function saveState(state: StoreState) {
 	const saved: any = {};
-	for (let i = SAVE.length; i--;) saved[SAVE[i]] = state[SAVE[i]];
+	for (const key of SAVE) saved[key] = state[key];
 	localStorage.setItem('state', JSON.stringify(saved));
 }
 

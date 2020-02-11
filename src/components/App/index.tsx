@@ -5,10 +5,10 @@ import { Provider } from 'unistore/preact';
 import { createStore, storeCtx } from '~/store';
 import { lazily } from '~/lib/lazily';
 
-import Header from './Header';
-import Footer from './Footer';
+import Header from '../Header';
+import Footer from '../Footer';
 import ELink from '../ExternalLink';
-import WallPaper from './WallPaper';
+import WallPaper from '../WallPaper';
 import Blogs from '../Blogs';
 import Page from '../Page';
 
@@ -30,28 +30,12 @@ export default class App extends Component<AppProps>
 	});
 
 	componentDidMount() {
-
-		if (process.env.NODE_ENV === 'development') (window as any).store = this.store;
-
-		lazily(() => import(/* webpackChunkName: "admin" */ '~/lib/firebase/auth')
-			.then(m => m.auth.onAuthStateChanged(
-					u => u
-					? Promise.all([u.getIdTokenResult(), m.auth.getRedirectResult()])
-						.then(([r, rr]) => ({
-							displayName: m.auth.currentUser!.displayName,
-							photoURL: m.auth.currentUser!.photoURL,
-							email: m.auth.currentUser!.email,
-							uid: m.auth.currentUser!.uid,
-							isStaff: r?.claims.staff || r?.claims.admin || false,
-							isAdmin: r?.claims.admin || false,
-							credential: rr.credential
-						}) as User)
-						.then(user => this.store.setState({ auth: user }))
-
-					: this.store.setState({ auth: null })
-				)
-			)
+		lazily(
+			() => import(/* webpackChunkName: "admin" */ '~/lib/firebase')
+				.then(m => m.onAuthStateChanged(auth => this.store.setState({ auth })))
 		);
+
+		(window as any).store = this.store;
 	}
 
 	handleUrlChange = ({ url }: RouterOnChangeArgs) => {
@@ -79,7 +63,7 @@ export default class App extends Component<AppProps>
 						</ELink>
 						<div class={styles.container}>
 							<Router onChange={this.handleUrlChange} url={this.props.url}>
-								<AsyncRoute path='/admin/editor/:id' getComponent={Editor} exact />
+								<AsyncRoute path='/admin/editor' getComponent={Editor} exact />
 								<AsyncRoute path='/admin' getComponent={Admin} exact />
 								<Route path='/blogs' component={Blogs} />
 								<Route default component={Page} />

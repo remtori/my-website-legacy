@@ -4,15 +4,18 @@ import { NotFound, LoadingDot } from './placeholders';
 
 export type JSXImageProps = {
 	src: string,
-	hasOptimize?: boolean,
 	width?: number | undefined,
 	height?: number | undefined
 } & h.JSX.HTMLAttributes<HTMLImageElement>;
 
-export default function JSXImage({ src, width, height, hasOptimize = false, ...props }: JSXImageProps) {
+export default function JSXImage({ src, width, height, ...props }: JSXImageProps) {
+
+	if (PRERENDER) {
+		return <LoadingDot width={width} height={height} class={props.class} />;
+	}
 
 	const [isLoading, setIsLoading] = useState(true);
-	const [imageSource, setImageSource] = useState(src);
+	const [isError, setIsError] = useState(false);
 
 	useEffect(() => {
 		setIsLoading(true);
@@ -20,11 +23,10 @@ export default function JSXImage({ src, width, height, hasOptimize = false, ...p
 		const img = new Image();
 		img.onload = () => {
 			setIsLoading(false);
-			setImageSource(src);
 		};
 		img.onerror = () => {
 			setIsLoading(false);
-			setImageSource('error');
+			setIsError(true);
 		};
 		img.src = src;
 
@@ -37,14 +39,9 @@ export default function JSXImage({ src, width, height, hasOptimize = false, ...p
 
 	if (isLoading) {
 		return <LoadingDot width={width} height={height} class={props.class} />;
-	} else if (imageSource === 'error') {
+	} else if (isError) {
 		return <NotFound width={width} height={height} class={props.class} />;
 	} else {
-		return (
-			<img
-				{...props}
-				src={imageSource}
-			/>
-		);
+		return <img {...props} src={src} />;
 	}
 }

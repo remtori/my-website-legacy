@@ -35,9 +35,8 @@ export default function Icon({ icon: iconName, class: className, ...props }: Ico
 	if (typeof iconName === 'string') {
 		return (
 			<img
-				style={p16}
 				src={iconName}
-				class={className}
+				class={`icon ${className}`}
 				{...props}
 			/>
 		);
@@ -57,5 +56,3 @@ export default function Icon({ icon: iconName, class: className, ...props }: Ico
 		))
 	);
 }
-
-const p16 = { width: 18, height: 18 };

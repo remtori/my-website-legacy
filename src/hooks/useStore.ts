@@ -37,6 +37,6 @@ export default function useStore<T extends Array<keyof StoreState>>(keys: T) {
 
 	return {
 		state: currentState,
-		update: (s: any) => store.setState(Object.assign(store.getState, s))
+		update: (s: Partial<StoreState>) => store.setState(Object.assign(store.getState(), s))
 	};
 }
