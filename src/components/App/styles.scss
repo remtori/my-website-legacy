@@ -3,6 +3,8 @@
 .wrapper {
     margin: auto;
     height: 100%;
+    overflow: auto;
+    width: $cover-break;
     max-width: $cover-break;
     background-color: #252525;
     flex-grow: 1;
