@@ -8,7 +8,7 @@ Current master is `@preact-v3`
 
 - Cool Landing Page
 - A functional Blog, with comments and stuff
-- A project tabs where i show stuff i make for the web.
+- A project tabs where i show stuff i make
 - Search Function
 - A Gallery Collection
 - `Service Worker` to make PWA
@@ -28,38 +28,31 @@ Current master is `@preact-v3`
 
 Edit -> Save & Commit (via a nice UI) -> ## Magic ## -> Live
 
-#### Travis CI:
+You can read more detail at the blog post [Blog: Pipeline](https://remtori.netlify.com/blogs/pipeline)
 
-	- On `my-website-content` Commit -> Generate files:
+## History
 
-		- re-render.json: paths to content file to re-render
+Time line: @vanilla > @preact > @preact-v2 > @react > @preact-v3
 
-		- blog-indexes.json: list of all blog with some description
+- At first i tried vanilla, but its only get so far
 
-	- If re-render.json is not empty then trigger Netlify build.
+- Next is `preact`, because at the time i think `react` is really bloated for my site, i thinks most of these project i gave up when its come to `redux` intergation
 
-#### Netlify:
+- Then i tried again with preact and this time with some `typescript` and `rxjs`
 
-Check package.json for current version:
+- And then one more time with a full fledged `react` and `boostrap4`
 
-	- If the previous build is out-of-date: Clear cache and rebuild everything
+- `@preact-v3` is the most recent, most serious attempt at "completing" this project
 
-	- Else: read site-content/re-render.json and build/rebuild necessary files
+## TODO - things i need to work on in order to complete this project
 
-_Note:_ Netlify only build static html for English language
+- [ ] Make a comfy `Home`
 
-## Routes
+- [ ] Make a usable `Editor`
 
-Key - value pair
+- [ ] Make a blog about the development of this site
 
-If Value is String:
+## High priority TODO:
 
-- Url path -> File path
+- [ ] Build script for Netlify // Easier when done with local build script
 
-- Search in `Selected Language` folder or fallback to `English`
-
-- Prioritize `.html` extension over `.md`
-
-If Value is Component:
-
-- Dynamic load and pass through

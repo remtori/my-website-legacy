@@ -1,6 +1,6 @@
 {
   "name": "my-website",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Remtori's comfy home~",
   "main": "src/index.tsx",
   "scripts": {
@@ -9,11 +9,14 @@
     "start": "npm-run-all -p dev:*",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm-run-all build:*",
-    "build:client": "cross-env NODE_ENV=production webpack -p --config ./lib/webpack/webpack.client.js",
-    "build:prerender": "cross-env NODE_ENV=production webpack -p --config ./lib/webpack/webpack.server.js",
-    "dev:webpack": "cross-env NODE_ENV=development webpack -d -w --config ./lib/webpack/webpack.client.js",
-    "dev:server": "superstatic ./dist -p 8000 --host localhost --gzip -c '{\"rewrites\": [{\"source\":\"!/content/**/*\",\"destination\":\"index.html\"}],\"headers\":[{\"source\":\"**\",\"headers\":[{\"key\":\"Cache-Control\",\"value\":\"max-age=31536000\"}]}]}'"
+    "test": "npm run type-check && npm run lint",
+    "build": "npm run build:webpack && npm run build:prerender",
+    "build:webpack": "NODE_ENV=production webpack -p --config ./lib/webpack/webpack.client.js",
+    "build:prerender": "NODE_ENV=production webpack -p --config ./lib/webpack/webpack.server.js",
+    "build:netlify": "node ./lib/netlify/build.js",
+    "dev:webpack": "webpack -d -w --config ./lib/webpack/webpack.client.js",
+    "dev:server": "superstatic ./dist -p 8000 --host localhost --gzip -c '{\"rewrites\": [{\"source\":\"!/content/**/*\",\"destination\":\"index.html\"}]}'",
+    "prod:server": "superstatic ./dist -p 8000 --host localhost --gzip -c '{}'"
   },
   "repository": {
     "url": "https://github.com/remtori/my-website.git"
@@ -35,8 +38,8 @@
     "@types/yaml": "^1.2.0",
     "autoprefixer": "^9.7.3",
     "babel-loader": "^8.0.6",
+    "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
-    "cross-env": "^6.0.3",
     "css-loader": "^3.4.0",
     "eslint": "^6.8.0",
     "extract-css-chunks-webpack-plugin": "^4.7.1",
@@ -73,6 +76,7 @@
     "formik": "^2.1.2",
     "highlight.js": "^9.17.1",
     "marked": "^0.8.0",
+    "node-fetch": "^2.6.0",
     "preact": "^10.0.5",
     "preact-async-route": "^2.2.1",
     "preact-markup": "^2.0.0",

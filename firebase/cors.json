@@ -7,6 +7,6 @@
 			"https://remtori.netlify.com"
 		],
 		"method": ["GET", "POST"],
-		"maxAgeSeconds": 86400
+		"maxAgeSeconds": 2592000
 	}
 ]

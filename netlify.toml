@@ -1,5 +1,3 @@
 [build]
    publish = "dist"
-
-/content/* /content/*
-/*         /
+   command = "npm run build:netlify"
