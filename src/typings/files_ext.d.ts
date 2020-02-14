@@ -13,6 +13,11 @@ declare module '*.svg' {
 	export default content;
 }
 
+declare module '*.png' {
+	const base64EncodeImage: string;
+	export default base64EncodeImage;
+}
+
 declare module '*/waifu/waifu-index.json' {
 	const content: string[];
 	export default content;

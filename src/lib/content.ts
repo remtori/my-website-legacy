@@ -20,6 +20,7 @@ export interface Content {
 }
 
 const CACHE: { [k: string]: Promise<Content>; } = {};
+(window as any).CACHE = CACHE;
 const OPTIONS: marked.MarkedOptions = {
 	gfm: true,
 	highlight,

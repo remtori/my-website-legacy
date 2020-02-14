@@ -14,9 +14,7 @@ const flexIndex = FlexSearch.create<Blog>({
 	}
 });
 
-if (process.env.NODE_ENV === 'development') {
-	(window as any).db = { CACHE, index: flexIndex };
-}
+(window as any).db = { CACHE, index: flexIndex };
 
 export default function query(props: QueryProps): Promise<Blog[]> {
 

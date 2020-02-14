@@ -1,6 +1,6 @@
 {
   "name": "my-website",
-  "version": "0.0.3",
+  "version": "0.0.5",
   "description": "Remtori's comfy home~",
   "main": "src/index.tsx",
   "scripts": {
