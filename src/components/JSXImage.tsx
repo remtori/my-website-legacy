@@ -1,59 +1,47 @@
 import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
-import { NotFound, LoadingDot } from './placeholder';
+import { NotFound, LoadingDot } from './placeholders';
 
 export type JSXImageProps = {
 	src: string,
-	hasOptimize?: boolean,
 	width?: number | undefined,
-	height?: number | undefined,
+	height?: number | undefined
 } & h.JSX.HTMLAttributes<HTMLImageElement>;
 
-export default function JSXImage({ src, width, height, hasOptimize = false, ...props }: JSXImageProps)
-{
-	const [ isLoading, setIsLoading ] = useState(true);
-	const [ imageSource, setImageSource ] = useState(src);
+export default function JSXImage({ src, width, height, ...props }: JSXImageProps) {
 
-	useEffect(() =>
-	{
+	if (PRERENDER) {
+		return <LoadingDot width={width} height={height} class={props.class} />;
+	}
+
+	const [isLoading, setIsLoading] = useState(true);
+	const [isError, setIsError] = useState(false);
+
+	useEffect(() => {
 		setIsLoading(true);
 
 		const img = new Image();
-		img.onload = () =>
-		{
+		img.onload = () => {
 			setIsLoading(false);
-			setImageSource(src);
 		};
-		img.onerror = () =>
-		{
+		img.onerror = () => {
 			setIsLoading(false);
-			setImageSource('error');
+			setIsError(true);
 		};
 		img.src = src;
 
-		return () =>
-		{
+		return () => {
 			img.onload = null;
 			img.onerror = null;
 			img.src = '';
 		};
-	}, [ src ]);
+	}, [src]);
 
-	if (isLoading)
-	{
+	if (isLoading) {
 		return <LoadingDot width={width} height={height} class={props.class} />;
-	}
-	else if (imageSource === 'error')
-	{
+	} else if (isError) {
 		return <NotFound width={width} height={height} class={props.class} />;
-	}
-	else
-	{
-		return (
-			<img
-				{...props}
-				src={imageSource}
-			/>
-		);
+	} else {
+		return <img {...props} src={src} />;
 	}
 }

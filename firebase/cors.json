@@ -1,0 +1,12 @@
+[
+	{
+		"origin": [
+			"http://localhost:8000",
+			"https://remtori.web.app",
+			"https://remtori.firebaseapp.com",
+			"https://remtori.netlify.com"
+		],
+		"method": ["GET", "POST"],
+		"maxAgeSeconds": 2592000
+	}
+]

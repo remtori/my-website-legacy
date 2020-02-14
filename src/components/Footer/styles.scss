@@ -1,0 +1,56 @@
+@import 'vars.scss';
+
+.footer {
+	position: relative;
+	background-color: #202020;
+	text-align: center;
+	font-size: 1.2rem;
+	color: #999;
+	padding: 1rem 0px;
+
+	& > div {
+		padding: 5px 0;
+	}
+
+	a {
+		color: $link-color;
+		text-decoration: none;
+	}
+
+	.icon {
+		margin: 0px 2px;
+		margin-bottom: -3px;
+	}
+
+	.social {
+		padding: 14px 0;
+		margin-left: 1em;
+
+		& > .icon {
+			margin-right: 0.3em;
+			margin-bottom: -1px;
+		}
+
+		span {
+			color: #999;
+		}
+
+		.iconWhite {
+			color: #fff;
+		}
+
+		.iconTwitter {
+			color: rgba(29,161,242,1.00);
+		}
+	}
+
+	.version {
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		font-size: 12px;
+		font-weight: normal;
+		padding: 0;
+		margin: 0;
+	}
+}

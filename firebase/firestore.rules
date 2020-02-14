@@ -1,0 +1,18 @@
+function isSignedIn() {
+  return request.auth != null;
+}
+function permLevel(val) {
+  return isSignedIn() && request.auth.token.level >= val;
+}
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /utils/netlify {
+      allow read;
+      allow write: if permLevel(3);
+    }
+    match /{document=**} {
+      allow read, write: if permLevel(3);
+    }
+  }
+}

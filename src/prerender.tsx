@@ -1,5 +1,11 @@
 import { h } from 'preact';
-import { render } from 'preact-render-to-string';
-import App from './pages/App';
+import App from './components/App';
 
-export default () => render(<App isSSR />);
+type RenderFn = (vNode: preact.ComponentChild) => void;
+
+export function renderHTML(url: string, render: RenderFn) {
+	return new Promise(resolve => {
+		render(<App url={url} />);
+		resolve();
+	});
+}

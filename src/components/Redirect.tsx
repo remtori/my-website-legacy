@@ -1,15 +1,13 @@
 import { Component } from 'preact';
 import { route } from 'preact-router';
 
-export default class Redirect extends Component<{to: string}>
+export default class Redirect extends Component<{ to: string }>
 {
-	componentWillMount()
-	{
+	componentWillMount() {
 		route(this.props.to, true);
 	}
 
-	render()
-	{
+	render() {
 		return null;
-  	}
+	}
 }

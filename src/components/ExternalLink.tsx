@@ -2,8 +2,7 @@ import { h } from 'preact';
 
 export type Props = { children: any } & preact.JSX.HTMLAttributes<HTMLAnchorElement>;
 
-export default function ELink({ children, ...props }: Props)
-{
+export default function ELink({ children, ...props }: Props) {
 	return (
 		<a
 			target='_blank'

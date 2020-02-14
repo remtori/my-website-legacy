@@ -14,7 +14,7 @@
 		"importHelpers": true,
 		"lib": [ "esnext", "dom", "dom.iterable" ],
 		"skipLibCheck": true,
-		"types": [ ],
+		"types": [ "node" ],
 		"baseUrl": "./",
 		"paths": {
 			"~/*": [ "./src/*" ]

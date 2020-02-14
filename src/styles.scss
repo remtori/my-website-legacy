@@ -22,3 +22,9 @@ html, body {
 	line-height: 22px;
 	font-size: 16px;
 }
+
+// For font-awesome pre-rendering size
+.icon, .fa-w-16 {
+	width: 1em;
+	height: 1em;
+}

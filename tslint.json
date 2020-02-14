@@ -11,14 +11,15 @@
 		"quotemark": [ true, "single", "avoid-escape" ],
 		"member-access": [ true, "no-public" ],
 		"arrow-parens": [ true, "ban-single-arg-parens" ],
-		"brace-style": [ true, "allman", { "allowSingleLine": true }],
+		"brace-style": [ true, "1tbs", { "allowSingleLine": true }],
 		"curly": [ true, "ignore-same-line" ],
 		"no-console": false,
 		"interface-name": false,
 		"jsx-no-multiline-js": false,
 		"interface-over-type-literal": false,
 		"jsx-no-lambda": false,
-		"jsx-boolean-value": false
+		"jsx-boolean-value": false,
+		"trailing-comma": [ true, {"multiline": "never", "singleline": "never"} ]
 	},
 	"rulesDirectory": [
 		"node_modules/tslint-eslint-rules/dist/rules"

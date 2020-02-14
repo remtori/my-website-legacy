@@ -1,5 +1,3 @@
-declare const ADMIN_UID: string;
-
 declare namespace Express
 {
 	export interface Request

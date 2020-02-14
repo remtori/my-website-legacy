@@ -1,19 +1,18 @@
 {
-  "name": "functions",
+  "name": "remtori-serverside",
   "scripts": {
+    "test": "jest",
     "lint": "tslint --project tsconfig.json",
     "build": "rollup -c",
-    "watch": "rollup -wc",
-    "serve": "npm run watch && firebase serve --only functions",
-    "shell": "npm run watch && firebase functions:shell",
-    "start": "npm run shell",
+    "watch": "cross-env NODE_ENV=development rollup -wc",
+    "serve": "firebase serve --only functions",
     "deploy": "firebase deploy --only functions",
-    "logs": "firebase functions:log"
-  },
-  "engines": {
-    "node": "8"
+    "start": "npm run serve"
   },
   "main": "dist/index.js",
+  "engines": {
+    "node": "10"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
@@ -21,12 +20,18 @@
     "firebase-functions": "^3.3.0"
   },
   "devDependencies": {
+    "@firebase/testing": "^0.16.7",
+    "@rollup/plugin-replace": "^2.3.0",
     "@rollup/plugin-typescript": "^2.0.1",
     "@types/cors": "^2.8.6",
+    "@types/jest": "^25.1.1",
     "@types/node": "^13.1.2",
-    "firebase-functions-test": "^0.1.6",
+    "cross-env": "^7.0.0",
+    "dotenv": "^8.2.0",
+    "jest": "^25.1.0",
+    "rollup": "^1.29.1",
+    "ts-jest": "^25.1.0",
     "tslint": "^5.12.0",
     "typescript": "^3.2.2"
-  },
-  "private": true
+  }
 }

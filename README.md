@@ -8,55 +8,51 @@ Current master is `@preact-v3`
 
 - Cool Landing Page
 - A functional Blog, with comments and stuff
-- A project tabs where i show stuff i make for the web.
+- A project tabs where i show stuff i make
 - Search Function
 - A Gallery Collection
 - `Service Worker` to make PWA
 - Fancy loading animation with blank template, like `Facebook`, `Reddit` (named Skeleton animation)
 
-## Static page generator with Firebase
+## Services Setup
 
-Using Firebase Hosting REST API
+### Netlify
 
-### Idea
+- Incremental build with data from Firebase
 
-- Update content dynamically with API
+- Trigger rebuild via callback URL from Functions
 
-- Keep sha256 hash of all the files (both static and dynamic) on a firestore collection
+### CMS Pipeline
 
-### On build - Static files
+#### User Experiment:
 
-- Use a `Nodejs` program to only upload/modify/delete these files and keep everything else untouch
+Edit -> Save & Commit (via a nice UI) -> ## Magic ## -> Live
 
-	- /assets
-	- /favicon.ico
-	- /index.html
-	- /report.html
-	- /robots.txt
-	- /manifest.json
+You can read more detail at the blog post [Blog: Pipeline](https://remtori.netlify.com/blogs/pipeline)
 
-### When update content - Dynamic files
+## History
 
-- Login as admin
+Time line: @vanilla > @preact > @preact-v2 > @react > @preact-v3
 
-- Update the content
+- At first i tried vanilla, but its only get so far
 
-- Render these changes to static files ??? how to render on brower client side
+- Next is `preact`, because at the time i think `react` is really bloated for my site, i thinks most of these project i gave up when its come to `redux` intergation
 
-- Gzip these files and calculate its hashes
+- Then i tried again with preact and this time with some `typescript` and `rxjs`
 
-- Write all the file hashes to a Firestore collection
+- And then one more time with a full fledged `react` and `boostrap4`
 
-- Send gzip-ed files to firebase functions via REST api
+- `@preact-v3` is the most recent, most serious attempt at "completing" this project
 
-- In the Firebase Functions:
+## TODO - things i need to work on in order to complete this project
 
-	- Using Firebase Hosting REST API create a new release
+- [ ] Make a comfy `Home`
 
-	- Query Firestore for the file structure and hashes
+- [ ] Make a usable `Editor`
 
-	- Listen and forward all the files send via Client to the Hosting API
+- [ ] Make a blog about the development of this site
 
-	- Forward the Finalized and Release request from Client to Hosting API
+## High priority TODO:
 
-	- Requirement: Auth-Admin
+- [ ] Build script for Netlify // Easier when done with local build script
+

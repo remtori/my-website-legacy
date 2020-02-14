@@ -17,48 +17,42 @@ export const icons = {
 	faHome, faTasks, faAddressCard,
 	faCommentAlt,
 	faEnvelope,
-	faGithub, faTwitter,
+	faGithub, faTwitter
 };
 
 library.add(...Object.values(icons));
 
-export interface IconProps
-{
+export interface IconProps {
 	icon: IconName | IconLookup | string;
 	class?: string;
 	[key: string]: any;
 }
 
 // tslint:disable-next-line: variable-name
-export default function Icon({ icon: iconName, class: className, ...props }: IconProps)
-{
+export default function Icon({ icon: iconName, class: className, ...props }: IconProps) {
 	if (props.title !== undefined) props.alt = props.title;
 
-	if (typeof iconName === 'string')
-	{
+	if (typeof iconName === 'string') {
 		return (
 			<img
-				style={p16}
 				src={iconName}
-				class={className}
+				class={`icon ${className}`}
 				{...props}
 			/>
 		);
 	}
 
-	const { abstract: [ ele ] } = icon(
+	const { abstract: [ele] } = icon(
 		iconName,
-		{ classes: className },
+		{ classes: className }
 	);
 
 	return h(
 		ele.tag,
-		{ ...ele.attributes, ...props, style: p16 },
+		{ ...ele.attributes, ...props },
 		ele.children && ele.children.map(c => h(
 			c.tag,
-			{ ...c.attributes },
-		)),
+			{ ...c.attributes }
+		))
 	);
 }
-
-const p16 = { width: 18, height: 18 };

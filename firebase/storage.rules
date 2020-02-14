@@ -1,0 +1,15 @@
+function isSignedIn() {
+  return request.auth != null;
+}
+function permLevel(val) {
+  return isSignedIn() && request.auth.token.level >= val;
+}
+
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /{allPaths=**} {
+      allow read;
+      allow write: if permLevel(1);
+    }
+  }
+}
