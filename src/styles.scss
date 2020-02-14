@@ -23,8 +23,12 @@ html, body {
 	font-size: 16px;
 }
 
-// For font-awesome pre-rendering size
-.icon, .fa-w-16 {
+// For icon pre-rendering size
+.icon, .svg-inline--fa {
+	display: inline-block;
+	font-size: inherit;
+	overflow: visible;
 	width: 1em;
 	height: 1em;
+	vertical-align: -0.125em;
 }

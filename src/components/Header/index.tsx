@@ -1,7 +1,7 @@
 import { h } from 'preact';
 import { Link } from 'preact-router/match';
 import { Link as PassiveLink } from 'preact-router';
-import JSXImage from '~/components/JSXImage';
+import icon from '~/assets/icons/icon-minimal.png';
 
 import styles from './styles.scss';
 
@@ -10,11 +10,7 @@ export default function Header() {
 		<header class={styles.header}>
 			<div class={styles.nav}>
 				<PassiveLink href='/' class={styles.home} >
-					<JSXImage
-						src='/assets/icons/icon-192.webp'
-						width={40}
-						height={40}
-					/>
+					<img src={icon} />
 					<span>Remtori's Comfy Home</span>
 				</PassiveLink>
 				<nav>
