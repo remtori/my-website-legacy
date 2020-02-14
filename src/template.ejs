@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 	<% const notMain = s => !/main.*\.css$/.test(s) %>
-
 	<% for (var chunk in htmlWebpackPlugin.files.css) { %>
 		<% if (notMain(htmlWebpackPlugin.files.css[chunk])) { %>
 			<link rel="preload" href="<%= htmlWebpackPlugin.files.css[chunk] %>"  as="style">
