@@ -2,9 +2,10 @@
 
 .wrapper {
     margin: auto;
+    margin-top: $header-height;
     height: 100%;
     overflow: auto;
-    width: $cover-break;
+    width: $max-width;
     max-width: $cover-break;
     background-color: #252525;
     flex-grow: 1;
@@ -12,12 +13,13 @@
     @media (max-width: $cover-break) {
         width: 100%;
         margin: 0;
+        margin-top: $header-height;
     }
 
 	.container {
-        margin: 0;
-        margin-top: 0.4rem;
-        padding: 0 1rem;
+        margin: 0 25px;
+        margin-top: 5px;
+        padding: 0 10px;
         text-align: center;
     }
 }

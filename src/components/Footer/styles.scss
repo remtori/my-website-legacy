@@ -1,6 +1,7 @@
 @import 'vars.scss';
 
 .footer {
+	position: relative;
 	background-color: #202020;
 	text-align: center;
 	font-size: 1.2rem;
@@ -41,5 +42,15 @@
 		.iconTwitter {
 			color: rgba(29,161,242,1.00);
 		}
+	}
+
+	.version {
+		position: absolute;
+		bottom: 0px;
+		left: 0px;
+		font-size: 12px;
+		font-weight: normal;
+		padding: 0;
+		margin: 0;
 	}
 }

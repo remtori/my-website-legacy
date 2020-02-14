@@ -28,8 +28,7 @@ declare interface Blog
 declare interface User
 {
 	displayName: string;
-	isStaff: boolean;
-	isAdmin: boolean;
+	level: number;
 	photoURL: string;
 	uid: string;
 	email: string;

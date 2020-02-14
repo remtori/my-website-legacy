@@ -26,7 +26,7 @@ export default function query(props: QueryProps): Promise<Blog[]> {
 		.then(r => r.json())
 		.then(r => {
 			CACHE.data = r;
-			flexIndex.add(r);
+			flexIndex.add(r.documents);
 			return internalQuery(props);
 		});
 }

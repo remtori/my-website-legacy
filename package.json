@@ -16,7 +16,7 @@
     "build:netlify": "node ./lib/netlify/build.js",
     "dev:webpack": "webpack -d -w --config ./lib/webpack/webpack.client.js",
     "dev:server": "superstatic ./dist -p 8000 --host localhost --gzip -c '{\"rewrites\": [{\"source\":\"!/content/**/*\",\"destination\":\"index.html\"}]}'",
-    "prod:server": "superstatic ./dist -p 8000 --host localhost --gzip -c '{}'"
+    "prod:server": "superstatic ./dist -p 8000 --host localhost --gzip -c '{\"cleanUrls\": true}'"
   },
   "repository": {
     "url": "https://github.com/remtori/my-website.git"

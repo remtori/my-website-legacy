@@ -20,10 +20,21 @@ function init(initialState: Partial<StoreState>) {
 	return store;
 }
 
+let prevSaved = '';
 function saveState(state: StoreState) {
 	const saved: any = {};
 	for (const key of SAVE) saved[key] = state[key];
-	localStorage.setItem('state', JSON.stringify(saved));
+
+	const strSaved = JSON.stringify(saved);
+	if (strSaved === prevSaved) return;
+
+	localStorage.setItem('state', strSaved);
+	prevSaved = strSaved;
+
+	if (process.env.NODE_ENV === 'development') {
+		console.log(`Saving state:`);
+		console.log(saved);
+	}
 }
 
 function getSavedState() {

@@ -1,20 +1,35 @@
 import { h } from 'preact';
 import { route } from 'preact-router';
 import Icon, { icons } from '../Icon';
+import { signIn, signOut } from '~/lib/firebase';
 import useStore from '~/hooks/useStore';
 
 import styles from './styles.scss';
-import useAuth from '~/hooks/useAuth';
+import { LoadingDot } from '../placeholders';
 
-export default function Editor() {
+export default function Editor(props: { forward?: string, signingIn?: string }) {
 
+	const { forward, signingIn } = props;
 	const store = useStore([ 'auth' ]);
-	const { signIn, signOut } = useAuth();
+	const level = store.state.auth?.level || 0;
 
-	const isAuth = !!store.state.auth;
-	const isStaff = store.state.auth?.isStaff || false;
+	if (forward && level > 0) route(forward);
 
-	if (!isAuth) {
+	function doSignIn() {
+		route(`/admin?signingIn=true&forward=${encodeURIComponent(forward || '/admin')}`);
+		signIn();
+	}
+
+	if (signingIn === 'true') {
+		return (
+			<div>
+				Signing in
+				<LoadingDot />
+			</div>
+		);
+	}
+
+	if (level === 0) {
 		return (
 			<div>
 				<div class='text'>
@@ -22,7 +37,7 @@ export default function Editor() {
 					<span>You aren't suppose to be here</span><br />
 					<span>BUT if you wanna continue you need to login first.</span><br />
 				</div>
-				<button class={styles.loginBtn} onClick={signIn}>
+				<button class={styles.loginBtn} onClick={doSignIn}>
 					<Icon class={styles.logo} icon={icons.faGithub} />
 					<span>Sign in with Github</span>
 				</button>
@@ -33,7 +48,7 @@ export default function Editor() {
 	return (
 		<div class='text'>
 			{
-				!isStaff
+				level === 0
 					? <div>:( Too bad you do not have permission to view this</div>
 					: (
 						<div>

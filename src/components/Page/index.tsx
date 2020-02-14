@@ -1,9 +1,10 @@
 import { h } from 'preact';
 import { useEffect, useState, useRef } from 'preact/hooks';
 import Markup from 'preact-markup';
-import { getContentOnServer, getContent, Meta } from '~/lib/content';
 import useStore from '~/hooks/useStore';
 import { Link } from 'preact-router';
+import Hydrator from '../Hydrator';
+import { getContentOnServer, getContent, Meta } from '~/lib/content';
 import Icon, { icons } from '../Icon';
 import config from '~/config';
 
@@ -94,8 +95,7 @@ export function usePage(route: string, lang: string) {
 
 export default function Content() {
 
-	const store = useStore([ 'url', 'lang', 'auth' ]);
-	const isStaff = store.state.auth?.isStaff || false;
+	const store = useStore([ 'url', 'lang' ]);
 
 	const {
 		html,
@@ -107,21 +107,23 @@ export default function Content() {
 
 	return (
 		<div class={styles.contentContainer}>
-			{
-				!isStaff
-				? <div class={styles.edit} />
-				: (
-			 	<Link class={styles.edit} href={`/admin/editor?path=${contentPath}`}>
-					<Icon icon={icons.faEdit} />
-					<span>Edit</span>
-				</Link>
-				)
-			}
-			{
-				PRERENDER
-					? <div dangerouslySetInnerHTML={{__html: html}} />
-					: <Markup markup={html} type='html' trim={false} />
-			}
+			<Link class={styles.edit} href={`/editor?path=${contentPath}`}>
+				<Icon icon={icons.faEdit} />
+				<span>Edit</span>
+			</Link>
+			<Hydrator
+				boot={!!html}
+				component={Marked}
+				markup={html}
+				type='html'
+				trim={false}
+			/>
 		</div>
 	);
+}
+
+function Marked(props: any) {
+	return PRERENDER
+		? <div dangerouslySetInnerHTML={{__html: props.markup}} />
+		: <Markup {...props} />;
 }

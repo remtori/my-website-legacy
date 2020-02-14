@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { useCallback } from 'preact/hooks';
+import { useCallback, useState, useEffect } from 'preact/hooks';
 import { route } from 'preact-router';
 import Icon, { icons } from '~/components/Icon';
 import ELink from '~/components/ExternalLink';
@@ -24,7 +24,7 @@ function tryOpenAdminPage() {
 	}
 
 	clearTimeout(handler);
-	handler = setTimeout(() => clickCount = 0, 1000);
+	handler = setTimeout(() => clickCount = 0, 1000) as unknown as number;
 }
 
 export function useLanguage() {
@@ -48,6 +48,12 @@ export default function Footer() {
 
 	const { lang, setLang } = useLanguage();
 	const onSelect = useCallback((e: any) => setLang(e.target.value), [ setLang ]);
+
+	const [version, setVersion] = useState('?.?.?');
+	useEffect(() => {
+		if (process.env.NODE_ENV === 'development') return;
+		fetch('/version').then(r => r.text()).then(setVersion);
+	}, []);
 
 	return (
 		<footer class={styles.footer}>
@@ -90,6 +96,7 @@ export default function Footer() {
 					<span>lqv.remtori@gmail.com</span>
 				</ELink>
 			</div>
+			<div class={styles.version}>{`v${version}`}</div>
 		</footer>
 	);
 }

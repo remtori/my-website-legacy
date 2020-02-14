@@ -63,7 +63,7 @@ export default class App extends Component<AppProps>
 						</ELink>
 						<div class={styles.container}>
 							<Router onChange={this.handleUrlChange} url={this.props.url}>
-								<AsyncRoute path='/admin/editor' getComponent={Editor} exact />
+								<AsyncRoute path='/editor' getComponent={Editor} exact />
 								<AsyncRoute path='/admin' getComponent={Admin} exact />
 								<Route path='/blogs' component={Blogs} />
 								<Route default component={Page} />

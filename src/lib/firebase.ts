@@ -21,6 +21,8 @@ export const app = firebase.initializeApp(CONFIG);
 export const auth = app.auth();
 
 const githubProvider = new firebase.auth.GithubAuthProvider();
+githubProvider.addScope('public_repo');
+
 export const signIn = () => auth.signInWithRedirect(githubProvider);
 export const signOut = () => auth.signOut();
 
@@ -38,8 +40,7 @@ export function onAuthStateChanged(handler: Handler) {
 				photoURL: user.photoURL,
 				email: user.email,
 				uid: user.uid,
-				isStaff: tokenResult?.claims.staff || tokenResult?.claims.admin || false,
-				isAdmin: tokenResult?.claims.admin || false,
+				level: tokenResult?.claims.level || 0,
 				credential: {
 					accessToken: (redirectResult.credential as any).accessToken
 				}
