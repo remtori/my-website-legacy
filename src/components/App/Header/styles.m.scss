@@ -8,6 +8,7 @@
     top: 0px;
     left: 0px;
     right: 0px;
+    z-index: 9999; // Not because i want to, but codemirror force me :(
     background-color: #121212;
     display: flex;
     justify-content: center;

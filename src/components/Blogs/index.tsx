@@ -2,11 +2,11 @@ import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { Link } from 'preact-router';
 import JSXImage from '../JSXImage';
-import Icon, { icons } from '../Icon';
 import { LoadingDot } from '../placeholders';
+import Icon, { icons } from '../Icon';
 import query from '~/lib/indexQuery';
 
-import styles from './styles.scss';
+import styles from './styles.m.scss';
 
 interface Props {
 	tag?: string;
@@ -14,7 +14,7 @@ interface Props {
 
 export default function BlogList({ tag }: Props) {
 
-	const [ data, setData ] = useState<null | Blog[]>(null);
+	const [ data, setData ] = useState<null | PageContent[]>(null);
 
 	useEffect(() => {
 		setData(null);
@@ -31,7 +31,7 @@ export default function BlogList({ tag }: Props) {
 	);
 }
 
-type BlogItemProps = { data: Blog };
+type BlogItemProps = { data: PageContent };
 
 const BlogItem = ({ data: {
 	author, description, id, content, previewImg, tags, modified, title
@@ -67,7 +67,7 @@ const BlogItem = ({ data: {
 			</div>
 			<div>
 				<Link class={styles.titleWrapper} href={content}>{title}</Link>
-				<div>{description}</div>
+				<div>{description || 'No description specified'}</div>
 			</div>
 		</div>
 	);

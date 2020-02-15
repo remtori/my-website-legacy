@@ -1,11 +1,5 @@
-import * as marked from 'marked';
-import parse from './yaml';
-import highlight from './highlight.js';
-
+import { parseMarkdown, getMetaText, parseYaml } from './parsers';
 import config from '~/config';
-
-// Find YAML FrontMatter preceding a markdown document
-const FRONT_MATTER_REG = /^\s*---\n\s*([\s\S]*?)\s*\n---\n/i;
 
 export interface Meta {
 	title?: string;
@@ -21,12 +15,6 @@ export interface Content {
 
 const CACHE: { [k: string]: Promise<Content>; } = {};
 (window as any).CACHE = CACHE;
-const OPTIONS: marked.MarkedOptions = {
-	gfm: true,
-	highlight,
-	smartLists: true,
-	smartypants: true
-};
 
 export function getContent(name: string, lang: string) {
 
@@ -73,7 +61,7 @@ export function getContent(name: string, lang: string) {
 
 type TypeGetContentOnServer = (route: string) => Content;
 
-export const getContentOnServer: TypeGetContentOnServer = PRERENDER
+export const getContentOnServer: TypeGetContentOnServer = __PRERENDER__
 	? (route: string) => {
 			if (route === '/') route = '/index';
 			route = route.replace(/^\//, '');
@@ -87,19 +75,19 @@ export const getContentOnServer: TypeGetContentOnServer = PRERENDER
 
 function getContentFromSource(text: string): Content {
 
-	const metaSource = (FRONT_MATTER_REG.exec(text) || [])[1];
+	const metaSource = getMetaText(text);
 	const meta = Object.assign(
 		{
 			title: config.title,
 			description: config.description
 		},
-		metaSource && parse(metaSource)
+		metaSource && parseYaml(metaSource)
 	);
 
 	const content = text.replace(/^\s*---\n\s*([\s\S]*?)\s*\n---\n/i, '');
 
 	return {
 		meta,
-		html: marked(content, OPTIONS)
+		html: parseMarkdown(content)
 	} as Content;
 }

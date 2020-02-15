@@ -1,0 +1,91 @@
+@import 'vars.scss';
+
+.form {
+	display: flex;
+	flex-direction: row;
+	font-size: 18px;
+
+	@media (max-width: $mobile-break) {
+		flex-direction: column;
+	}
+}
+
+div.previewImg {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+
+	label {
+		font-weight: bold;
+	}
+
+	img {
+		margin: 0.5em 0;
+	}
+}
+
+div.textForm {
+
+	width: 100%;
+
+	& > div {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		margin: 1em;
+		margin-right: 0;
+
+		label {
+			align-self: flex-start;
+			font-weight: bold;
+
+			.explain {
+				color: #fff;
+				font-size: 16px;
+				font-weight: normal;
+				text-decoration: none;
+				margin-left: 0.5em;
+
+				&:focus:after {
+					content:attr(title);
+					padding: 5px;
+					border: 1px solid #ccc;
+					background: #252525;
+					position: relative;
+					bottom: 2em;
+					right: 2em;
+				}
+			}
+
+			span.required {
+				color: #f00;
+			}
+		}
+
+		textarea {
+			resize: none;
+		}
+
+		input, textarea {
+			padding: 8px;
+			border-radius: 8px;
+			border: 2px solid #000;
+			outline: none;
+		}
+
+		input:focus, textarea:focus {
+			border: 2px solid #4b23ff;
+		}
+	}
+
+	& > div.checkbox {
+		display: inline-block;
+		text-align: left;
+		margin-top: 0;
+	}
+}
+
+.submitBtn {
+	margin: 1em 0;
+}

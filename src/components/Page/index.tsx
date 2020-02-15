@@ -8,8 +8,8 @@ import { getContentOnServer, getContent, Meta } from '~/lib/content';
 import Icon, { icons } from '../Icon';
 import config from '~/config';
 
-import styles from './styles.scss';
-import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import styles from './styles.m.scss';
+import 'highlight.js/styles/darcula.css';
 
 export function useTitle(title?: string) {
 	useEffect(() => {
@@ -30,7 +30,7 @@ export function useDescription(text?: string) {
 
 export function usePage(route: string, lang: string) {
 
-	if (PRERENDER) {
+	if (__PRERENDER__) {
 		// tslint:disable-next-line: no-shadowed-variable
 		const { html, meta } = getContentOnServer(route);
 		return {
@@ -95,7 +95,10 @@ export function usePage(route: string, lang: string) {
 
 export default function Content() {
 
-	const store = useStore([ 'url', 'lang' ]);
+	const store = useStore([ 'url', 'lang', 'auth' ]);
+	const level = store.state.auth?.level || 0;
+
+	const [editRoute, setEditRoute] = useState(`/admin`);
 
 	const {
 		html,
@@ -105,11 +108,20 @@ export default function Content() {
 		contentPath
 	} = usePage(store.state.url, store.state.lang);
 
+	useEffect(() => {
+		const url = `/editor?path=${contentPath}`;
+		if (level === 0) {
+			setEditRoute(`/admin?forward=${url}`);
+		} else {
+			setEditRoute(url);
+		}
+	}, [ contentPath, level ]);
+
 	return (
 		<div class={styles.contentContainer}>
-			<Link class={styles.edit} href={`/editor?path=${contentPath}`}>
+			<Link class={styles.edit} href={editRoute}>
 				<Icon icon={icons.faEdit} />
-				<span>Edit</span>
+				<span>Edit this Page</span>
 			</Link>
 			<Hydrator
 				boot={!!html}
@@ -123,7 +135,7 @@ export default function Content() {
 }
 
 function Marked(props: any) {
-	return PRERENDER
+	return __PRERENDER__
 		? <div dangerouslySetInnerHTML={{__html: props.markup}} />
 		: <Markup {...props} />;
 }

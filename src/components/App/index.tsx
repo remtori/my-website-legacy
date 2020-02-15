@@ -5,14 +5,14 @@ import { Provider } from 'unistore/preact';
 import { createStore, storeCtx } from '~/store';
 import { lazily } from '~/lib/lazily';
 
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from './Header';
+import Footer from './Footer';
 import ELink from '../ExternalLink';
-import WallPaper from '../WallPaper';
+import WallPaper from './WallPaper';
 import Blogs from '../Blogs';
 import Page from '../Page';
 
-import styles from './styles.scss';
+import styles from './styles.m.scss';
 
 const Admin = () => import(/* webpackChunkName: "admin" */ '../Admin').then(m => m.default);
 const Editor = () => import(/* webpackChunkName: "admin" */ '../Admin/Editor').then(m => m.default);
