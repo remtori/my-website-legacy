@@ -5,14 +5,13 @@ import Icon, { icons } from '~/components/Icon';
 import ELink from '~/components/ExternalLink';
 import useStore from '~/hooks/useStore';
 import config from '~/config';
+import cx from '~/lib/cx';
 
 import preactIcon from '~/assets/brands/preact.svg';
 import firebaseIcon from '~/assets/brands/firebase.svg';
 import webpackIcon from '~/assets/brands/webpack.svg';
 
 import styles from './styles.scss';
-
-const cx = (...c: string[]) => c.join(' ');
 
 let clickCount = 0;
 let handler = 0;

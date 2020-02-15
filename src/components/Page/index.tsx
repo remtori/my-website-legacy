@@ -95,7 +95,10 @@ export function usePage(route: string, lang: string) {
 
 export default function Content() {
 
-	const store = useStore([ 'url', 'lang' ]);
+	const store = useStore([ 'url', 'lang', 'auth' ]);
+	const level = store.state.auth?.level || 0;
+
+	const [editRoute, setEditRoute] = useState(`/admin`);
 
 	const {
 		html,
@@ -105,9 +108,18 @@ export default function Content() {
 		contentPath
 	} = usePage(store.state.url, store.state.lang);
 
+	useEffect(() => {
+		const url = `/editor?path=${contentPath}`;
+		if (level === 0) {
+			setEditRoute(`/admin?forward=${url}`);
+		} else {
+			setEditRoute(url);
+		}
+	}, [ contentPath, level ]);
+
 	return (
 		<div class={styles.contentContainer}>
-			<Link class={styles.edit} href={`/editor?path=${contentPath}`}>
+			<Link class={styles.edit} href={editRoute}>
 				<Icon icon={icons.faEdit} />
 				<span>Edit</span>
 			</Link>

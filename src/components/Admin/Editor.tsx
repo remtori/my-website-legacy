@@ -1,17 +1,31 @@
 import { h } from 'preact';
 import { route } from 'preact-router';
-import { Formik } from 'formik';
+import useStore from '~/hooks/useStore';
+import cx from '~/lib/cx';
+
+import * as codemirror from 'codemirror';
+import 'codemirror/mode/markdown/markdown.js';
+import 'codemirror/addon/comment/comment';
+import 'codemirror/lib/codemirror.css';
 
 import styles from './styles.scss';
-import useStore from '~/hooks/useStore';
 
-export default function BlogEditor(props: { path: string, url: string }) {
+// codemirror(HTMLElement, {
+// 	value: String(value || ''),
+// 	mode: 'jsx',
+// 	theme: 'one-dark',
+// 	lineNumbers: true,
+// 	indentWithTabs: !spaces,
+// 	tabSize: tabSize || 2,
+// 	indentUnit: spaces ? Math.round(spaces) || 2 : undefined,
+// 	showCursorWhenSelecting: true,
+// 	extraKeys: {
+// 		'Cmd-/': 'toggleComment'
+// };
 
-	const { path, url } = props;
-	const store = useStore([ 'auth' ]);
-	const level = store.state.auth?.level || 0;
+export default function Editor(props: { path: string }) {
 
-	if (level === 0) route(`/admin?forward=${url}`);
+	const { path } = props;
 
 	return (
 		<div class={styles.editor}>

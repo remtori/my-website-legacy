@@ -16,7 +16,7 @@ export default function Editor(props: { forward?: string, signingIn?: string }) 
 	if (forward && level > 0) route(forward);
 
 	function doSignIn() {
-		route(`/admin?signingIn=true&forward=${encodeURIComponent(forward || '/admin')}`);
+		route(`/admin?signingIn=true&forward=${forward || '/admin'}`);
 		signIn();
 	}
 
