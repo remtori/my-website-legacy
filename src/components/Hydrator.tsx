@@ -12,7 +12,7 @@ const EMPTY_OBJ = {};
 interface BaseHydratorProps {
 	wrapperProps?: {
 		[key: string]: any;
-	},
+	};
 	boot?: boolean;
 	[key: string]: any;
 }

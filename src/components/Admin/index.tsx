@@ -5,7 +5,6 @@ import { signIn, signOut } from '~/lib/firebase';
 import useStore from '~/hooks/useStore';
 
 import styles from './styles.scss';
-import { LoadingDot } from '../placeholders';
 
 export default function Editor(props: { forward?: string, signingIn?: string }) {
 
@@ -24,7 +23,7 @@ export default function Editor(props: { forward?: string, signingIn?: string }) 
 		return (
 			<div>
 				Signing in
-				<LoadingDot />
+				<div class='loading-image'/>
 			</div>
 		);
 	}
