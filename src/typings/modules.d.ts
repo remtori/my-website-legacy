@@ -14,3 +14,8 @@ declare module 'preact-markup' {
 	}
 	> {};
 }
+
+declare module 'highlight.js/lib/highlight.js' {
+	export const highlightAuto: (s: string) => ({ value: string });
+	export const registerLanguage: (l: string, f: any) => void;
+}

@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { useState, useEffect } from 'preact/hooks';
 import { Link } from 'preact-router';
 import JSXImage from '../JSXImage';
+import { LoadingDot } from '../placeholders';
 import Icon, { icons } from '../Icon';
 import query from '~/lib/indexQuery';
 
@@ -20,7 +21,7 @@ export default function BlogList({ tag }: Props) {
 		query({ tag: `blog ${tag || ''}` }).then(setData);
 	}, [ tag ]);
 
-	if (data == null) return <div class='loading-image' />;
+	if (data == null) return <LoadingDot />;
 	if (data.length === 0) return <div>Empty :(</div>;
 
 	return (

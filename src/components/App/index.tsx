@@ -5,10 +5,10 @@ import { Provider } from 'unistore/preact';
 import { createStore, storeCtx } from '~/store';
 import { lazily } from '~/lib/lazily';
 
-import Header from '../Header';
-import Footer from '../Footer';
+import Header from './Header';
+import Footer from './Footer';
 import ELink from '../ExternalLink';
-import WallPaper from '../WallPaper';
+import WallPaper from './WallPaper';
 import Blogs from '../Blogs';
 import Page from '../Page';
 

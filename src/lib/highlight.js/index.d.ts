@@ -1,1 +1,0 @@
-export default function highlight(code: string, lang: string): string;

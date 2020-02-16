@@ -1,6 +1,5 @@
-import * as marked from 'marked';
 import parse from './yaml';
-import highlight from './highlight.js';
+import mark from './mark';
 
 import config from '~/config';
 
@@ -21,12 +20,6 @@ export interface Content {
 
 const CACHE: { [k: string]: Promise<Content>; } = {};
 (window as any).CACHE = CACHE;
-const OPTIONS: marked.MarkedOptions = {
-	gfm: true,
-	highlight,
-	smartLists: true,
-	smartypants: true
-};
 
 export function getContent(name: string, lang: string) {
 
@@ -100,6 +93,6 @@ function getContentFromSource(text: string): Content {
 
 	return {
 		meta,
-		html: marked(content, OPTIONS)
+		html: mark(content)
 	} as Content;
 }

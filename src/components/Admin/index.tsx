@@ -1,6 +1,7 @@
 import { h } from 'preact';
 import { route } from 'preact-router';
 import Icon, { icons } from '../Icon';
+import { LoadingDot } from '../placeholders';
 import { signIn, signOut } from '~/lib/firebase';
 import useStore from '~/hooks/useStore';
 
@@ -23,7 +24,7 @@ export default function Editor(props: { forward?: string, signingIn?: string }) 
 		return (
 			<div>
 				Signing in
-				<div class='loading-image'/>
+				<LoadingDot />
 			</div>
 		);
 	}

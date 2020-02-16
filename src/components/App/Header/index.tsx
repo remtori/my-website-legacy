@@ -21,7 +21,7 @@ export default function Header() {
 						<span>BLOGS</span>
 					</Link>
 					<PassiveLink href=''>
-						<span>GALLERY</span>
+						<span>PROJECTS</span>
 					</PassiveLink>
 				</nav>
 			</div>

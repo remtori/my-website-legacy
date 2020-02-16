@@ -1,0 +1,9 @@
+.codeEditor {
+	text-align: left;
+    display: flex;
+	flex-direction: column;
+
+	& > div:first-child {
+		height: auto;
+	}
+}

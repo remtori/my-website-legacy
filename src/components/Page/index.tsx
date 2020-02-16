@@ -9,7 +9,7 @@ import Icon, { icons } from '../Icon';
 import config from '~/config';
 
 import styles from './styles.scss';
-import 'highlight.js/styles/atom-one-dark-reasonable.css';
+import 'highlight.js/styles/darcula.css';
 
 export function useTitle(title?: string) {
 	useEffect(() => {
