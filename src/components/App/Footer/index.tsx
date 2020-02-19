@@ -11,7 +11,7 @@ import preactIcon from '~/assets/brands/preact.svg';
 import firebaseIcon from '~/assets/brands/firebase.svg';
 import webpackIcon from '~/assets/brands/webpack.svg';
 
-import styles from './styles.scss';
+import styles from './styles.m.scss';
 
 let clickCount = 0;
 let handler = 0;

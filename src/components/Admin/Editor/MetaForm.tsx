@@ -2,7 +2,7 @@ import { h } from 'preact';
 import { Formik, Form, Field, ErrorMessage, FieldConfig, FormikProps } from 'formik';
 import { ContentData } from './index';
 
-import style from './MetaForm.scss';
+import style from './MetaForm.m.scss';
 
 interface MetaFormProps {
 	content: Partial<ContentData>;

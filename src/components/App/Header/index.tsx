@@ -3,7 +3,7 @@ import { Link } from 'preact-router/match';
 import { Link as PassiveLink } from 'preact-router';
 import icon from '~/assets/icons/icon-minimal.png';
 
-import styles from './styles.scss';
+import styles from './styles.m.scss';
 
 export default function Header() {
 	return (

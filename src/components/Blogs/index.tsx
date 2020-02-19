@@ -6,7 +6,7 @@ import { LoadingDot } from '../placeholders';
 import Icon, { icons } from '../Icon';
 import query from '~/lib/indexQuery';
 
-import styles from './styles.scss';
+import styles from './styles.m.scss';
 
 interface Props {
 	tag?: string;

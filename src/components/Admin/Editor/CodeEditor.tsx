@@ -7,7 +7,7 @@ import 'codemirror/addon/comment/comment';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/darcula.css';
 
-import styles from './CodeEditor.scss';
+import styles from './CodeEditor.m.scss';
 
 interface Props {
 	value?: string;

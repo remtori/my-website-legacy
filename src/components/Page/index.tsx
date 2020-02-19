@@ -8,7 +8,7 @@ import { getContentOnServer, getContent, Meta } from '~/lib/content';
 import Icon, { icons } from '../Icon';
 import config from '~/config';
 
-import styles from './styles.scss';
+import styles from './styles.m.scss';
 import 'highlight.js/styles/darcula.css';
 
 export function useTitle(title?: string) {
