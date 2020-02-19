@@ -7,12 +7,12 @@ declare var module: { exports: any; }
 declare var require: any;
 declare var __non_webpack_require__: any;
 
-declare interface Blog
+declare interface PageContent
 {
 	id: string;
 	content: string;
 	title: string;
-	description: string;
+	description?: string;
 	author: string;
 	tags: string;
 	previewImg?: {

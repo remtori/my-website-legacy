@@ -1,10 +1,5 @@
-import parse from './yaml';
-import mark from './mark';
-
+import { parseMarkdown, getMetaText, parseYaml } from './parsers';
 import config from '~/config';
-
-// Find YAML FrontMatter preceding a markdown document
-const FRONT_MATTER_REG = /^\s*---\n\s*([\s\S]*?)\s*\n---\n/i;
 
 export interface Meta {
 	title?: string;
@@ -80,19 +75,19 @@ export const getContentOnServer: TypeGetContentOnServer = PRERENDER
 
 function getContentFromSource(text: string): Content {
 
-	const metaSource = (FRONT_MATTER_REG.exec(text) || [])[1];
+	const metaSource = getMetaText(text);
 	const meta = Object.assign(
 		{
 			title: config.title,
 			description: config.description
 		},
-		metaSource && parse(metaSource)
+		metaSource && parseYaml(metaSource)
 	);
 
 	const content = text.replace(/^\s*---\n\s*([\s\S]*?)\s*\n---\n/i, '');
 
 	return {
 		meta,
-		html: mark(content)
+		html: parseMarkdown(content)
 	} as Content;
 }
