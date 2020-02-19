@@ -5,7 +5,7 @@ import { LoadingDot } from '../placeholders';
 import { signIn, signOut } from '~/lib/firebase';
 import useStore from '~/hooks/useStore';
 
-import styles from './styles.scss';
+import styles from './styles.m.scss';
 
 export default function Editor(props: { forward?: string, signingIn?: string }) {
 
