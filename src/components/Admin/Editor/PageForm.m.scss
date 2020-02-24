@@ -1,13 +1,20 @@
+@import 'vars.scss';
+
 .form {
 	display: flex;
 	flex-direction: row;
 	font-size: 18px;
+
+	@media (max-width: $mobile-break) {
+		flex-direction: column;
+	}
 }
 
 div.previewImg {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+	align-items: center;
 
 	label {
 		font-weight: bold;
@@ -27,16 +34,30 @@ div.textForm {
 		flex-direction: column;
 		width: 100%;
 		margin: 1em;
+		margin-right: 0;
 
 		label {
 			align-self: flex-start;
 			font-weight: bold;
 
-			span.explain {
-				margin-left: 0.5em;
-				font-size: 14px;
+			.explain {
+				color: #fff;
+				font-size: 16px;
 				font-weight: normal;
+				text-decoration: none;
+				margin-left: 0.5em;
+
+				&:focus:after {
+					content:attr(title);
+					padding: 5px;
+					border: 1px solid #ccc;
+					background: #252525;
+					position: relative;
+					bottom: 2em;
+					right: 2em;
+				}
 			}
+
 			span.required {
 				color: #f00;
 			}
@@ -59,6 +80,12 @@ div.textForm {
 	}
 
 	& > div.checkbox {
-		flex-direction: row;
+		display: inline-block;
+		text-align: left;
+		margin-top: 0;
 	}
+}
+
+.submitBtn {
+	margin: 1em 0;
 }

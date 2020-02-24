@@ -10,7 +10,7 @@ export default function Header() {
 		<header class={styles.header}>
 			<div class={styles.nav}>
 				<PassiveLink href='/' class={styles.home} >
-					<img src={icon} />
+					<img alt='site icon' src={icon} />
 					<span>Remtori's Comfy Home</span>
 				</PassiveLink>
 				<nav>

@@ -30,7 +30,7 @@ export function useDescription(text?: string) {
 
 export function usePage(route: string, lang: string) {
 
-	if (PRERENDER) {
+	if (__PRERENDER__) {
 		// tslint:disable-next-line: no-shadowed-variable
 		const { html, meta } = getContentOnServer(route);
 		return {
@@ -121,7 +121,7 @@ export default function Content() {
 		<div class={styles.contentContainer}>
 			<Link class={styles.edit} href={editRoute}>
 				<Icon icon={icons.faEdit} />
-				<span>Edit</span>
+				<span>Edit this Page</span>
 			</Link>
 			<Hydrator
 				boot={!!html}
@@ -135,7 +135,7 @@ export default function Content() {
 }
 
 function Marked(props: any) {
-	return PRERENDER
+	return __PRERENDER__
 		? <div dangerouslySetInnerHTML={{__html: props.markup}} />
 		: <Markup {...props} />;
 }

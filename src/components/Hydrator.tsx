@@ -129,4 +129,4 @@ class Hydrator extends Component<HydratorProps> {
 	}
 }
 
-export default PRERENDER ? ServerHydrator : Hydrator;
+export default __PRERENDER__ ? ServerHydrator : Hydrator;

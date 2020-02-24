@@ -1,6 +1,5 @@
 import { h, Component } from 'preact';
 import { parsePageContent } from '~/lib/parsers';
-import MetaForm from './MetaForm';
 
 export type ContentData = PageContent & { new?: boolean };
 
@@ -49,7 +48,7 @@ interface State {
 
 export default class ContentEditor extends Component<Props, State> {
 
-	Editor!: typeof import('./CodeEditor').default;
+	PageForm!: typeof import('./PageForm').default;
 
 	state: State = {
 		loading: 'Loading editor ...'
@@ -58,11 +57,16 @@ export default class ContentEditor extends Component<Props, State> {
 	componentDidMount() {
 		Promise.all([
 			tryGetContent(this.props.path),
-			import(/* webpackChunkName: "editor" */ './CodeEditor')
+			import('./PageForm')
 		])
-		.then(([ content, m ]) => {
-			this.Editor = m.default;
-			this.setState({ loading: '', content });
+		.then(([content, m]) => {
+
+			this.PageForm = m.default;
+
+			this.setState({
+				loading: '',
+				content
+			});
 		});
 	}
 
@@ -74,15 +78,10 @@ export default class ContentEditor extends Component<Props, State> {
 		}
 	}
 
-	onInput = ({ value }: { value: string }) => {
-		if (this.state.content) {
-			this.setState({
-				content: {
-					...this.state.content,
-					content: value
-				}
-			});
-		}
+	onSubmit = (values: PageContent) => {
+		return Promise.resolve().then(() => {
+			console.log(values);
+		});
 	}
 
 	render(_: Props, { loading, content }: State) {
@@ -94,10 +93,7 @@ export default class ContentEditor extends Component<Props, State> {
 		}
 
 		return (
-			<div>
-				<MetaForm content={content || {}} />
-				<this.Editor onInput={this.onInput} value={content!.content} />
-			</div>
+			<this.PageForm onSubmit={this.onSubmit} content={content || {}} />
 		);
 	}
 }

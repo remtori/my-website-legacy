@@ -33,9 +33,9 @@ export default function Editor(props: { forward?: string, signingIn?: string }) 
 		return (
 			<div>
 				<div class='text'>
-					<span>Hey, welcome random stranger.</span><br />
-					<span>You aren't suppose to be here</span><br />
-					<span>BUT if you wanna continue you need to login first.</span><br />
+					<span>Hey there, welcome random stranger.</span><br />
+					<span>You aren't suppose to be here, well unless you are me, i guess? ..</span><br />
+					<span>ANYWAY if you wanna continue you need to login first.</span><br />
 				</div>
 				<button class={styles.loginBtn} onClick={doSignIn}>
 					<Icon class={styles.logo} icon={icons.faGithub} />

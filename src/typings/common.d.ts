@@ -1,7 +1,8 @@
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 
 declare var process: { env: { NODE_ENV: 'production' | 'development'; } }
-declare var PRERENDER: boolean;
+declare var __PRERENDER__: boolean;
+declare var __VERSION__: string;
 declare var __CONTENT_ROOT_DIR__: string;
 declare var module: { exports: any; }
 declare var require: any;

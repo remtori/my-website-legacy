@@ -1,6 +1,7 @@
 const path = require('path');
 
 module.exports = {
+	version: require('./package.json').version,
 	dev: process.env.NODE_ENV !== 'production',
 	// Directory
 	rootDir: __dirname,

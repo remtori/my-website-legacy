@@ -61,7 +61,7 @@ export function getContent(name: string, lang: string) {
 
 type TypeGetContentOnServer = (route: string) => Content;
 
-export const getContentOnServer: TypeGetContentOnServer = PRERENDER
+export const getContentOnServer: TypeGetContentOnServer = __PRERENDER__
 	? (route: string) => {
 			if (route === '/') route = '/index';
 			route = route.replace(/^\//, '');
