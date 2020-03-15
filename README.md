@@ -18,9 +18,9 @@ Current master is `@preact-v3`
 
 ### Netlify
 
-- Incremental build with data from Firebase
+- Incremental build, only rebuild when there is a `package.version` change
 
-- Trigger rebuild via callback URL from Functions
+- Rebuild is triggered when there is a commit on `master` branch
 
 ### CMS Pipeline
 
