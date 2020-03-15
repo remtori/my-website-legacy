@@ -1,5 +1,5 @@
 import FlexSearch, { SearchOptions } from 'flexsearch';
-import indexPath from '../../site-content/generated/index.json';
+import indexPath from '~/../content/index.json';
 
 const CACHE: { data?: PageContent[] } = {};
 const flexIndex = FlexSearch.create<PageContent>({

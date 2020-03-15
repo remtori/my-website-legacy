@@ -18,9 +18,9 @@ Current master is `@preact-v3`
 
 ### Netlify
 
-- Incremental build with data from Firebase
+- Incremental build, only rebuild when there is a `package.version` change
 
-- Trigger rebuild via callback URL from Functions
+- Rebuild is triggered when there is a commit on `master` branch
 
 ### CMS Pipeline
 
@@ -43,16 +43,3 @@ Time line: @vanilla > @preact > @preact-v2 > @react > @preact-v3
 - And then one more time with a full fledged `react` and `boostrap4`
 
 - `@preact-v3` is the most recent, most serious attempt at "completing" this project
-
-## TODO - things i need to work on in order to complete this project
-
-- [ ] Make a comfy `Home`
-
-- [ ] Make a usable `Editor`
-
-- [ ] Make a blog about the development of this site
-
-## High priority TODO:
-
-- [ ] Build script for Netlify // Easier when done with local build script
-

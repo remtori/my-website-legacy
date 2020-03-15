@@ -7,7 +7,7 @@ module.exports = {
 	rootDir: __dirname,
 	distDir: path.join(__dirname, './dist'),
 	srcDir: path.join(__dirname, './src'),
-	contentDir: path.join(__dirname, './site-content'),
+	contentDir: path.join(__dirname, './content'),
 	cacheDir: path.join(
 		process.env.NETLIFY_BUILD_BASE || __dirname,
 		`cache`,
