@@ -1,8 +1,8 @@
 import FlexSearch, { SearchOptions } from 'flexsearch';
-import indexPath from '../../site-content/generated/index.json';
+import indexPath from '~/../content/index.json';
 
-const CACHE: { data?: Blog[] } = {};
-const flexIndex = FlexSearch.create<Blog>({
+const CACHE: { data?: PageContent[] } = {};
+const flexIndex = FlexSearch.create<PageContent>({
 	async: true,
 	doc: {
 		id: 'id',
@@ -16,7 +16,7 @@ const flexIndex = FlexSearch.create<Blog>({
 
 (window as any).db = { CACHE, index: flexIndex };
 
-export default function query(props: QueryProps): Promise<Blog[]> {
+export default function query(props: QueryProps): Promise<PageContent[]> {
 
 	if (CACHE.data) return internalQuery(props);
 
@@ -34,7 +34,7 @@ interface QueryProps {
 	search?: SearchOptions & { query: string };
 }
 
-function internalQuery(props: QueryProps): Promise<Blog[]> {
+function internalQuery(props: QueryProps): Promise<PageContent[]> {
 
 	if (props.tag) {
 		return flexIndex.search({

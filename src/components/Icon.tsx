@@ -11,13 +11,15 @@ import { faCommentAlt } from '@fortawesome/free-solid-svg-icons/faCommentAlt';
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons/faEnvelope';
 import { faGithub } from '@fortawesome/free-brands-svg-icons/faGithub';
 import { faTwitter } from '@fortawesome/free-brands-svg-icons/faTwitter';
+import { faQuestionCircle } from '@fortawesome/free-regular-svg-icons/faQuestionCircle';
 
 export const icons = {
 	faUser, faClock, faTags, faEdit,
 	faHome, faTasks, faAddressCard,
 	faCommentAlt,
 	faEnvelope,
-	faGithub, faTwitter
+	faGithub, faTwitter,
+	faQuestionCircle
 };
 
 library.add(...Object.values(icons));
@@ -28,7 +30,6 @@ export interface IconProps {
 	[key: string]: any;
 }
 
-// tslint:disable-next-line: variable-name
 export default function Icon({ icon: iconName, class: className, ...props }: IconProps) {
 	if (props.title !== undefined) props.alt = props.title;
 

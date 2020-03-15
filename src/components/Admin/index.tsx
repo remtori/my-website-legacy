@@ -1,11 +1,11 @@
 import { h } from 'preact';
 import { route } from 'preact-router';
 import Icon, { icons } from '../Icon';
+import { LoadingDot } from '../placeholders';
 import { signIn, signOut } from '~/lib/firebase';
 import useStore from '~/hooks/useStore';
 
-import styles from './styles.scss';
-import { LoadingDot } from '../placeholders';
+import styles from './styles.m.scss';
 
 export default function Editor(props: { forward?: string, signingIn?: string }) {
 
@@ -16,7 +16,7 @@ export default function Editor(props: { forward?: string, signingIn?: string }) 
 	if (forward && level > 0) route(forward);
 
 	function doSignIn() {
-		route(`/admin?signingIn=true&forward=${encodeURIComponent(forward || '/admin')}`);
+		route(`/admin?signingIn=true&forward=${forward || '/admin'}`);
 		signIn();
 	}
 
@@ -33,9 +33,9 @@ export default function Editor(props: { forward?: string, signingIn?: string }) 
 		return (
 			<div>
 				<div class='text'>
-					<span>Hey, welcome random stranger.</span><br />
-					<span>You aren't suppose to be here</span><br />
-					<span>BUT if you wanna continue you need to login first.</span><br />
+					<span>Hey there, welcome random stranger.</span><br />
+					<span>You aren't suppose to be here, well unless you are me, i guess? ..</span><br />
+					<span>ANYWAY if you wanna continue you need to login first.</span><br />
 				</div>
 				<button class={styles.loginBtn} onClick={doSignIn}>
 					<Icon class={styles.logo} icon={icons.faGithub} />

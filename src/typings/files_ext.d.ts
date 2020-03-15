@@ -23,7 +23,7 @@ declare module '*/waifu/waifu-index.json' {
 	export default content;
 }
 
-declare module '*/generated/index.json' {
+declare module '*/content/index.json' {
 	const pathToFile: string;
 	export default pathToFile;
 }

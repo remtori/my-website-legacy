@@ -1,5 +1,6 @@
 import { h, render, hydrate } from 'preact';
 import App from './components/App';
+
 import './styles.scss';
 
 function init() {

@@ -9,11 +9,14 @@
     display: flex;
     text-align: left;
     flex-direction: column;
+    font-family: Consolas, Menlo, Monaco;
+    font-size: 16px;
 }
 
 .edit {
     align-self: flex-end;
     margin: 0;
+    margin-top: 1em;
     height: 18px;
     color: #fff;
     text-decoration: none;

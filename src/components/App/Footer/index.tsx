@@ -5,27 +5,13 @@ import Icon, { icons } from '~/components/Icon';
 import ELink from '~/components/ExternalLink';
 import useStore from '~/hooks/useStore';
 import config from '~/config';
+import cx from '~/lib/cx';
 
 import preactIcon from '~/assets/brands/preact.svg';
 import firebaseIcon from '~/assets/brands/firebase.svg';
 import webpackIcon from '~/assets/brands/webpack.svg';
 
-import styles from './styles.scss';
-
-const cx = (...c: string[]) => c.join(' ');
-
-let clickCount = 0;
-let handler = 0;
-
-function tryOpenAdminPage() {
-	clickCount++;
-	if (clickCount >= 3) {
-		route('/admin', true);
-	}
-
-	clearTimeout(handler);
-	handler = setTimeout(() => clickCount = 0, 1000) as unknown as number;
-}
+import styles from './styles.m.scss';
 
 export function useLanguage() {
 	const store = useStore(['lang', 'url']);
@@ -49,12 +35,6 @@ export default function Footer() {
 	const { lang, setLang } = useLanguage();
 	const onSelect = useCallback((e: any) => setLang(e.target.value), [ setLang ]);
 
-	const [version, setVersion] = useState('?.?.?');
-	useEffect(() => {
-		if (process.env.NODE_ENV === 'development') return;
-		fetch('/version').then(r => r.text()).then(setVersion);
-	}, []);
-
 	return (
 		<footer class={styles.footer}>
 			<div>
@@ -74,8 +54,7 @@ export default function Footer() {
 				</ELink>
 			</div>
 			<div>
-				<span onClick={tryOpenAdminPage} >Created </span>
-				<span>with </span>
+				<span>Created with </span>
 				<Icon class={styles.icon} icon={preactIcon}   title='Preact'   />
 				<Icon class={styles.icon} icon={firebaseIcon} title='Firebase' />
 				<Icon class={styles.icon} icon={webpackIcon}  title='Webpack'  />
@@ -96,7 +75,7 @@ export default function Footer() {
 					<span>lqv.remtori@gmail.com</span>
 				</ELink>
 			</div>
-			<div class={styles.version}>{`v${version}`}</div>
+			<div class={styles.version}>{`v${__VERSION__}`}</div>
 		</footer>
 	);
 }

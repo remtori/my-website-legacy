@@ -1,5 +1,5 @@
 export function lazily(callback) {
-	if (PRERENDER) return 0;
+	if (__PRERENDER__) return 0;
 	if (typeof requestIdleCallback === 'function') {
 		return requestIdleCallback(callback, { timeout: 10000 });
 	}

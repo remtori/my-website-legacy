@@ -1,15 +1,28 @@
-// Source: https://github.com/preactjs/preact-www/blob/f547081d4e9ba391a12361f55bf76a89ffea6788/src/lib/hydrator.js
+// Original: https://github.com/preactjs/preact-www/blob/f547081d4e9ba391a12361f55bf76a89ffea6788/src/lib/hydrator.js
 
-import { Component, h, render, hydrate, createRef } from 'preact';
+import { Component, h, render, hydrate, createRef, RenderableProps, ComponentClass, AnyComponent } from 'preact';
 import { lazily, cancelLazily } from '~/lib/lazily';
 
-function interopDefault(mod) {
+function interopDefault(mod: any) {
 	return (mod && mod.default) || mod;
 }
 
 const EMPTY_OBJ = {};
 
-function ServerHydrator({ load, component, wrapperProps, ...props }) {
+interface BaseHydratorProps {
+	wrapperProps?: {
+		[key: string]: any;
+	};
+	boot?: boolean;
+	[key: string]: any;
+}
+
+type HPComp = BaseHydratorProps & { component: AnyComponent; };
+type HPLoad = BaseHydratorProps & { load: () => AnyComponent; };
+
+type HydratorProps = HPComp | HPLoad;
+
+function ServerHydrator({ load, component, wrapperProps, ...props }: HydratorProps) {
 	const Child = interopDefault(component || load());
 	return (
 		<section {...(wrapperProps || {})}>
@@ -18,26 +31,32 @@ function ServerHydrator({ load, component, wrapperProps, ...props }) {
 	);
 }
 
-class ContextProvider extends Component{
+type CtxProviderProps = { context: object };
+class ContextProvider extends Component<CtxProviderProps> {
 	getChildContext() {
 		return this.props.context;
 	}
-	render(props) {
+	render(props: RenderableProps<CtxProviderProps>) {
 		return props.children;
 	}
 }
 
-class Hydrator extends Component {
+// tslint:disable-next-line: max-classes-per-file
+class Hydrator extends Component<HydratorProps> {
 	root = createRef();
+	hydrated?: boolean;
+	booted?: boolean;
+	timer?: number;
+	Child?: ComponentClass;
 
-	boot = nextProps => {
+	boot = (nextProps?: HydratorProps) => {
 		// don't initialize booting twice:
 		if (this.booted) return;
 		this.booted = true;
 		const { component, load, ...props } = nextProps || this.props;
-		const ready = exports => {
+		const ready = (exports: any) => {
 			this.timer = lazily(() => {
-				this.timer = null;
+				this.timer = undefined;
 				this.Child = interopDefault(exports);
 				this._render(props);
 				this.hydrated = true;
@@ -47,23 +66,26 @@ class Hydrator extends Component {
 		Promise.resolve()
 			.then(load)
 			.then(ready);
-	};
+	}
 
-	_render(props) {
-		const { Child } = this;
+	_render(props: {}) {
+		let { Child } = this;
+		Child = Child as ComponentClass;
 		// hydrate on first run, then normal renders thereafter
 		// const doRender = process.env.NODE_ENV!=='production' || this.hydrated ? render : hydrate;
 
 		// Temporary fix for element being render without attribute because of incorrect skeleton hydrate
 		render(
-			<ContextProvider context={this.context}>
-				<Child {...props} />
-			</ContextProvider>,
+			(
+				<ContextProvider context={this.context}>
+					<Child {...props} />
+				</ContextProvider>
+			),
 			this.root.current
 		);
 	}
 
-	shouldComponentUpdate(nextProps) {
+	shouldComponentUpdate(nextProps: HydratorProps) {
 		if (this.hydrated) {
 			this._render(nextProps);
 		} else if (nextProps.boot && !this.props.boot) {
@@ -94,7 +116,7 @@ class Hydrator extends Component {
 		}
 	}
 
-	render({ wrapperProps, wrapperType }) {
+	render({ wrapperProps, wrapperType }: RenderableProps<HydratorProps>) {
 		const Type = wrapperType || 'section';
 		return (
 			<Type
@@ -107,4 +129,4 @@ class Hydrator extends Component {
 	}
 }
 
-export default PRERENDER ? ServerHydrator : Hydrator;
+export default __PRERENDER__ ? ServerHydrator : Hydrator;
