@@ -109,7 +109,7 @@ export default function Content() {
 	} = usePage(store.state.url, store.state.lang);
 
 	useEffect(() => {
-		const url = `/editor?path=${contentPath}`;
+		const url = `/editor?page=${contentPath}`;
 		if (level === 0) {
 			setEditRoute(`/admin?forward=${url}`);
 		} else {

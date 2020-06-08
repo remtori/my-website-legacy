@@ -22,9 +22,19 @@ declare interface PageContent
 		height: number;
 	};
 	created: string;
-	modified: string;
 	isFullPage?: boolean;
 }
+
+
+declare type ContentType = '/' | '/blogs' | '/projects';
+declare type ContentLang = 'en' | 'vn';
+
+declare type ContentData = PageContent & {
+	new?: boolean;
+	type: ContentType;
+	lang: ContentLang;
+	ext: string;
+};
 
 declare interface User
 {

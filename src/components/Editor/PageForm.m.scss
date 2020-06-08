@@ -29,6 +29,16 @@ div.textForm {
 
 	width: 100%;
 
+	& > div.sameLine {
+
+		flex-direction: row;
+		justify-content: flex-start;
+
+		div {
+			margin-right: 0.8em;
+		}
+	}
+
 	& > div {
 		display: flex;
 		flex-direction: column;
@@ -39,6 +49,7 @@ div.textForm {
 		label {
 			align-self: flex-start;
 			font-weight: bold;
+			margin-right: 0.5em;
 
 			.explain {
 				color: #fff;
@@ -63,15 +74,12 @@ div.textForm {
 			}
 		}
 
-		textarea {
-			resize: none;
-		}
-
 		input, textarea {
 			padding: 8px;
 			border-radius: 8px;
 			border: 2px solid #000;
 			outline: none;
+			resize: none;
 		}
 
 		input:focus, textarea:focus {
