@@ -19,7 +19,8 @@
 		"interface-over-type-literal": false,
 		"jsx-no-lambda": false,
 		"jsx-boolean-value": false,
-		"trailing-comma": [ true, {"multiline": "never", "singleline": "never"} ]
+		"trailing-comma": [ true, {"multiline": "never", "singleline": "never"} ],
+		"prefer-for-of": false
 	},
 	"rulesDirectory": [
 		"node_modules/tslint-eslint-rules/dist/rules"

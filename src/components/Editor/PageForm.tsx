@@ -1,7 +1,6 @@
 import { h, RenderableProps } from 'preact';
 import { useState } from 'preact/hooks';
 import { Formik, Form, Field, ErrorMessage, FieldConfig, FormikProps } from 'formik';
-import { ContentData } from './index';
 import Icon, { icons } from '~/components/Icon';
 import Editor from './CodeEditor';
 
@@ -20,12 +19,15 @@ export default function MetaForm(props: RenderableProps<MetaFormProps>) {
 		setTextContent(value);
 	}
 
+	const isNewContent = props.content.new;
+	console.log(props.content);
+
 	return (
 		<Formik
 			initialValues={props.content}
 			onSubmit={(values, { setSubmitting }) => {
+				// validate function ensure that all the properties are filled
 				props
-					// validate function ensure that all the properties are filled
 					.onSubmit(
 						{
 							...values,
@@ -47,13 +49,38 @@ export default function MetaForm(props: RenderableProps<MetaFormProps>) {
 							<div class={style.textForm}>
 								<FormField
 									label='ID'
-									explain='url example: /something/ID'
+									explain='Unique id on the url bar'
 									type='text'
 									name='id'
-									disabled={!props.content.new}
+									disabled={!isNewContent}
 									required
 								/>
-								<FormField label='Title' type='text' name='title' needValidate required />
+								<div class={style.sameLine}>
+									<FormField
+										label='Language'
+										name='lang'
+										as='select'
+										disabled={!isNewContent}
+										required
+										children={[
+											<option key='en' value='en'>English (en)</option>,
+											<option key='vn' value='vn'>Tiếng Việt (vn)</option>
+										]}
+									/>
+									<FormField
+										label='Content Type'
+										name='type'
+										as='select'
+										disabled={!isNewContent}
+										required
+										children={[
+											<option key='/' value='/'>Root</option>,
+											<option key='/blogs' value='/blogs'>Blogs</option>,
+											<option key='/projects' value='/projects'>Projects</option>
+										]}
+									/>
+								</div>
+								<FormField label='Title' type='text' name='title' needValidate />
 								<FormField label='Description' as='textarea' name='description' rows={5} />
 								<FormField
 									label='Tags'
@@ -97,7 +124,7 @@ function FormField(
 	}
 ) {
 	const {
-		type, as, name, label,
+		type, name, label,
 		needValidate = false,
 		wrapper = {},
 		explain,
@@ -119,7 +146,7 @@ function FormField(
 					)
 				}
 			</label>
-			<Field as={as} type={type} name={name} {...others} />
+			<Field type={type} name={name} {...others} />
 			{
 				needValidate &&
 				<ErrorMessage name={name} component='div' />

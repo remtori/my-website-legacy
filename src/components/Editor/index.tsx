@@ -1,14 +1,21 @@
 import { h, Component } from 'preact';
 import { parsePageContent } from '~/lib/parsers';
 
-export type ContentData = PageContent & { new?: boolean };
+function getIdFromPath(p: string) {
+	const i = p.lastIndexOf('.md');
+	return p.slice(p.lastIndexOf('/') + 1, i >= 0 ? i : undefined);
+}
 
-function genContent(path?: string): ContentData {
-	const title = path || `Title no #${Date.now()}`;
+function genContent(page: string = ''): ContentData {
+	const title = (page && getIdFromPath(page)) || `Title no #${Date.now()}`;
 	const created = new Date().toISOString();
+	const r = /^\/content\/(\w+)(\/\w+)?\/.+\.(\w+)$/.exec(page) || [];
 	return {
 		new: true,
 		id: title,
+		lang: r[1] as ContentLang || 'en',
+		type: r[2] as ContentType || '/',
+		ext: r[3] || 'md',
 		title,
 		content: '',
 		author: 'Anon',
@@ -19,26 +26,26 @@ function genContent(path?: string): ContentData {
 	};
 }
 
-function tryGetContent(path?: string) {
+function tryGetContent(page?: string): Promise<ContentData> {
 
-	if (!path) return Promise.resolve(genContent());
+	if (!page) return Promise.resolve(genContent());
 
-	return fetch(path)
+	return fetch(page)
 		.then(
 			r => r.text()
 		)
 		.then(
 			content => ({
-				...parsePageContent(content),
-				id: path.slice(path.lastIndexOf('/') + 1, path.lastIndexOf('.md'))
+				...genContent(page),
+				...parsePageContent(content)
 			})
 		).catch(
-			() => genContent(path)
+			() => genContent(page)
 		);
 }
 
 interface Props {
-	path?: string;
+	page?: string;
 }
 
 interface State {
@@ -56,7 +63,7 @@ export default class ContentEditor extends Component<Props, State> {
 
 	componentDidMount() {
 		Promise.all([
-			tryGetContent(this.props.path),
+			tryGetContent(this.props.page),
 			import('./PageForm')
 		])
 		.then(([content, m]) => {
@@ -70,9 +77,9 @@ export default class ContentEditor extends Component<Props, State> {
 		});
 	}
 
-	componentWillReceiveProps({ path }: Props) {
-		if (path !== this.props.path) {
-			tryGetContent(path).then(
+	componentWillReceiveProps({ page }: Props) {
+		if (page !== this.props.page) {
+			tryGetContent(page).then(
 				content => this.setState({ content })
 			);
 		}
